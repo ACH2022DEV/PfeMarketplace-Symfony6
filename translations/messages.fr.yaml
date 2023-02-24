@@ -13,6 +13,7 @@ Buttons:
         Supprimer: Supprimer
         Enregistrer: Enregistrer
         Annuler: Annuler
+        Valider: Valider
         Afficher: Afficher
         Association: Associer
         New: Nouveau
@@ -37,6 +38,7 @@ Buttons:
             City: 'Nouvelle ville'
             Continent: 'Nouveau Continent'
             Country: 'Nouvelle Pays'
+            Seller: 'Nouvelle vendeur'
             AssocierChambre: 'Associer une chambre'
         Modifier:
             Banque: 'Modifier Banque'

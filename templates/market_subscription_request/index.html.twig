@@ -1,0 +1,101 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}MarketSubscriptionRequest index{% endblock %}
+
+{% block container %}
+    <h1>Market Subscription Requests</h1>
+
+
+    <div>
+        <table data-toggle="table" data-search="true" data-show-columns="true" data-page-size="10"
+               data-buttons-class="md btn-soft-primary" data-pagination="true"
+               data-show-pagination-switch="true" class="table-bordered">
+            <thead class="table-primary">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Website</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>actions</th>
+                <th>API</th>
+            </tr>
+            </thead>
+            <tbody data-reload-content-target="myOneCustomContent">
+            {% for market_subscription_request in market_subscription_requests|sort((a, b) => a.status <=> b.status) %}
+                <tr>
+                    <td>{{ market_subscription_request.id }}</td>
+                    <td>{{ market_subscription_request.name }}</td>
+                    <td>{{ market_subscription_request.email }}</td>
+                    <td>{{ market_subscription_request.website }}</td>
+                    <td>{{ market_subscription_request.address }}</td>
+                    <td>{{ market_subscription_request.city }}</td>
+                    <td>{{ market_subscription_request.status }}</td>
+                    <td>
+                        {#                    <a href="{{ path('app_market_subscription_request_show', {'id': market_subscription_request.id}) }}">show</a>#}
+                        <button
+                                class="btn btn-primary btn-sm"
+                                data-action="modal-form#openModal"
+                                data-form-url-value="{{ path('app_market_subscription_request_show', {'id': market_subscription_request.id}) }}"
+                                data-node-dest-id-value="myThreeCustomContent"
+                                data-refresh-key-value="refresh-html">
+                            {{ 'show' }}
+                        </button>
+                        {% if market_subscription_request.status == 'pending'%}
+                            {#                        <a href="{{ path('app_seller_new', {'idM':market_subscription_request.id}) }}">#}
+
+                            <button
+                                    class="btn btn-success btn-sm"
+                                    data-action="modal-form#openModal"
+                                    data-form-url-value="{{ path('app_seller_new', {'idM':market_subscription_request.id}) }}"
+                                    data-url-value="{{ path('app_seller_index', { ajax: 1 } ) }}"
+                                    data-node-dest-id-value="myThreeCustomContent"
+                                    data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
+                                    data-refresh-key-value="refresh-html">
+                                {{ 'Buttons.General.Valider'|trans }}
+                            </button>
+                            {#                        </a>#}
+                        {% endif %}
+                    </td>
+                    {#<td>
+                        {% if market_subscription_request.status == 'validated'%}
+                            {% for user in users %}
+                                {{ dump(user) }}
+                                {% if user.email == market_subscription_request.email %}
+                                    {{ user.email }}
+                                {% endif %}
+
+
+                            <button
+                                    class="btn btn-success btn-sm"
+                                    data-action="modal-form#openModal"
+                                    data-form-url-value="{{ path('app_seller_new', {'idM':market_subscription_request.id}) }}"
+                                    data-url-value="{{ path('app_seller_index', { ajax: 1 } ) }}"
+                                    data-node-dest-id-value="myThreeCustomContent"
+                                    data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
+                                    data-refresh-key-value="refresh-html">
+                                {{ 'Buttons.General.Valider'|trans }}
+                            </button>
+
+
+
+                        {% endif %}
+
+
+                    </td>#}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <a href="{{ path('app_market_subscription_request_new') }}">Create new</a>
+{% endblock %}

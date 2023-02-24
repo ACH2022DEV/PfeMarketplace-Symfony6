@@ -98,7 +98,7 @@ class LocationFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implement
             $city->setActive(true);
             $city->setLatitude($c['latitude']);
             $city->setLongitude($c['longitude']);
-            $city->setCountry(($this->getReference('Country_'.$c['country_code'])));
+            $city->setCountryCode(($this->getReference('Country_'.$c['country_code'])));
             $this->addReference('City_'.$c['name'], $city);
             $manager->persist($city);
         }

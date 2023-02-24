@@ -31,7 +31,23 @@ class City
 
     #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(name: "country_code", referencedColumnName: 'code')]
-    private $country;
+    private $country_code;
+
+    #[ORM\OneToMany(mappedBy: 'city_idCity', targetEntity: Seller::class)]
+    private Collection $sellers;
+
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Traveler::class)]
+    private Collection $travelers;
+
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: MarketSubscriptionRequest::class)]
+    private Collection $marketSubscriptionRequests;
+
+
+    public function __construct()
+    {
+        $this->sellers = new ArrayCollection();
+        $this->travelers = new ArrayCollection();
+    }
 
 
 
@@ -88,14 +104,14 @@ class City
         return $this;
     }
 
-    public function getCountry(): ?Country
+    public function getCountryCode(): ?Country
     {
-        return $this->country;
+        return $this->country_code;
     }
 
-    public function setCountry(?Country $country): self
+    public function setCountryCode(?Country $country_code): self
     {
-        $this->country = $country;
+        $this->country_code = $country_code;
 
         return $this;
     }
@@ -105,5 +121,94 @@ class City
         return  $this->name;
     }
 
+    /**
+     * @return Collection<int, Seller>
+     */
+    public function getSellers(): Collection
+    {
+        return $this->sellers;
+    }
+
+    public function addSeller(Seller $seller): self
+    {
+        if (!$this->sellers->contains($seller)) {
+            $this->sellers->add($seller);
+            $seller->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeller(Seller $seller): self
+    {
+        if ($this->sellers->removeElement($seller)) {
+            // set the owning side to null (unless already changed)
+            if ($seller->getCity() === $this) {
+                $seller->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Traveler>
+     */
+    public function getTravelers(): Collection
+    {
+        return $this->travelers;
+    }
+
+    public function addTraveler(Traveler $traveler): self
+    {
+        if (!$this->travelers->contains($traveler)) {
+            $this->travelers->add($traveler);
+            $traveler->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraveler(Traveler $traveler): self
+    {
+        if ($this->travelers->removeElement($traveler)) {
+            // set the owning side to null (unless already changed)
+            if ($traveler->getCity() === $this) {
+                $traveler->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+/**
+ * @return Collection<int, MarketSubscriptionRequest>
+ */
+public function getMarketSubscriptionRequests(): Collection
+{
+    return $this->marketSubscriptionRequests;
+}
+
+public function addMarketSubscriptionRequest(MarketSubscriptionRequest $marketSubscriptionRequest): self
+{
+    if (!$this->marketSubscriptionRequests->contains($marketSubscriptionRequest)) {
+        $this->marketSubscriptionRequests->add($marketSubscriptionRequest);
+        $marketSubscriptionRequest->setCity($this);
+    }
+
+    return $this;
+}
+
+public function removeMarketSubscriptionRequest(MarketSubscriptionRequest $marketSubscriptionRequest): self
+{
+    if ($this->marketSubscriptionRequests->removeElement($marketSubscriptionRequest)) {
+        // set the owning side to null (unless already changed)
+        if ($marketSubscriptionRequest->getCity() === $this) {
+            $marketSubscriptionRequest->setCity(null);
+        }
+    }
+
+    return $this;
+}
 
 }

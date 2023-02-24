@@ -35,6 +35,8 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         ROLE_ADMIN: [ROLE_USER]
 
+        ROLE_SELLER: []
+
         ROLE_B2B: [ROLE_SUB_B2B]
         ROLE_SUB_B2B: [ROLE_USER]
 

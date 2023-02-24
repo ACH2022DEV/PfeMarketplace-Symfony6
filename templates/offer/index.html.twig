@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}offers List{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+    <table class="table-primary col-10 border-blue border-2 rounded-2 shadow ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>NbProductTypes</th>
+                <th>NbDays</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offer in offers %}
+            <tr>
+                <td>{{ offer.id }}</td>
+                <td>{{ offer.name }}</td>
+                <td>{{ offer.nbProductTypes }}</td>
+                <td>{{ offer.nbDays }}</td>
+                <td>
+                    <a class="btn-blue btn " href="{{ path('app_offer_show', {'id': offer.id}) }}">show</a>
+                    <a class="btn-blue btn " href="{{ path('app_offer_edit', {'id': offer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+    <a href="{{ path('app_offer_new') }}">Create new</a>
+{% endblock %}

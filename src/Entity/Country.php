@@ -168,7 +168,7 @@ class Country
     {
         if (!$this->cities->contains($city)) {
             $this->cities[] = $city;
-            $city->setCountry($this);
+            $city->setCountryCode($this);
         }
 
         return $this;
@@ -178,8 +178,8 @@ class Country
     {
         if ($this->cities->removeElement($city)) {
             // set the owning side to null (unless already changed)
-            if ($city->getCountry() === $this) {
-                $city->setCountry(null);
+            if ($city->getCountryCode() === $this) {
+                $city->setCountryCode(null);
             }
         }
 
