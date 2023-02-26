@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}Offre ProductsTypes{% endblock %}
+{% block body %}
+
+<h1>{{ offer.name }}</h1>
+
+{% for offerProductType in offer.offerProductTypes %}
+    <h2>{{ offerProductType.id }}</h2>
+    <p>{{ offerProductType.maxItems }}</p>
+    <p>{{ offerProductType.price }}</p>
+    <a href="{{ path('app_offer_index') }}">delete</a>
+
+    <a href="{{ path('app_offer_product_edit', {'id': offerProductType.id}) }}">edit</a>
+    <a href="{{ path('app_offer_product_new', {'id': offerProductType.id}) }}">New</a>
+    <a href="{{ path('app_offer_product_show', {'id': offerProductType.id}) }}">View More</a>
+
+
+{% endfor %}
+{% endblock %}

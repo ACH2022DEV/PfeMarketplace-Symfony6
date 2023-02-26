@@ -75,4 +75,21 @@ class OfferController extends AbstractController
 
         return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/OfferProductsTypes', name: 'app_offerProductTypes', methods: ['GET'])]
+    public function showOfferProductTypes(int $id): Response
+    {
+        $offer = $this->getDoctrine()
+            ->getRepository(Offer::class)
+            ->find($id);
+
+        if (!$offer) {
+            throw $this->createNotFoundException(
+                'No offer found for id '.$id
+            );
+        }
+
+        return $this->render('offer/show_Offer_Product.html.twig', [
+            'offer' => $offer,
+        ]);
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\OfferProductType;
-use App\Form\OfferProductTypeType;
+use App\Form\OfferProdType;
 use App\Repository\OfferProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/offer/product')]
-class OfferProductController extends AbstractController
+class OfferProductTypeController extends AbstractController
 {
     #[Route('/', name: 'app_offer_product_index', methods: ['GET'])]
     public function index(OfferProductTypeRepository $offerProductTypeRepository): Response
@@ -25,7 +25,7 @@ class OfferProductController extends AbstractController
     public function new(Request $request, OfferProductTypeRepository $offerProductTypeRepository): Response
     {
         $offerProductType = new OfferProductType();
-        $form = $this->createForm(OfferProductTypeType::class, $offerProductType);
+        $form = $this->createForm(OfferProdType::class, $offerProductType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +51,7 @@ class OfferProductController extends AbstractController
     #[Route('/{id}/edit', name: 'app_offer_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, OfferProductType $offerProductType, OfferProductTypeRepository $offerProductTypeRepository): Response
     {
-        $form = $this->createForm(OfferProductTypeType::class, $offerProductType);
+        $form = $this->createForm(OfferProdType::class, $offerProductType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

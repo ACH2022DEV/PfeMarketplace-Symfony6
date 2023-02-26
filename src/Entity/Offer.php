@@ -36,9 +36,9 @@ class Offer
         $this->sellerOffers = new ArrayCollection();
     }
 
-    public function getIdOffer(): ?int
+    public function getId(): ?int
     {
-        return $this->idOffer;
+        return $this->id;
     }
 
     public function getName(): ?string
