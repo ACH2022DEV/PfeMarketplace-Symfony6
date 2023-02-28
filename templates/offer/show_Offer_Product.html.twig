@@ -1,19 +1,58 @@
-{% extends 'base.html.twig' %}
-{% block title %}Offre ProductsTypes{% endblock %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ offer.name }} - Offer Product Types{% endblock %}
+
 {% block body %}
 
-<h1>{{ offer.name }}</h1>
 
-{% for offerProductType in offer.offerProductTypes %}
-    <h2>{{ offerProductType.id }}</h2>
-    <p>{{ offerProductType.maxItems }}</p>
-    <p>{{ offerProductType.price }}</p>
-    <a href="{{ path('app_offer_index') }}">delete</a>
+   {# <h1>{{ offer.name }}</h1>
+    <ul>
+        {% for offerProductType in offer.offerProductTypes %}
+            <li> - {{ offerProductType.id }} {{ offerProductType.price }} - {{ offerProductType.maxItems }}</li>
+        {% endfor %}
+    </ul>
+    <div class="container">
+        <div class="row">
 
-    <a href="{{ path('app_offer_product_edit', {'id': offerProductType.id}) }}">edit</a>
-    <a href="{{ path('app_offer_product_new', {'id': offerProductType.id}) }}">New</a>
-    <a href="{{ path('app_offer_product_show', {'id': offerProductType.id}) }}">View More</a>
+        </div>
+    </div>#}
+
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center shadow-sm">
+            <div class="col-12 col-md-10 ">
+                <p class="text-center mb-1 p-2 bg-info rounded-2">Offers Details</p>
+                <div class="border-5 border-dark  rounded-2">
+                    <table class="table-dark table-striped table-hover  p-3">
+                        <thead>
+                        <tr>
+                            <th scope="col-2" >ID</th>
+                            <th scope="col-2">Price</th>
+                            <th scope="col-2">MaxItems</th>
+                            <th scope="col-2">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for offerProductType in offer.offerProductTypes %}
+                            <tr>
+                                <td>{{ offerProductType.id }}</td>
+                                <td>{{ offerProductType.price }} - </td>
+                                <td>{{ offerProductType.maxItems }}</td>
+                                <td>
+                                    <a class="btn btn-dark me-2" href="{{ path('app_offer_product_edit', {'id': offerProductType.id}) }}">Show</a>
+                                    <a class="btn btn-primary" href="{{ path('app_offer_product_edit', {'id': offerProductType.id}) }}">Edit</a>
+                                    <a class="btn btn-danger" href="{{ path('app_offer_product_delete', {'id': offerProductType.id}) }}">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
 
-{% endfor %}
+
+                        </tbody>
+                    </table></div>
+                {#<div class="text-end">
+                    <a class="btn btn-primary" href="">Create new</a>
+                </div>#}
+            </div>
+        </div>
+    </div>
 {% endblock %}

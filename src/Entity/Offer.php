@@ -24,7 +24,7 @@ class Offer
     #[ORM\Column]
     private ?int $nbDays = null;
 
-    #[ORM\OneToMany(mappedBy: 'offer_idOffer', targetEntity: OfferProductType::class)]
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferProductType::class)]
     private Collection $offerProductTypes;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: SellerOffer::class)]
@@ -135,5 +135,10 @@ class Offer
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }

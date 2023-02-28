@@ -39,7 +39,7 @@ security:
 
         ROLE_B2B: [ROLE_SUB_B2B]
         ROLE_SUB_B2B: [ROLE_USER]
-
+        ROLE_TRAVELER: [ROLE_USER]
         ROLE_B2CORP: [ROLE_B2CORP_ADH]
         ROLE_B2CORP_ADH: [ROLE_USER]
 
@@ -51,6 +51,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
 
 when@test:
 

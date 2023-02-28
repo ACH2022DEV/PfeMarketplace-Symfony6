@@ -9,6 +9,7 @@ use App\Events\SellerCreatedEvent;
 use App\Form\SellerType;
 use App\Repository\SellerRepository;
 use App\Repository\UserRepository;
+use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Helpers;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
+
 #[Route('/seller')]
 class SellerController extends AbstractController
 {
@@ -35,9 +38,11 @@ class SellerController extends AbstractController
                         Helpers $helpers,
                         EventDispatcherInterface $dispatcher,
                         UserPasswordHasherInterface $passwordHasher,
-                        MarketSubscriptionRequest $idM
+                        MarketSubscriptionRequest $idM,
+
     ): Response
     {
+
         if(!is_null($idM) && strcmp($idM->getStatus(),"validated")==0){
             return $this->redirectToRoute('app_market_subscription_request_index');
         }
@@ -74,8 +79,9 @@ class SellerController extends AbstractController
             $userRepository->add($user, true);
             $sellerRepository->save($seller, true);
 
-            $onCreateSellerEvent = new SellerCreatedEvent($seller, $password);
-            $dispatcher->dispatch($onCreateSellerEvent);
+
+          //  $onCreateSellerEvent = new SellerCreatedEvent($seller, $password);
+          //  $dispatcher->dispatch($onCreateSellerEvent);
 
             return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
         }

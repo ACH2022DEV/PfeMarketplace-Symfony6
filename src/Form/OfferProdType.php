@@ -15,7 +15,7 @@ class OfferProdType extends AbstractType
             ->add('maxItems')
             ->add('price')
             ->add('offer')
-            ->add('productType')
+           // ->add('productType')
         ;
     }
 

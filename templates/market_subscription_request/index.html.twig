@@ -34,9 +34,8 @@
                     <td>{{ market_subscription_request.city }}</td>
                     <td>{{ market_subscription_request.status }}</td>
                     <td>
-                        {#                    <a href="{{ path('app_market_subscription_request_show', {'id': market_subscription_request.id}) }}">show</a>#}
                         <button
-                                class="btn btn-primary btn-sm"
+                                class="btn btn-info btn-sm"
                                 data-action="modal-form#openModal"
                                 data-form-url-value="{{ path('app_market_subscription_request_show', {'id': market_subscription_request.id}) }}"
                                 data-node-dest-id-value="myThreeCustomContent"
@@ -44,8 +43,6 @@
                             {{ 'show' }}
                         </button>
                         {% if market_subscription_request.status == 'pending'%}
-                            {#                        <a href="{{ path('app_seller_new', {'idM':market_subscription_request.id}) }}">#}
-
                             <button
                                     class="btn btn-success btn-sm"
                                     data-action="modal-form#openModal"
@@ -56,35 +53,44 @@
                                     data-refresh-key-value="refresh-html">
                                 {{ 'Buttons.General.Valider'|trans }}
                             </button>
-                            {#                        </a>#}
+                        {% else %}
+                            <i class="bi bi-check-circle-fill"></i>
                         {% endif %}
                     </td>
-                    {#<td>
-                        {% if market_subscription_request.status == 'validated'%}
-                            {% for user in users %}
-                                {{ dump(user) }}
-                                {% if user.email == market_subscription_request.email %}
-                                    {{ user.email }}
+                    <td>
+                        {% for user in users %}
+                            {% for seller in sellers %}
+                                {% if user.id == seller.user.id and user.email == market_subscription_request.email %}
+                                    {% if market_subscription_request.status == 'validated' and seller.api == null %}
+{#                                        create api#}
+                                        <button
+                                                class="btn btn-primary btn-sm"
+                                                data-action="modal-form#openModal"
+                                                data-form-url-value="{{ path('app_api_new',{'seller':seller.id}) }}"
+                                                data-url-value="{{ path('app_api_index', { ajax: 1 } ) }}"
+                                                data-node-dest-id-value="myThreeCustomContent"
+                                                data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
+                                                data-refresh-key-value="refresh-html">
+                                            create api
+                                        </button>
+                                    {% else %}
+{#                                        modify api#}
+                                        <button
+                                                class="btn btn-success btn-sm"
+                                                data-action="modal-form#openModal"
+                                                data-form-url-value="{{ path('app_api_edit', {'id':seller.api.id}) }}"
+                                                data-url-value="{{ path('app_seller_index', { ajax: 1 } ) }}"
+                                                data-node-dest-id-value="myThreeCustomContent"
+                                                data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
+                                                data-refresh-key-value="refresh-html">
+                                            edit api
+                                        </button>
+
+                                    {% endif %}
                                 {% endif %}
-
-
-                            <button
-                                    class="btn btn-success btn-sm"
-                                    data-action="modal-form#openModal"
-                                    data-form-url-value="{{ path('app_seller_new', {'idM':market_subscription_request.id}) }}"
-                                    data-url-value="{{ path('app_seller_index', { ajax: 1 } ) }}"
-                                    data-node-dest-id-value="myThreeCustomContent"
-                                    data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
-                                    data-refresh-key-value="refresh-html">
-                                {{ 'Buttons.General.Valider'|trans }}
-                            </button>
-
-
-
-                        {% endif %}
-
-
-                    </td>#}
+                            {% endfor %}
+                        {% endfor %}
+                    </td>
                 </tr>
             {% else %}
                 <tr>
@@ -95,7 +101,6 @@
         </table>
 
     </div>
-
 
     <a href="{{ path('app_market_subscription_request_new') }}">Create new</a>
 {% endblock %}

@@ -9,10 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 #[Route('/offer')]
 class OfferController extends AbstractController
 {
+    private $em;
     #[Route('/', name: 'app_offer_index', methods: ['GET'])]
     public function index(OfferRepository $offerRepository): Response
     {
@@ -75,12 +78,14 @@ class OfferController extends AbstractController
 
         return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/OfferProductsTypes', name: 'app_offerProductTypes', methods: ['GET'])]
+    #[Route('/OfferProductsTypes/{id}', name: 'app_offerProductTypes', methods: ['GET'])]
     public function showOfferProductTypes(int $id): Response
     {
-        $offer = $this->getDoctrine()
+
+        $offer =  $this->doctrine
             ->getRepository(Offer::class)
             ->find($id);
+       // $offerProductTypes = $offer->getOfferProductTypes();
 
         if (!$offer) {
             throw $this->createNotFoundException(
@@ -90,6 +95,11 @@ class OfferController extends AbstractController
 
         return $this->render('offer/show_Offer_Product.html.twig', [
             'offer' => $offer,
+           // 'offerProductTypes' => $offerProductTypes
+
         ]);
     }
+
+    public function __construct(private ManagerRegistry $doctrine) {}
+
 }
