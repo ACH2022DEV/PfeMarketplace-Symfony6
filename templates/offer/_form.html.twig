@@ -2,8 +2,8 @@
     <div class="row ">
 {{ form_start(form) }}
         {{ form_widget(form) }}
-        <h2>Product Types</h2>
-        {{ form_errors(form.offerProductTypes) }}
+
+      {{ form_errors(form.offerProductTypes) }}
         <ul class="offer-product-types">
             {% for offerProductTypeForm in form.offerProductTypes %}
                 <li>
@@ -19,6 +19,30 @@
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
         <script>
+            // add-offer-product-type.js
+
+            const offerProductTypesList = document.querySelector('.offer-product-types');
+            const addButton = document.querySelector('.add-offer-product-type');
+
+            addButton.addEventListener('click', (e) => {
+                const prototype = offerProductTypesList.dataset.prototype;
+                const index = offerProductTypesList.children.length;
+                const newForm = prototype.replace(/__name__/g, index);
+                const newDiv = document.createElement('div');
+                newDiv.innerHTML = newForm;
+                offerProductTypesList.appendChild(newDiv);
+            });
+
+            offerProductTypesList.addEventListener('click', (e) => {
+                const deleteButton = e.target.closest('.delete');
+                if (deleteButton) {
+                    const offerProductTypeDiv = deleteButton.closest('div');
+                    offerProductTypeDiv.remove();
+                }
+            });
+
+
+            // get the
 
         </script>
 </div></div>
