@@ -88,8 +88,11 @@ class Offer
     public function addOfferProductType(OfferProductType $offerProductType): self
     {
         if (!$this->offerProductTypes->contains($offerProductType)) {
-            $this->offerProductTypes->add($offerProductType);
-            $offerProductType->setOffer($this);
+           //added in 3/03/2023
+            /* $offerProductType->setOffer($this);
+             $this->offerProductTypes[] = $offerProductType;*/
+           $this->offerProductTypes->add($offerProductType);
+             $offerProductType->setOffer($this);
         }
 
         return $this;

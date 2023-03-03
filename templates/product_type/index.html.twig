@@ -1,38 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}ProductType index{% endblock %}
+{% block title %} Liste des types de produits
+{% endblock %}
 
-{% block body %}
-    <h1>ProductType index</h1>
+{% block container %}
+    <h1 class="text-center fs-2 bold my-2">List of product types</h1>
 
-    <table class="table">
-        <thead>
+    <div>
+        <table data-toggle="table" data-search="true" data-show-columns="true" data-page-size="10"
+               data-buttons-class="md btn-soft-primary" data-pagination="true"
+               data-show-pagination-switch="true" class="table-bordered">
+            <thead class="table-primary">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for product_type in product_types %}
-            <tr>
-                <td>{{ product_type.id }}</td>
-                <td>{{ product_type.name }}</td>
-                <td>
-                    <a href="{{ path('app_product_type_show', {'id': product_type.id}) }}">show</a>
-                    <a href="{{ path('app_product_type_edit', {'id': product_type.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+
+            {% for product_type in product_types %}
+
+                <tr>
+                    <td>{{ product_type.id }}</td>
+                    <td>{{ product_type.name }}</td>
+
+                    <td>
+                        <button
+                                class="btn btn-info btn-sm"
+                                data-action="modal-form#openModal"
+                                data-form-url-value="{{ path('app_product_type_show', {'id': product_type.id}) }}"
+                                data-node-dest-id-value="myOneCustomContent"
+                                data-refresh-key-value="refresh-html">
+                            <i class="fas fa-eye"></i> View
+                        </button>
 
 
-    <a href="{{ path('app_product_type_new' , {'id': product_type.id}) }}">Create new</a>
-    <a href="{{ path('app_offerProductTypes') }}">Read More</a>
+                        <button
+                                class="btn btn-success btn-sm"
+                                data-action="modal-form#openModal"
+                                data-form-url-value="{{ path('app_product_type_edit', {'id': product_type.id}) }}"
+                                data-url-value="{{ path('app_product_type_index', { ajax: 1 } ) }}"
+                                data-node-dest-id-value="myOneCustomContent"
+                                data-refresh-key-value="refresh-html">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
 
+
+                        <button
+                                class="btn btn-success btn-sm"
+                                data-action="modal-form#openModal"
+                                data-form-url-value="{{ path('offerProductTypes_ProductType' , {'id': product_type.id}) }}"
+                                data-url-value="{{ path('app_product_type_index', { ajax: 1 } ) }}"
+                                data-node-dest-id-value="myOneCustomContent"
+                                data-refresh-key-value="refresh-html">
+                            <i class="fas fa-shopping-cart"></i> see offers
+                        </button>
+
+
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="text-end m-lg-4">
+        <a class="btn btn-success " href="{{path('app_product_type_new')}}">Créer nouveau</a>
+    </div>
 {% endblock %}

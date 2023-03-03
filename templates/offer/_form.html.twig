@@ -1,7 +1,24 @@
 <div class="container">
     <div class="row ">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+        {{ form_widget(form) }}
+        <h2>Product Types</h2>
+        {{ form_errors(form.offerProductTypes) }}
+        <ul class="offer-product-types">
+            {% for offerProductTypeForm in form.offerProductTypes %}
+                <li>
+                    {{ form_row(offerProductTypeForm.maxItems) }}
+                    {{ form_row(offerProductTypeForm.price) }}
+                    {# add fields for Offer and ProductType entities #}
+                    {{ form_row(offerProductTypeForm._token) }}
+                    {{ form_row(offerProductTypeForm.delete) }}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="#" class="add-offer-product-type">Add Product Type</a>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+        <script>
+
+        </script>
 </div></div>

@@ -20,6 +20,7 @@ class OfferProductType
 
     #[ORM\ManyToOne(inversedBy: 'offerProductTypes')]
     #[ORM\JoinColumn(nullable: false)]
+   // #[ORM\JoinColumn(name: 'productType_id', nullable: false)]
     private ?ProductType $productType = null;
 
     #[ORM\Column(length: 45)]
@@ -45,7 +46,7 @@ class OfferProductType
         return $this;
     }
 
-    public function getProductTypeidProductType(): ?ProductType
+  /*  public function getProductTypeidProductType(): ?ProductType
     {
         return $this->productType;
     }
@@ -55,9 +56,21 @@ class OfferProductType
         $this->productType = $productType;
 
         return $this;
-    }
+    }*/
+     public function getProductType(): ?ProductType
+     {
+         return $this->productType;
+     }
 
-    public function getMaxItems(): ?string
+     public function set(?ProductType $productType): self
+     {
+         $this->productType = $productType;
+
+         return $this;
+     }
+
+
+     public function getMaxItems(): ?string
     {
         return $this->maxItems;
     }
@@ -80,4 +93,13 @@ class OfferProductType
 
         return $this;
     }
+     public function __toString(): string
+     {
+         $m = "*".'product type: '. $this->getProductType()->getName()."\n".
+             'max items: '.$this->getMaxItems()."\r\n".
+             'price'.$this->getPrice()."\r\n";
+
+         return $m;
+         // TODO: Implement __toString() method.
+     }
 }

@@ -29,8 +29,10 @@
                             <td>{{ offer.nbProductTypes }}</td>
                             <td>{{ offer.nbDays }}</td>
                             <td>
-                                <a class="btn btn-dark me-2" href="{{ path('app_offer_show', {'id': offer.id}) }}">Show</a>
+                                <a class="btn btn-dark me-2" href="{{ path('app_offer_show', {'id': offer.id}) }}"><i class="bi bi-zoom-in"></i></a>
                                 <a class="btn btn-primary" href="{{ path('app_offer_edit', {'id': offer.id}) }}">Edit</a>
+                                <a href="{{ path('app_offerProductTypes', {'id': offer.id}) }}">View Offres</a>
+
                             </td>
                         </tr>
                     {% else %}
@@ -41,7 +43,7 @@
                     </tbody>
                 </table></div>
                 <div class="text-end">
-                    <a class="btn btn-primary" href="{{ path('app_offer_new') }}">Create new</a>
+                    <a class="btn btn-primary" href="{{path('app_offer_new')}}">Create new</a>
                 </div>
             </div>
         </div>

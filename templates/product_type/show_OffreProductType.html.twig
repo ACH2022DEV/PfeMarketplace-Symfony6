@@ -1,26 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ offer.name }} - Offer Product Types{% endblock %}
+{% block title %}   Product Types_Offer{% endblock %}
 
 {% block body %}
 
 
-   {# <h1>{{ offer.name }}</h1>
-    <ul>
-        {% for offerProductType in offer.offerProductTypes %}
-            <li> - {{ offerProductType.id }} {{ offerProductType.price }} - {{ offerProductType.maxItems }}</li>
-        {% endfor %}
-    </ul>
-    <div class="container">
-        <div class="row">
-
-        </div>
-    </div>#}
 
     <div class="container-fluid mt-5">
         <div class="row justify-content-center shadow-sm">
             <div class="col-12 col-md-10 ">
-                <p class="text-center mb-1 p-2 bg-info rounded-2">Offers Details</p>
+                <p class="text-center mb-1 p-2 bg-info rounded-2">ProductType Details</p>
                 <div class="border-5 border-dark  rounded-2">
                     <table class="table-dark table-striped table-hover  p-3">
                         <thead>
@@ -32,7 +21,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for offerProductType in offer.offerProductTypes %}
+                        {% for offerProductType in productType.offerProductTypes %}
                             <tr>
                                 <td>{{ offerProductType.id }}</td>
                                 <td>{{ offerProductType.price }} - </td>

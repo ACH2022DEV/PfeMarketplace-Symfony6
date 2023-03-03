@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\OfferProductType;
+//use App\Entity\ProductType;
 use App\Form\OfferProdType;
 use App\Repository\OfferProductTypeRepository;
+//use App\Repository\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,21 +24,26 @@ class OfferProductTypeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_offer_product_new', methods: ['GET', 'POST'])]
+    //,ProductTypeRepository $ProductTypeRepository
     public function new(Request $request, OfferProductTypeRepository $offerProductTypeRepository): Response
     {
         $offerProductType = new OfferProductType();
-        $form = $this->createForm(OfferProdType::class, $offerProductType);
+      //  $productType = new ProductType();
+        $form = $this->createForm(OfferProdType::class, $offerProductType );
+        //$form = $this->createForm(ProductType::class, $productType  );
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+//&& $form2->isSubmitted() && $form2->isValid()
+        if ($form->isSubmitted() && $form->isValid() )  {
             $offerProductTypeRepository->save($offerProductType, true);
-
+          //  $ProductTypeRepository->save($productType, true);
             return $this->redirectToRoute('app_offer_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('offer_product/new.html.twig', [
             'offer_product_type' => $offerProductType,
+            //'product_type' => $productType,
             'form' => $form,
+            //'form2' => $form2,
         ]);
     }
 

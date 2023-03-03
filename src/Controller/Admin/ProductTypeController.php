@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Offer;
+
 use App\Entity\ProductType;
 use App\Form\ProductTypeType;
 use App\Repository\ProductTypeRepository;
@@ -10,13 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
-#[Route('/admin/product/type')]
+
+#[Route('/product/type')]
 class ProductTypeController extends AbstractController
 {
+    private $em;
     #[Route('/', name: 'app_product_type_index', methods: ['GET'])]
     public function index(ProductTypeRepository $productTypeRepository): Response
     {
+
         return $this->render('product_type/index.html.twig', [
             'product_types' => $productTypeRepository->findAll(),
         ]);
@@ -76,25 +80,26 @@ class ProductTypeController extends AbstractController
 
         return $this->redirectToRoute('app_product_type_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/OfferProductsTypes/{id}', name: 'app_offerProductTypes', methods: ['GET'])]
+    #[Route('/{id}/OfferProductsTypes', name: 'offerProductTypes_ProductType', methods: ['GET'])]
     public function showOfferProductTypes(int $id): Response
     {
 
-        $offer =  $this->doctrine
-            ->getRepository(Offer::class)
+        $productType =  $this->doctrine
+            ->getRepository(ProductType::class)
             ->find($id);
-        // $offerProductTypes = $offer->getOfferProductTypes();
+         //$offerProductTypes = $productType->getProductTypeidProductType();
 
-        if (!$offer) {
+        if (!$productType) {
             throw $this->createNotFoundException(
-                'No offer found for id '.$id
+                'No productType found for id '.$id
             );
         }
 
-        return $this->render('offer/show_Offer_Product.html.twig', [
-            'offer' => $offer,
-            // 'offerProductTypes' => $offerProductTypes
+        return $this->render('product_type/show_OffreProductType.html.twig', [
+            'productType' => $productType,
+          //  'offerProductTypes' => $offerProductTypes
 
         ]);
     }
+    public function __construct(private readonly ManagerRegistry $doctrine) {}
 }

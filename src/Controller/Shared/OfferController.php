@@ -78,7 +78,7 @@ class OfferController extends AbstractController
 
         return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/OfferProductsTypes/{id}', name: 'app_offerProductTypes', methods: ['GET'])]
+    #[Route('/{id}/OfferProductsTypes', name: 'app_offerProductTypes', methods: ['GET'])]
     public function showOfferProductTypes(int $id): Response
     {
 

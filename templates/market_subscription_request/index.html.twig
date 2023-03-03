@@ -32,7 +32,12 @@
                     <td>{{ market_subscription_request.website }}</td>
                     <td>{{ market_subscription_request.address }}</td>
                     <td>{{ market_subscription_request.city }}</td>
-                    <td>{{ market_subscription_request.status }}</td>
+                    <td>{% if(market_subscription_request.status == 'validated') %}
+                            <span class="badge badge-outline-success">Validated</span>
+                        {% else %}
+                                <span class="badge badge-outline-warning">Pending</span>
+                        {% endif %}
+                    </td>
                     <td>
                         <button
                                 class="btn btn-info btn-sm"
@@ -40,7 +45,7 @@
                                 data-form-url-value="{{ path('app_market_subscription_request_show', {'id': market_subscription_request.id}) }}"
                                 data-node-dest-id-value="myThreeCustomContent"
                                 data-refresh-key-value="refresh-html">
-                            {{ 'show' }}
+                            <i class="fas fa-eye"></i>
                         </button>
                         {% if market_subscription_request.status == 'pending'%}
                             <button
@@ -51,16 +56,14 @@
                                     data-node-dest-id-value="myThreeCustomContent"
                                     data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
                                     data-refresh-key-value="refresh-html">
-                                {{ 'Buttons.General.Valider'|trans }}
+                                <i class="fe-check"></i>
                             </button>
-                        {% else %}
-                            <i class="bi bi-check-circle-fill"></i>
                         {% endif %}
                     </td>
                     <td>
                         {% for user in users %}
                             {% for seller in sellers %}
-                                {% if user.id == seller.user.id and user.email == market_subscription_request.email %}
+                                {% if user.id == seller.user.id and user.email == market_subscription_request.email%}
                                     {% if market_subscription_request.status == 'validated' and seller.api == null %}
 {#                                        create api#}
                                         <button
