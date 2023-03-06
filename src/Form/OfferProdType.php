@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OfferProdType extends AbstractType
 {
+    private ProductType $productType;
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
@@ -58,5 +60,11 @@ class OfferProdType extends AbstractType
             'data_class' => OfferProductType::class
           //  'data_class2' => ProductType::class,
         ]);
+    }
+    public function setProductType(ProductType $productType): self
+    {
+        $this->productType = $productType;
+
+        return $this;
     }
 }

@@ -18,11 +18,12 @@ class OfferType extends AbstractType
             ->add('nbProductTypes')
             ->add('nbDays')
             //the Code added in 3/03/2023
-          ->add('offerProductTypes', CollectionType::class, [
-                'entry_type' => \App\Form\OfferProdType::class,
+          ->add('offerProductTypes', CollectionType::class, array(
+                'entry_type' => OfferProdType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-            ]);
+                'prototype' => true,
+            ));
 
     }
 

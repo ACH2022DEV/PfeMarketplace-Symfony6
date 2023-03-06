@@ -3,45 +3,34 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
     {% block header %}
-        <div style="" >
+        <div class="d-flex justify-content-between align-items-center">
             {% if app.user %}
-                {# TODO Optimize the main page, is it fully the same for roles B2C, B2B, B2B_SUB, ...  ?? #}
-                {% if  "ROLE_B2C" in app.user.roles %}
-                    <a href="" style="padding-right: 15px">
-                        {{ app.user.email}}
-                    </a>
+                {% if "ROLE_B2C" in app.user.roles %}
+                    <a href="" class="btn btn-outline-secondary">{{ app.user.email }}</a>
                 {% endif %}
 
-                {% if  "ROLE_B2B_SUB" in app.user.roles or "ROLE_B2B_SUB" in app.user.roles or "ROLE_B2CORP" in app.user.roles or "ROLE_B2CORP_ADH" in app.user.roles   %}
-                    <a href="" target="_blank" style="padding-right: 15px">
-                        {{ app.user.email}}
-                    </a>
+                {% if "ROLE_B2B_SUB" in app.user.roles or "ROLE_B2B_SUB" in app.user.roles or "ROLE_B2CORP" in app.user.roles or "ROLE_B2CORP_ADH" in app.user.roles %}
+                    <a href="" target="_blank" class="btn btn-outline-secondary">{{ app.user.email }}</a>
                 {% endif %}
 
-                <a  class="btn btn-outline-success" href="{{ path('app_logout') }}">Logout</a>
-
+                <a href="{{ path('app_logout') }}" class="btn btn-outline-success">Logout</a>
             {% else %}
-                <a href="{{ path('app_login') }}" style="padding-right: 15px">
-                    Se connecter
-                </a>
-                <a href="{{ path('app_register') }}" style="padding-right: 15px">
-                    S'inscrire
-                </a>
-                <a href="/login/btob" style="padding-right: 15px">
-                    Espace pro
-                </a>
+                <div>
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Se connecter</a>
+                    <a href="{{ path('app_register') }}" class="btn btn-outline-primary">S'inscrire</a>
+                    <a href="/login/btob" class="btn btn-outline-primary">Espace pro</a>
+                </div>
             {% endif %}
-
         </div>
-<div class="example-wrapper">
-    <h1>Front wassim Page ✅</h1>
-
-</div>
-
     {% endblock %}
+
+    <div class="example-wrapper">
+        <h1>Front wassim Page ✅</h1>
+    </div>
 {% endblock %}

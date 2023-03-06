@@ -3,7 +3,7 @@
 {% block title %}
 
     Offers List
-        {% endblock %}
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -12,36 +12,36 @@
                 <h1 class="text-center mb-4">Offers List</h1>
                 <div class="border-5 border-dark shadow rounded-2">
                     <table class="table-dark table-striped table-hover ">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Number of Product Types</th>
-                        <th>Number of Days</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for offer in offers %}
+                        <thead>
                         <tr>
-                            <td>{{ offer.id }}</td>
-                            <td>{{ offer.name }}</td>
-                            <td>{{ offer.nbProductTypes }}</td>
-                            <td>{{ offer.nbDays }}</td>
-                            <td>
-                                <a class="btn btn-dark me-2" href="{{ path('app_offer_show', {'id': offer.id}) }}"><i class="bi bi-zoom-in"></i></a>
-                                <a class="btn btn-primary" href="{{ path('app_offer_edit', {'id': offer.id}) }}">Edit</a>
-                                <a href="{{ path('app_offerProductTypes', {'id': offer.id}) }}">View Offres</a>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Number of Product Types</th>
+                            <th>Number of Days</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for offer in offers %}
+                            <tr>
+                                <td>{{ offer.id }}</td>
+                                <td>{{ offer.name }}</td>
+                                <td>{{ offer.nbProductTypes }}</td>
+                                <td>{{ offer.nbDays }}</td>
+                                <td>
+                                    <a class="btn btn-dark me-2" href="{{ path('app_offer_show', {'id': offer.id}) }}"><i class="bi bi-zoom-in"></i></a>
+                                    <a class="btn btn-primary" href="{{ path('app_offer_edit', {'id': offer.id}) }}">Edit</a>
+                                    <a href="{{ path('app_offerProductTypes', {'id': offer.id}) }}">View Offres</a>
 
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="5" class="text-center">No records found.</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table></div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">No records found.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table></div>
                 <div class="text-end">
                     <a class="btn btn-primary" href="{{path('app_offer_new')}}">Create new</a>
                 </div>
@@ -49,4 +49,3 @@
         </div>
     </div>
 {% endblock %}
-

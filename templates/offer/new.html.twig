@@ -1,11 +1,24 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}New Offer{% endblock %}
 
 {% block body %}
-    <h1>Create new Offer</h1>
-
-    {{ include('offer/_form.html.twig') }}
-
-    <a href="{{ path('app_offer_index') }}">back to list</a>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Create new Offer</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ include('offer/_form.html.twig') }}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_offer_index') }}" class="btn btn-secondary"> <i class="fas fa-arrow-left"> </i> Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

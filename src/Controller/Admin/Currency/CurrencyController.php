@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/admin/parameters/currency')]
+#[Route('/admin/currency')]
 class CurrencyController extends AbstractController
 {
     #[Route('/', name: 'app_admin_currency_currency_index', methods: ['GET'])]

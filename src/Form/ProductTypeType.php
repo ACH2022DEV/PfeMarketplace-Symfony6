@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\OfferProductType;
 use App\Entity\ProductType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,6 +16,10 @@ class ProductTypeType extends AbstractType
     {
         $builder
             ->add('name')
+
+
+
+
         ;
     }
 

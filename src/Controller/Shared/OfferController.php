@@ -5,6 +5,7 @@ namespace App\Controller\Shared;
 use App\Entity\Offer;
 use App\Form\OfferType;
 use App\Repository\OfferRepository;
+use Proxies\__CG__\App\Entity\OfferProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,11 @@ class OfferController extends AbstractController
     public function new(Request $request, OfferRepository $offerRepository): Response
     {
         $offer = new Offer();
+       /* $offerproduct=new OfferProductType();
+        $offerproduct->setMaxItems(25);
+        $offerproduct->setPrice(255);
+
+        $offer->addOfferProductType($offerproduct);*/
         $form = $this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
 

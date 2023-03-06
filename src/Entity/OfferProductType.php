@@ -19,8 +19,8 @@ class OfferProductType
     private ?Offer $offer = null;
 
     #[ORM\ManyToOne(inversedBy: 'offerProductTypes')]
-    #[ORM\JoinColumn(nullable: false)]
-   // #[ORM\JoinColumn(name: 'productType_id', nullable: false)]
+    #[ORM\JoinColumn( nullable: true)]
+    #[Assert\NotBlank(message: 'This value should not be blank')]
     private ?ProductType $productType = null;
 
     #[ORM\Column(length: 45)]
@@ -57,12 +57,14 @@ class OfferProductType
 
         return $this;
     }*/
+
+
      public function getProductType(): ?ProductType
      {
          return $this->productType;
      }
 
-     public function set(?ProductType $productType): self
+     public function setProductType( ?ProductType $productType): self
      {
          $this->productType = $productType;
 

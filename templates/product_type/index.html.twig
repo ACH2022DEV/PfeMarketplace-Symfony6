@@ -1,7 +1,6 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %} Liste des types de produits
-{% endblock %}
+{% block title %}Liste des types de produits{% endblock %}
 
 {% block container %}
     <h1 class="text-center fs-2 bold my-2">List of product types</h1>
@@ -47,19 +46,9 @@
                         </button>
 
 
-                        <button
-                                class="btn btn-success btn-sm"
-                                data-action="modal-form#openModal"
-                                data-form-url-value="{{ path('offerProductTypes_ProductType' , {'id': product_type.id}) }}"
-                                data-url-value="{{ path('app_product_type_index', { ajax: 1 } ) }}"
-                                data-node-dest-id-value="myOneCustomContent"
-                                data-refresh-key-value="refresh-html">
-                            <i class="fas fa-shopping-cart"></i> see offers
-                        </button>
 
-
+                        <a class="btn btn-success btn-sm" href="{{ path('offerProductTypes_ProductType' , {'id': product_type.id}) }}">View Offres</a>
                     </td>
-
                 </tr>
             {% else %}
                 <tr>
@@ -72,6 +61,6 @@
     </div>
 
     <div class="text-end m-lg-4">
-        <a class="btn btn-success " href="{{path('app_product_type_new')}}">Créer nouveau</a>
+        <a class="btn btn-success" href="{{path('app_product_type_new')}}">Créer nouveau</a>
     </div>
 {% endblock %}
