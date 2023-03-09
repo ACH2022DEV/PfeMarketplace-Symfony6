@@ -7,12 +7,12 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>MaxItems</th>
-                <th>Price</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>MaxItems</th>
+            <th>Price</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for offer_product_type in offer_product_types %}
@@ -35,4 +35,3 @@
 
     <a href="{{ path('app_offer_product_new') }}">Create new</a>
 {% endblock %}
-

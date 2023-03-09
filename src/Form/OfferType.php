@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Offer;
+use App\Entity\OfferProductType;
 use App\Form\OfferProdType;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,12 +20,12 @@ class OfferType extends AbstractType
             ->add('nbProductTypes')
             ->add('nbDays')
             //the Code added in 3/03/2023
-          ->add('offerProductTypes', CollectionType::class, array(
+          ->add('offerProductTypes', CollectionType::class, [
                 'entry_type' => OfferProdType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-            ));
+            ]);
 
     }
 
@@ -32,5 +34,17 @@ class OfferType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Offer::class,
         ]);
+    }
+    public function addOfferProductType(OfferProductType $offerProductType): self
+    {
+        if (!$this->offerProductTypes->contains($offerProductType)) {
+            //added in 3/03/2023
+            /* $offerProductType->setOffer($this);
+             $this->offerProductTypes[] = $offerProductType;*/
+            $this->offerProductTypes->add($offerProductType);
+            $offerProductType->setOffer($this);
+        }
+
+        return $this;
     }
 }

@@ -101,8 +101,8 @@ class ApiController extends AbstractController
     #[Route('/api/fetchall_api', name: 'app_fetchall_api', methods: ['GET'])]
     public function fetchall_api(Request $request, $id, EntityManagerInterface $em): Response
     {
-       /* $list = $em->getRepository(Object::class) . findAll();
-        return $this->json($list);*/
+       $list = $em->getRepository(Object::class) . findAll();
+        return $this->json($list);
     }
 
 
