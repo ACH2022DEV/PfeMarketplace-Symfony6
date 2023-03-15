@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OfferProductTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
  #[ORM\Entity(repositoryClass: OfferProductTypeRepository::class)]
 
@@ -14,11 +16,11 @@ class OfferProductType
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'offerProductTypes')]
+    #[ORM\ManyToOne( inversedBy: 'offerProductTypes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'offerProductTypes')]
+    #[ORM\ManyToOne(cascade: ['persist','remove'], inversedBy: 'offerProductTypes')]
     #[ORM\JoinColumn( nullable: true)]
     #[Assert\NotBlank(message: 'This value should not be blank')]
     private ?ProductType $productType = null;

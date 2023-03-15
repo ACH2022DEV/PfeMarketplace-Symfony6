@@ -1,27 +1,56 @@
-{% extends 'base.html.twig' %}
 {% block body %}
-<div class="container">
-    <div class="row ">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
+    {% block javascripts %}
+        <script src="{{ asset('js/offer.js') }}"></script>
+    {% endblock %}
 
+    <div class="container shadow-sm rounded-2">
+        <h1 class="my-4 bg-info shadow rounded-2 text-center">Offer</h1>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_start(form) }}
 
-        <div class="offerProductTypes"
-            data-index="{{ form.offerProductTypes|length > 0 ? form.offerProductTypes|last.vars.name + 1 : 0 }}"
-            data-prototype="{{ form_widget(form.offerProductTypes.vars.prototype)|e('html_attr') }}" >
-            {% for offerProdTypes in form.offerProductTypes %}
-               {{ form_row(offerProdTypes.maxItems) }}
-               {# {{ form_row(offerProdTypes.price) }}
-               {{ form_row(offerProdTypes.productType) }}#}
-            {% endfor %}
+                <div class="form-group">
+                    {{ form_row(form.name, {'label': 'Name', 'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.nbDays, {'label': 'Number of days', 'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.nbProductTypes, {'label': 'Number of product types', 'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <h2>Offer Product Types</h2>
+
+                <ul class="offer-product-types-wrapper list-group"
+                    data-prototype="{{ form_widget(form.offerProductTypes.vars.prototype)|e('html_attr') }}"
+                    data-index="{{ form.offerProductTypes|length > 0 ? form.offerProductTypes|last.vars.name + 1 : 0 }}">
+                    {% for offerProductTypeForm in form.offerProductTypes %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    {{ form_row(offerProductTypeForm.maxItems, {'label': 'Max items', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="col-md-10">
+                                    {{ form_row(offerProductTypeForm.price, {'label': 'price', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-danger remove-offer-product-type">Remove</button>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+
+                <button type="button" class="btn btn-primary add-offer-product-typeForm">Add New OfferProductType</button>
+
+                <button type="submit" class="btn btn-success">Save</button>
+
+                {{ form_end(form) }}
+            </div>
         </div>
-        <button type="button" class="add_item_link" data-collection-holder-class="offerProductTypes">Add offerProductType</button>
-        <button class="btn">{{ button_label|default('Save') }}</button>
-        {{ form_end(form) }}
-    </div></div>
-        {% endblock %}
-        {% block javascripts %}
-        <script src="assets/app.js">
-
-        </script>
-        {% endblock %}
+    </div>
+{% endblock %}

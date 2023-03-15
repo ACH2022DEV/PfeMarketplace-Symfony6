@@ -22,14 +22,16 @@ class DashboardController extends AbstractController
     ){}
 
 
-    #[Route('/dashboard', name: 'dashboard' ) , IsGranted('ROLE_SELLER')]
+    #[Route('/dashboard_Seller', name: 'dashboard_Seller' )]
+    //, IsGranted('ROLE_SELLER')]
     public function index(): Response
     {
         $user = $this->security->getUser();
         $session = $this->requestStack->getSession();
 
         //if(!$session->has('menu')){ // Uncomment to get menu from session if exists.
-            if($this->isGranted('ROLE_SELLER')) {
+        //commenter pour ce moment pour l'affichage de design
+          /*  if($this->isGranted('ROLE_SELLER')) {
                 $menu_object = $this->menuItemSellerRepository->findBy([], ['displayOrder' => 'ASC']);
                 $menu = $this->helpers->convert_ObjectArray_to_2DArray($menu_object);
             }else{ // ROLE_ADMIN
@@ -37,7 +39,7 @@ class DashboardController extends AbstractController
             }
             $menu_as_tree = $this->helpers->buildTree($menu);
             if(array_key_exists('ADMIN', $menu_as_tree))
-                $session->set('menu' , $menu_as_tree['ADMIN']['children']);
+                $session->set('menu' , $menu_as_tree['ADMIN']['children']);*/
         //}
         return $this->render('seller/dashboard/index.html.twig', [
             'controller_name' => 'DashboardController'

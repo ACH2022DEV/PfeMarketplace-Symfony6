@@ -16,18 +16,19 @@ import './bootstrap';
 * Added By Ours
 */
 // nos travail
+/*
 const addFormToCollection = (e) => {
         const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
         const item = document.createElement('div');
 
-       /* item.innerHTML = collectionHolder
+        item.innerHTML = collectionHolder
             .dataset
             .prototype
             .replace(
                 /__name__/g,
                 collectionHolder.dataset.index
-            );*/
+            );
 
         collectionHolder.appendChild(item);
 
@@ -38,6 +39,7 @@ document
     .forEach(btn => {
             btn.addEventListener("click", addFormToCollection)
     });
+*/
 
 //end nos travail
 

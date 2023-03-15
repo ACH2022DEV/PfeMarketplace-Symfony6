@@ -106,6 +106,36 @@ class SellerController extends AbstractController
         ]);
     }
 
+    //add an new page for Edit_seller
+    #[Route('/{id}/edit', name: 'app_seller_edit', methods: ['GET', 'POST'])]
+    public function edit_Profil_Seller(Request $request, Seller $seller, SellerRepository $sellerRepository): Response
+    {
+        $form = $this->createForm(SellerType::class, $seller);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sellerRepository->save($seller, true);
+
+            return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('seller/edit.html.twig', [
+            'seller' => $seller,
+            'form' => $form,
+        ]);
+    }
+    //en of add new page for edit
+//add a controller for seller_Profile
+    #[Route('/ViewProfile', name: 'app_seller_show', methods: ['GET'])]
+    public function showProfile(Seller $seller): Response
+    {
+        return $this->render('seller/show.html.twig', [
+            'seller' => $seller,
+        ]);
+    }
+
+
+//
     #[Route('/{id}/edit', name: 'app_seller_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Seller $seller, SellerRepository $sellerRepository): Response
     {

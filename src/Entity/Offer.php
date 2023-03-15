@@ -24,10 +24,10 @@ class Offer
     #[ORM\Column]
     private ?int $nbDays = null;
 
-    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferProductType::class)]
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferProductType::class, cascade: ['persist','remove'])]
     private Collection $offerProductTypes;
 
-    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: SellerOffer::class)]
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: SellerOffer::class, cascade: ['persist','remove'])]
     private Collection $sellerOffers;
 
     public function __construct()
