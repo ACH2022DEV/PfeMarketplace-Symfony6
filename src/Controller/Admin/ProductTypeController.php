@@ -25,6 +25,17 @@ class ProductTypeController extends AbstractController
             'product_types' => $productTypeRepository->findAll(),
         ]);
     }
+    //add a controller
+  /*  #[Route('/AllOffer', name: 'app_product_seller', methods: ['GET'] )]
+    public function offerseller(ProductTypeRepository $productTypeRepository): Response
+    {
+
+        return $this->render('seller/dashboard/home_seller.html.twig', [
+            'product_types' => $productTypeRepository->findAll(),
+        ]);
+    }*/
+
+    //
 
     #[Route('/new', name: 'app_product_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProductTypeRepository $productTypeRepository): Response
@@ -80,6 +91,30 @@ class ProductTypeController extends AbstractController
 
         return $this->redirectToRoute('app_product_type_index', [], Response::HTTP_SEE_OTHER);
     }
+    //add a controller
+    #[Route('/{id}/OfferProductsSeller', name: 'offerProductTypes_seller', methods: ['GET'])]
+    public function showOfferProductSeller(int $id): Response
+    {
+
+        $productType =  $this->doctrine
+            ->getRepository(ProductType::class)
+            ->find($id);
+        //$offerProductTypes = $productType->getProductTypeidProductType();
+
+        if (!$productType) {
+            throw $this->createNotFoundException(
+                'No productType found for id '.$id
+            );
+        }
+
+        return $this->render('seller/dashboard/offer_product.html.twig', [
+            'productType' => $productType,
+            //  'offerProductTypes' => $offerProductTypes
+
+        ]);
+    }
+
+    //end
     #[Route('/{id}/OfferProductsTypes', name: 'offerProductTypes_ProductType', methods: ['GET'])]
     public function showOfferProductTypes(int $id): Response
     {

@@ -27,13 +27,22 @@ class OfferController extends AbstractController
             'offers' => $offerRepository->findAll(),
         ]);
     }
-    #[Route('/GetAllOffers', name: 'offer_list', methods: ['GET'])]
+    //add an offer controller
+    #[Route('/getAllOffers', name: 'app_offer_seller', methods: ['GET'])]
+    public function getOffer(OfferRepository $offerRepository): Response
+    {
+        return $this->render('seller/dashboard/home_seller.html.twig', [
+            'offer' => $offerRepository->findAll(),
+        ]);
+    }
+    //
+   /* #[Route('/GetAllOffers', name: 'offer_list', methods: ['GET'])]
     public function getAllOffres(): Response
     {
         $List_offer=$this->offer->findAll();
 
         return $this->json($List_offer,200);
-    }
+    }*/
     #[Route('/new', name: 'app_offer_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OfferRepository $offerRepository): Response
     {
@@ -65,6 +74,16 @@ class OfferController extends AbstractController
             'offer' => $offer,
         ]);
     }
+    //add a controller
+    #[Route('/{id}/offers', name: 'app_Show_offer_For_seller', methods: ['GET'])]
+    public function showOffer(Offer $offer): Response
+    {
+        return $this->render('offer/show.html.twig', [
+            'offer' => $offer,
+        ]);
+    }
+
+    //
 
     #[Route('/{id}/edit', name: 'app_offer_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Offer $offer, OfferRepository $offerRepository): Response
@@ -114,7 +133,31 @@ class OfferController extends AbstractController
 
         ]);
     }
+//add a controller
 
+    #[Route('/{id}/OfferProductsTypesForSeller', name: 'app_offerProductTypes_ForSeller', methods: ['GET'])]
+    public function showOfferProductTypesForSeller(int $id): Response
+    {
+
+        $offer =  $this->doctrine
+            ->getRepository(Offer::class)
+            ->find($id);
+        // $offerProductTypes = $offer->getOfferProductTypes();
+
+        if (!$offer) {
+            throw $this->createNotFoundException(
+                'No offer found for id '.$id
+            );
+        }
+
+        return $this->render('seller/dashboard/offer_product.html.twig', [
+            'offer' => $offer,
+            // 'offerProductTypes' => $offerProductTypes
+
+        ]);
+    }
+
+//
     public function __construct(private ManagerRegistry $doctrine,EntityManagerInterface $manager, OfferRepository $offer) {
         $this->em=$doctrine;
         $this->offer=$offer;

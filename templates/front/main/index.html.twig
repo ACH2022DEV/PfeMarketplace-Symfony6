@@ -27,6 +27,7 @@
                     <a href="{{ path('app_register') }}" class="btn btn-outline-primary">S'inscrire</a>
                     <a href="/login/btob" class="btn btn-outline-primary">Espace pro</a>#}
                     <header class="main_header_arae bg-secondary">
+
                         <!-- Top Bar -->
                         <div class="topbar-area">
                             <div class="container">
@@ -97,16 +98,16 @@
                                 <div class="container">
                                     <nav class="navbar navbar-expand-md navbar-light">
                                         <a class="navbar-brand" href="index.html">
-                                            <img src="assets/images/logo.png" alt="logo">
+                                            <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
                                         </a>
-                                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                                        <div class=" navbar-collapse mean-menu" id="navbarSupportedContent">
                                             <ul class="navbar-nav">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">
+                                                    <a href="{{path('app_offer_seller') }}" class="nav-link">
                                                         Home
                                                         <i class="fas fa-angle-down"></i>
                                                     </a>
-                                                    <ul class="dropdown-menu">
+                                                    {#<ul class="dropdown-menu">
                                                         <li class="nav-item">
                                                             <a href="index.html" class="nav-link">Home One</a>
                                                         </li>
@@ -116,7 +117,7 @@
                                                         <li class="nav-item">
                                                             <a href="index-3.html" class="nav-link">Home Three</a>
                                                         </li>
-                                                    </ul>
+                                                    </ul>#}
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">
@@ -273,7 +274,7 @@
                                                             <a href="#" class="nav-link">Customer Dashboard</a>
                                                             <ul class="dropdown-menu">
                                                                 <li class="nav-item">
-                                                                    <a href="{{ path('app_seller_dashboard_Seller') }}" class="nav-link">Dashboard</a>
+                                                                    <a href="{{ path('app_seller_dashboard') }}" class="nav-link">Dashboard</a>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <a href="hotel-booking.html" class="nav-link">Hotel booking</a>
@@ -318,7 +319,7 @@
                                                         <i class="bi bi-search"></i></a>
                                                 </div>
                                                 <div class="option-item">
-                                                    <a href="become-vendor.html" class="btn  btn_navber">Become a partner</a>
+                                                    <a href="{{ path('app_market_subscription_request_new') }}" class="btn  btn_navber">Become a Vendor</a>
                                                 </div>
                                             </div>
                                         </div>

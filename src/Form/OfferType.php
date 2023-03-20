@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Offer;
 use App\Entity\OfferProductType;
 use App\Form\OfferProdType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -16,9 +18,33 @@ class OfferType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('nbProductTypes')
-            ->add('nbDays')
+            ->add('name',TextType::class,[
+                'row_attr' => [
+                    'class' => 'col-md-12 bg-light my-2 p-2',
+                ],
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Enter name',
+                ],
+            ])
+           ->add('nbProductTypes',IntegerType::class,[
+               'row_attr' => [
+                   'class' => 'col-md-12 bg-light my-2 p-2',
+               ],
+               'label' => false,
+               'attr' => [
+                   'placeholder' => 'Enter nbProductTypes',
+               ],
+           ])
+            ->add('nbDays',IntegerType::class,[
+                'row_attr' => [
+                    'class' => 'col-md-12 bg-light my-2 p-2',
+                ],
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Enter nbDays',
+                ],
+            ])
             //the Code added in 3/03/2023
             ->add('offerProductTypes', CollectionType::class, [
                 'entry_type' => \App\Form\OfferProdType::class,
@@ -29,6 +55,8 @@ class OfferType extends AbstractType
                 'label' => false,
                 'by_reference' => false,
             ]);
+      /*  $builder->get('offerProductTypes')
+            ->remove('offer');*/
 
     }
 

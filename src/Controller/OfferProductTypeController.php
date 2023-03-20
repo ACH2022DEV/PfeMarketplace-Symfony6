@@ -22,7 +22,16 @@ class OfferProductTypeController extends AbstractController
             'offer_product_types' => $offerProductTypeRepository->findAll(),
         ]);
     }
+//add a controller
+    #[Route('/{id}/productDetail', name: 'offer_product_seller', methods: ['GET'])]
+    public function showOfferSeller(OfferProductType $offerProductType): Response
+    {
+        return $this->render('seller/dashboard/detail_product.html.twig', [
+            'offerProductType' => $offerProductType,
+        ]);
+    }
 
+//end
     #[Route('/new', name: 'app_offer_product_new', methods: ['GET', 'POST'])]
     //,ProductTypeRepository $ProductTypeRepository
     public function new(Request $request, OfferProductTypeRepository $offerProductTypeRepository): Response

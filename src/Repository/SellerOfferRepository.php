@@ -38,6 +38,18 @@ class SellerOfferRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findExistingSellerOffer($sellerId, $offer): ?SellerOffer
+    {
+        $qb = $this->createQueryBuilder('so')
+            ->andWhere('so.seller = :sellerId')
+            ->andWhere('so.offer = :offer')
+            ->setParameter('sellerId', $sellerId)
+            ->setParameter('offer', $offer)
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 
 //    /**
 //     * @return SellerOffer[] Returns an array of SellerOffer objects

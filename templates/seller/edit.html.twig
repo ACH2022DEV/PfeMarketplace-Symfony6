@@ -1,13 +1,166 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Seller{% endblock %}
+{% block title %}dashboard{% endblock %}
 
 {% block body %}
-    <h1>Edit Seller</h1>
+    {#{% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ flash_error }}
+        </div>
+    {% endfor %}#}
 
-    {{ include('seller/_form.html.twig', {'button_label': 'Update'}) }}
+    <div>{{ dump(app.session.all) }} </div>
+   <h1>{{ dump(userId) }}</h1>
+    <h2>{{ dump(seller) }}</h2>
 
-    <a href="{{ path('app_seller_index') }}">back to list</a>
 
-    {{ include('seller/_delete_form.html.twig') }}
+
+    <section id="dashboard_main_arae" class="section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="dashboard_sidebar">
+                        <div class="dashboard_sidebar_user">
+
+                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">
+                            <h3>{{ seller.name}}</h3>
+                            <h3>{{ seller.website}}</h3>
+                              <p><a href="tel:+00-123-456-789">{{ seller.user.email }}</a></p>
+                            <p><a href="mailto:sherlyn@domain.com">{{  seller.website }}</a></p>
+                        </div>
+                        <div class="dashboard_menu_area">
+                            <ul>
+                                <li><a href="dashboard.html" class="active"><i
+                                                class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                                <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
+                                            class="fas fa-address-card"></i>My bookings
+                                    <span> <i class="fas fa-angle-down"></i></span>
+                                    <div class="booing_sidebar_dashboard" id="show_dropdown_item"
+                                         style="display: none;">
+                                        <ul>
+                                            <li><a href="hotel-booking.html"><i class="fas fa-hotel"></i>Hotel
+                                                    booking</a></li>
+                                            <li><a href="flight-booking.html"><i class="fas fa-paper-plane"></i>Flight
+                                                    booking</a></li>
+                                            <li>
+                                                <a href="tour-booking.html">
+                                                    <i class="fas fa-map"></i>Tour booking
+                                                </a>
+                                            </li>
+                                            <li><a href="booking-history.html">
+                                                    <i class="fas fa-history"></i>Booking history</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
+                                <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
+                                <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
+                                <li>
+                                    {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-sign-out-alt"></i>Logout
+                                    </a>#}
+                                    <a href="{{ path('app_logout') }}" >
+                                        <i class="fas fa-sign-out-alt"></i>Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="dashboard_common_table">
+                        <h3>My Profile</h3>
+                        <div class="profile_update_form">
+                            <div action="!#" id="profile_form_area">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            {{ form_start(form) }}
+                                            {{ form_errors(form) }}
+                                            <label for="f-name">First name</label>
+                                            {{ form_row(form.user.username) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="l-name">Last name</label>
+                                            {{ form_row(form.name) }}
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="l-name">Email</label>
+                                            {{ form_row(form.user.email) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="mail-address">Adresse</label>
+                                            {{ form_row(form.address) }}
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="mobil-number">Website</label>
+                                            {{ form_row(form.website) }}
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="l-name">City</label>
+                                            {{ form_row(form.city) }}
+                                        </div>
+                                    </div>
+{#
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="l-name">Adresse</label>
+                                            {{ form_row(form.address) }}
+                                        </div>
+                                    </div>
+#}
+
+
+                                    <div class="change_password_input_boxed">
+                                        <h3>Change password</h3>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group change_password_field">
+                                                    <label for="password">Old Password</label>
+                                                    <input type="password" class="form-control" id="password" value="cdkdkdd">
+
+                                                </div>  </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group change_password_field">
+                                                        <label for="password">New Password</label>
+                                                        <input type="password" class="form-control" id="password" value="cdkdkdd">
+                                                        <p>Change password</p>
+                                                    </div>  </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn_theme btn_md">Save</button>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
 {% endblock %}
+
+
+
+
+
+

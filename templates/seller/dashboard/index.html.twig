@@ -21,10 +21,17 @@
                 <div class="col-lg-4">
                     <div class="dashboard_sidebar">
                         <div class="dashboard_sidebar_user">
-                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">
-                            <h3>Sherlyn Chopra</h3>
-                            <p><a href="tel:+00-123-456-789">+00 123 456 789</a></p>
-                            <p><a href="mailto:sherlyn@domain.com">sherlyn@domain.com</a></p>
+                          <div>{{ dump(app.session.all) }} </div>
+                            <h1>{{ dump(userId) }}</h1>
+                            <h2>{{ dump(seller) }}</h2>
+
+
+
+                             {#  <h1 class="text-danger">  {{ userId }}</h1>#}
+                          {#  <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">
+                            <h3>{{ seller.name }}</h3>
+                            <p><a href="tel:+00-123-456-789">{{ seller.user.email }}</a></p>
+                            <p><a href="mailto:sherlyn@domain.com">{{  seller.website }}</a></p>#}
                         </div>
                         <div class="dashboard_menu_area">
                             <ul>
@@ -55,7 +62,10 @@
                                 <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
                                 <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
                                 <li>
-                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                   {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-sign-out-alt"></i>Logout
+                                    </a>#}
+                                    <a href="{{ path('app_logout') }}" >
                                         <i class="fas fa-sign-out-alt"></i>Logout
                                     </a>
                                 </li>

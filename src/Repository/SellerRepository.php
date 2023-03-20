@@ -38,7 +38,15 @@ class SellerRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findSellerByUserId(int $userId): ?Seller
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.user', 'u')
+            ->andWhere('u.id = :user_id')
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 //    /**
 //     * @return Seller[] Returns an array of Seller objects
 //     */

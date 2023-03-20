@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route(path: '/login/{type?user}', name: 'app_login', requirements: ['type' => 'user|admin|btob'])]
+    #[Route(path: '/login/{type?user}', name: 'app_login', requirements: ['type' => 'user|admin|btob|Seller'])]
     public function login(AuthenticationUtils $authenticationUtils, $type): Response
     {
 
@@ -30,7 +30,7 @@ class LoginController extends AbstractController
     {
 
         // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+       $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
        // $view = "shared/login/login_".$type.".html.twig";

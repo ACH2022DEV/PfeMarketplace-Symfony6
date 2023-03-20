@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use App\Repository\MarketSubscriptionRequestRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Trait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MarketSubscriptionRequestRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class MarketSubscriptionRequest
 {
+    use Trait\TimeStampTrait2;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

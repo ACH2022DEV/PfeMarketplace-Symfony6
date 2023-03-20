@@ -3,9 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\MarketSubscriptionRequest;
+use App\Entity\Offer;
 use App\Entity\Seller;
+use App\Entity\SellerOffer;
 use App\Entity\User;
 use App\Events\SellerCreatedEvent;
+use App\Repository\SellerOfferRepository;
+use DateTime;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use App\Form\SellerType;
 use App\Repository\SellerRepository;
 use App\Repository\UserRepository;
@@ -17,12 +24,20 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Helpers;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 
 #[Route('/seller')]
 class SellerController extends AbstractController
 {
+    private $em;
+
+    public function __construct(  private Security $security,private ManagerRegistry $doctrine,SellerOfferRepository $sellerOfferRepository){
+        $this->em=$doctrine;
+        $this->sellerOfferRepository = $sellerOfferRepository;
+
+    }
     #[Route('/', name: 'app_seller_index', methods: ['GET'])]
     public function index(SellerRepository $sellerRepository): Response
     {
@@ -107,21 +122,42 @@ class SellerController extends AbstractController
     }
 
     //add an new page for Edit_seller
-    #[Route('/{id}/edit', name: 'app_seller_edit', methods: ['GET', 'POST'])]
-    public function edit_Profil_Seller(Request $request, Seller $seller, SellerRepository $sellerRepository): Response
+
+   /* #[Route('/editProfileU', name: 'app_seller_dashboardEdit', methods: ['GET', 'POST'])]
+    public function editProfile(): Response
     {
+       // $seller = $this->getUser();
+
+        return $this->render('seller/edit.html.twig', [
+          //  'seller' => $seller,
+           // 'form' => $form
+        ]);
+    }*/
+    #[Route('/editProfile', name: 'app_seller_dashboard', methods: ['GET', 'POST'])]
+    public function edit_Profil_Seller(Request $request, SellerRepository $sellerRepository): Response
+    {
+        //, Seller $seller, SellerRepository $sellerRepository
+     $session = $request->getSession();
+        if ( $session->isStarted()) {
+            $user = $this->security->getUser();
+            $userId = $user->getId();
+           // $userId = $request->getSession()->get('id');
+            $seller = $this->em->getRepository(Seller::class)
+                ->findSellerByUserId($userId);
+        }
+
         $form = $this->createForm(SellerType::class, $seller);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sellerRepository->save($seller, true);
 
-            return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_offer_seller', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('seller/edit.html.twig', [
-            'seller' => $seller,
-            'form' => $form,
+           'seller' => $seller,
+            'userId' => $userId,
+            'form' => $form
         ]);
     }
     //en of add new page for edit
@@ -163,4 +199,64 @@ class SellerController extends AbstractController
 
         return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+// ajouterAuPanier
+    #[Route('/{id}/AddSellerOffer1', name: 'Add_Seller_Offer2', methods: ['POST'])]
+    public function ajouterAuPanier1(Request $request, Security $security): Response
+    {
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        if (!$user) {
+            // L'utilisateur n'est pas authentifié, redirection vers la page de connexion
+            return $this->render('shared/login/login_Seller.html.twig');
+        }
+        return $this->render('seller/show.html.twig', [
+          //  'seller' => $seller,
+        ]);
+    }
+    #[Route('/{id}/AddSellerOffer', name: 'Add_Seller_Offer', methods: ['POST'])]
+    public function ajouterAuPanier(Request $request, Security $security): JsonResponse
+    {
+        //$data = json_decode($request->getContent(), true);
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+
+
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        $sellerOffer = new SellerOffer();
+        $sellerOffer->setSeller($seller);
+        $sellerOffer->setCreationDate(new DateTime());
+        $sellerOffer->setStartDate(new DateTime());
+        $id = $request->attributes->get('id');
+
+       // var_dump($id); // affiche la valeur de l'ID dans la console ou dans la page web
+        // $id = $request->request->get('id');
+        //$id=64;
+        $offer = $this->em->getRepository(Offer::class)->find($id);
+        $existingSellerOffer = $this->sellerOfferRepository->findExistingSellerOffer($seller->getId(), $offer->getId());
+        if ($existingSellerOffer) {
+            return new JsonResponse([
+                'status' => false,
+                'message' => 'L\'offre existe déjà dans le panier de ce vendeur.',
+            ]);
+        }else{
+            $sellerOffer->setOffer($offer);
+        }
+
+
+
+        $entityManager = $this->em->getManager();
+        $entityManager->persist($sellerOffer);
+        $entityManager->flush();
+
+        return new JsonResponse([
+            'status' => true,
+            'message' => 'Vous avez ajouté les offres à votre panier',
+        ]);
+    }
+
+    //fin ajouterAuPanier
 }

@@ -18,7 +18,7 @@ class Offer
     #[ORM\Column(length: 45)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $nbProductTypes = null;
 
     #[ORM\Column]

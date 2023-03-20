@@ -39,7 +39,7 @@ class MarketSubscriptionRequestController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $marketSubscriptionRequestRepository->save($marketSubscriptionRequest, true);
 
-            return $this->redirectToRoute('app_market_subscription_request_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_market_subscription_request_new', [], Response::HTTP_SEE_OTHER);
         }
 
         $template = $request->isXmlHttpRequest() ? '_form.html.twig' : 'new.html.twig';

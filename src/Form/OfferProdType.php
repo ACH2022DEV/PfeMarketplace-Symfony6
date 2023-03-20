@@ -9,6 +9,7 @@ use App\Entity\ProductType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,15 +21,39 @@ class OfferProdType extends AbstractType
     {
 
         $builder
-            ->add('maxItems')
-            ->add('price')
-            ->add('offer', EntityType::class, [
-                'required' => true,
-                'class'=> Offer::class
+           ->add('maxItems',IntegerType::class,[
+                'row_attr' => [
+                    'class' => 'col-md-12 bg-light my-2 p-2',
+                ],     'label' => false,
+               'attr' => [
+                   'placeholder' => 'Enter maxItems',
+               ],
             ])
+        // ->add('maxItems')
+            ->add('price',IntegerType::class,[
+                'row_attr' => [
+                    'class' => 'col-md-12 bg-light my-2 p-2',
+                ],
+            'label' => false,
+            'attr' => [
+                'placeholder' => 'Enter price',
+            ],
+            ])
+          // ->add('price')
+        /*    ->add('offer', EntityType::class, [
+                'required' => false,
+
+                'class'=> Offer::class
+            ])*/
             ->add('productType', EntityType::class, [
                 'required' => true,
-                'class'=> ProductType::class
+                'class'=> ProductType::class,
+                'row_attr' => [
+                 'class' => 'col-md-12 bg-light my-2 rounded-2 p-2',
+    ], 'label' => false,
+              'attr' => [
+                  'placeholder' => 'Enter ProductType',
+              ],
             ])
         ;
 

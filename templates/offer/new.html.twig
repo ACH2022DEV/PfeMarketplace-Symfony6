@@ -4,14 +4,14 @@
 {% block title %}New Offer{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container my-5 ">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h1>Create new Offer</h1>
+                        <h3 class="fst-italic">Create new Offer</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body  row justify-content-center">
                         {{ include('offer/_form.html.twig') }}
                     </div>
                     <div class="card-footer">
