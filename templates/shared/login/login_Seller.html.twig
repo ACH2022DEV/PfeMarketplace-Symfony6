@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
-{#{% extends 'seller/base_seller.html.twig' %}#}
+{#{% extends 'base.html.twig' %}#}
+{% extends 'seller/base_seller.html.twig' %}
 
 {% block title %}Login{% endblock %}
-{% block header  %} {% include 'front/header.html.twig' %}{% endblock %}
-{% block body %}
+{#{% block header  %} {% include 'front/header.html.twig' %}{% endblock %}#}
+{% block container %}
 
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">
@@ -24,12 +24,12 @@
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
-                            {% if app.user %}
+                           {# {% if app.user %}
                                 <div class="mb-3">
                                     You are logged in as {{ app.user.userIdentifier }}, <a
                                             href="{{ path('app_logout') }}">Logout</a>
                                 </div>
-                            {% endif %}
+                            {% endif %}#}
                             <div class="form-group">
 {#                                <input type="text" class="form-control" placeholder="Enter user name" />#}
                                 <label for="inputEmail" class="form-label">Email address</label>

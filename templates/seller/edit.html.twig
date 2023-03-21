@@ -1,17 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'seller/base_seller.html.twig' %}
 
 {% block title %}dashboard{% endblock %}
 
-{% block body %}
+{% block container %}
     {#{% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">
             {{ flash_error }}
         </div>
     {% endfor %}#}
 
-    <div>{{ dump(app.session.all) }} </div>
+  {#  <div>{{ dump(app.session.all) }} </div>
    <h1>{{ dump(userId) }}</h1>
-    <h2>{{ dump(seller) }}</h2>
+    <h2>{{ dump(seller) }}</h2>#}
 
 
 

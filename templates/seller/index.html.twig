@@ -25,6 +25,34 @@
                 <td>
                     <a href="{{ path('app_seller_show', {'id': seller.id}) }}">show</a>
                     <a href="{{ path('app_seller_edit', {'id': seller.id}) }}">edit</a>
+                    <a href="{{ path('app_seller_delete', {'id': seller.id}) }}">delete</a>
+                    <a class="btn btn-primary" href="#" data-id="{{ seller.id }}" onclick="deleteOffer(event)">delete</a>
+
+                    <script>
+                        function deleteOffer(event) {
+                            event.preventDefault();
+
+                            var sellerId = event.target.getAttribute('data-id');
+
+                            if (confirm('Are you sure you want to delete this seller?')) {
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('DELETE', '{{ path('app_seller_delete', {'id': seller.id}) }}');
+                                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                                xhr.onload = function() {
+                                    if (xhr.status === 200) {
+                                        alert('Offer successfully deleted!');
+                                        // Optionally, you can remove the seller from the DOM
+                                        // to reflect the change without reloading the page.
+                                    } else {
+                                        alert('An error occurred while deleting the offer.');
+                                    }
+                                };
+                                xhr.send();
+                            }
+                        }
+                    </script>
+
+
                 </td>
             </tr>
         {% else %}

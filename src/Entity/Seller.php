@@ -13,7 +13,7 @@ class Seller
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column ]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]

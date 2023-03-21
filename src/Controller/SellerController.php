@@ -259,4 +259,85 @@ class SellerController extends AbstractController
     }
 
     //fin ajouterAuPanier
+
+    //afficher le panier d'un utilisateur
+    #[Route('/MonPanier', name: 'Get_Seller_Panier', methods: ['GET'])]
+    public function getPanier(Request $request, Security $security): Response
+    {
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        return $this->render('seller/panier_Seller.html.twig', [
+        'seller' => $seller
+        ]);
+    }
+    //fin panier
+
+    //supprimer un offre d'un panier()sellerOffers
+    #[Route('/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
+    public function removeOfferFromCart(Request $request, SellerOffer $sellerOffer, SellerOfferRepository $sellerOfferRepository):Response
+    {
+       /* $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        //$sellerOffers=$seller->getSellerOffers();
+        $id = $request->attributes->get('id');
+        $offer = $this->em->getRepository(SellerOffer::class)->find($id);
+        if ($this->isCsrfTokenValid('delete'.$offer->getId(), $request->request->get('_token'))) {
+            $sellerOfferRepository->remove($offer, true);
+        }
+        if ($sellerOffers->contains($offer)) {
+            $sellerOffers->removeElement($offer);
+            $entityManager = $this->em->getManager();
+            $entityManager->flush();
+        }*/
+        $id = $request->attributes->get('id');
+        $offerSeller = $this->em->getRepository(SellerOffer::class)->find($id);
+        $entityManager = $this->em->getManager();
+        $entityManager->remove($offerSeller);
+        $entityManager->flush();
+
+      // return $this->redirectToRoute('Get_Seller_Panier');
+        return $this->redirectToRoute('Get_Seller_Panier', [], Response::HTTP_SEE_OTHER);
+    }
+  /*  #[Route('/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
+    public function removeOfferFromCart(Request $request, $id)
+    {
+        $user = $this->security->getUser();
+        if (!$user) {
+            // user is not authenticated
+            throw new \Exception('User is not authenticated.');
+        }
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        if (!$seller) {
+            // seller not found for this user
+            throw new \Exception('Seller not found for this user.');
+        }
+        $sellerOffers = $seller->getSellerOffers();
+        if (!$sellerOffers) {
+            // seller offers collection not found
+            throw new \Exception('Seller offers collection not found.');
+        }
+        $offer = $this->em->getRepository(SellerOffer::class)->find($id);
+        if (!$offer) {
+            // offer not found in database
+            throw new \Exception('Offer not found in database.');
+        }
+        if (!$sellerOffers->contains($offer)) {
+            // offer not found in seller offers collection
+            throw new \Exception('Offer not found in seller offers collection.');
+        }
+        $sellerOffers->removeElement($offer);
+        $entityManager = $this->em->getManager();
+        $entityManager->flush();
+
+        return $this->redirectToRoute('Get_Seller_Panier');
+    }*/
+
+
+    //
 }

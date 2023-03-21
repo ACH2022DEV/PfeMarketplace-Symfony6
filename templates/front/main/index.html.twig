@@ -1,4 +1,6 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
+{% extends 'seller/base_seller.html.twig' %}
+
 
 {% block title %}Hello MainController!{% endblock %}
 
@@ -26,6 +28,9 @@
                     {#<a href="{{ path('app_login') }}" class="btn btn-outline-primary">Se connecter</a>
                     <a href="{{ path('app_register') }}" class="btn btn-outline-primary">S'inscrire</a>
                     <a href="/login/btob" class="btn btn-outline-primary">Espace pro</a>#}
+{#                    {{ include('seller/partial/header.html.twig') }}#}
+
+
                     <header class="main_header_arae bg-secondary">
 
                         <!-- Top Bar -->
@@ -107,7 +112,7 @@
                                                         Home
                                                         <i class="fas fa-angle-down"></i>
                                                     </a>
-                                                    {#<ul class="dropdown-menu">
+                                                    <ul class="dropdown-menu">
                                                         <li class="nav-item">
                                                             <a href="index.html" class="nav-link">Home One</a>
                                                         </li>
@@ -117,7 +122,7 @@
                                                         <li class="nav-item">
                                                             <a href="index-3.html" class="nav-link">Home Three</a>
                                                         </li>
-                                                    </ul>#}
+                                                    </ul>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">
@@ -351,6 +356,8 @@
                             </div>
                         </div>
                     </header>
+
+
 
                 </div>
             {% endif %}

@@ -1,0 +1,77 @@
+.btnColor{
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  background-color: #f68b1e;
+  height: 40px;
+
+}
+.border1{
+  color: #f68b1e;
+}
+.headerColor{
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  background-color: #f68b1e;
+  height: 50px;
+}
+.btnColor1{
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  background-color: #f68b1e;
+  height: 39px;
+
+}
+button[disabled]{
+  cursor: none;
+}
+button[disabled]:hover{
+  background-color: gray;
+  cursor: none;
+}
+input[type="radio"] {
+  /* remove standard background appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* create custom radiobutton appearance */
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 1px;
+  /* background-color only for content */
+  background-clip: content-box;
+  border: 3px solid #bbbbbb;
+
+  border-radius: 50%;
+}
+
+
+.form-control1{
+
+  border-color: #fd7f01;
+}
+.widthm{
+  width: 70%;
+}
+
+.sidebar{
+  border-top: 1px solid #dddddd;}
+.textColor,a{
+  color: #f68b1e;
+  text-decoration: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;
+}
+.color-bg{
+  color: #f68b1e;
+  background-color: #feefde;
+  font-family: Roboto,Arial,Helvetica,sans-serif;
+
+}
+.marginTop{
+  margin-top: 200px;
+}
+
+a{
+  text-decoration: none;
+  color:inherit;
+}
