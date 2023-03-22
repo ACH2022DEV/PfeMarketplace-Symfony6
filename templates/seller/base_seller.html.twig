@@ -31,22 +31,45 @@
 
 <body data-theme="light" data-layout-mode="horizontal" data-topbar-color="dark" data-menu-position="fixed">
 <!-- Begin page -->
+<!-- preloader Area -->
+{#
+<div class="preloader">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div>
+#}
 
 
     {% block body %}
 
-
+{#<div style="margin-bottom: 100px;"><div>#}
     {% block header %}
         {% include'seller/partial/header.html.twig' %}
     {% endblock %}
 
 
 
-    <div>
+
         {% block container %}
         {% endblock %}
-    </div>
+
 </div>
 </div>
 

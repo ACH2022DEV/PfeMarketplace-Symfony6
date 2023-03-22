@@ -170,6 +170,22 @@ class SellerController extends AbstractController
         ]);
     }
 
+    //passez la commande
+    #[Route('/Confirmation', name: 'app_seller_Confirmation', methods: ['GET'])]
+    public function passezCommande(Request $request, Security $security): Response
+    {
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        return $this->render('seller/commandeConfirmation.html.twig', [
+            'seller' => $seller,
+        ]);
+    }
+
+
+    //
+
 
 //
     #[Route('/{id}/edit', name: 'app_seller_edit', methods: ['GET', 'POST'])]
@@ -217,12 +233,13 @@ class SellerController extends AbstractController
         ]);
     }
     #[Route('/{id}/AddSellerOffer', name: 'Add_Seller_Offer', methods: ['POST'])]
-    public function ajouterAuPanier(Request $request, Security $security): JsonResponse
+    public function ajouterAuPanier(Request $request, Security $security): Response
     {
         //$data = json_decode($request->getContent(), true);
         $user = $this->security->getUser();
         $userId = $user->getId();
         $session = $request->getSession();
+
 
 
         $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
@@ -238,10 +255,11 @@ class SellerController extends AbstractController
         $offer = $this->em->getRepository(Offer::class)->find($id);
         $existingSellerOffer = $this->sellerOfferRepository->findExistingSellerOffer($seller->getId(), $offer->getId());
         if ($existingSellerOffer) {
-            return new JsonResponse([
+            /*return new JsonResponse([
                 'status' => false,
                 'message' => 'L\'offre existe déjà dans le panier de ce vendeur.',
-            ]);
+            ]);*/
+            return $this->redirectToRoute('app_offer_seller', [], Response::HTTP_SEE_OTHER);
         }else{
             $sellerOffer->setOffer($offer);
         }
@@ -252,10 +270,15 @@ class SellerController extends AbstractController
         $entityManager->persist($sellerOffer);
         $entityManager->flush();
 
-        return new JsonResponse([
+      /* return new JsonResponse([
             'status' => true,
             'message' => 'Vous avez ajouté les offres à votre panier',
+        ]);*/
+
+        return $this->render('seller/panier_Seller.html.twig', [
+              'seller' => $seller,
         ]);
+
     }
 
     //fin ajouterAuPanier
@@ -302,42 +325,6 @@ class SellerController extends AbstractController
       // return $this->redirectToRoute('Get_Seller_Panier');
         return $this->redirectToRoute('Get_Seller_Panier', [], Response::HTTP_SEE_OTHER);
     }
-  /*  #[Route('/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
-    public function removeOfferFromCart(Request $request, $id)
-    {
-        $user = $this->security->getUser();
-        if (!$user) {
-            // user is not authenticated
-            throw new \Exception('User is not authenticated.');
-        }
-        $userId = $user->getId();
-        $session = $request->getSession();
-        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
-        if (!$seller) {
-            // seller not found for this user
-            throw new \Exception('Seller not found for this user.');
-        }
-        $sellerOffers = $seller->getSellerOffers();
-        if (!$sellerOffers) {
-            // seller offers collection not found
-            throw new \Exception('Seller offers collection not found.');
-        }
-        $offer = $this->em->getRepository(SellerOffer::class)->find($id);
-        if (!$offer) {
-            // offer not found in database
-            throw new \Exception('Offer not found in database.');
-        }
-        if (!$sellerOffers->contains($offer)) {
-            // offer not found in seller offers collection
-            throw new \Exception('Offer not found in seller offers collection.');
-        }
-        $sellerOffers->removeElement($offer);
-        $entityManager = $this->em->getManager();
-        $entityManager->flush();
-
-        return $this->redirectToRoute('Get_Seller_Panier');
-    }*/
-
 
     //
 }

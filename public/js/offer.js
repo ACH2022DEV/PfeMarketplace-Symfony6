@@ -24,6 +24,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         // Remove the offerProductType form
-        $(this).closest('.offer-product-types-wrapper').remove();
+        //$(this).closest('.offer-product-types-wrapper').remove();
+        $(this).closest('li').remove();
     });
 });

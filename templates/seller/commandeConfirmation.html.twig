@@ -1,0 +1,90 @@
+{% extends 'seller/base_seller.html.twig' %}
+
+{% block container  %}
+<div class="card ">
+    <div class="card-header my-5" >
+
+    </div>
+    <div class="card-body">
+
+
+<section id="tour_booking_submission" class="section_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tou_booking_form_Wrapper">
+                    <div class="tour_booking_form_box mb-4">
+                        <div class="booking_success_arae">
+                            <div class="booking_success_img">
+                                <img src="{{ asset('assets/images/icon/right.png') }}" alt="img">
+                            </div>
+                            <div class="booking_success_text">
+                                <h3>{{ seller.name  }} {{ seller.user.username }} your order was submitted successfully!</h3>
+                                <h6>Your booking details has been sent to: {{ seller.user.email}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="booking_tour_form">
+                        <h3 class="heading_theme">Your information</h3>
+                        <div class="tour_booking_form_box">
+                            <div class="your_info_arae">
+                                <ul>
+                                    <li><span class="name_first">First name:</span> <span
+                                                class="last_name">{{ seller.name }}</span></li>
+                                    <li><span class="name_first">Last name:</span> <span
+                                                class="last_name">{{ seller.user.username }}</span></li>
+                                    <li><span class="name_first">Email address:</span> <span
+                                                class="last_name">{{seller.user.email}}</span></li>
+                                    <li><span class="name_first">Address:</span> <span class="last_name">{{ seller.address }}</span></li>
+                                    <li><span class="name_first">City:</span> <span
+                                                class="last_name">{{ seller.city }}</span></li>
+{#                                    <li><span class="name_first">State:</span> <span class="last_name">{{ seller.user.verified }}</span>#}
+{#                                    </li>#}
+                                   {# <li><span class="name_first">Postal code:</span> <span
+                                                class="last_name">81063</span></li>
+                                    <li><span class="name_first">Country:</span> <span class="last_name">USA</span>
+                                    </li>#}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="tour_details_right_sidebar_wrapper">
+                    <div class="tour_detail_right_sidebar">
+                        <div class="tour_details_right_boxed">
+                            <div class="tour_details_right_box_heading">
+                                <h3>Panier details</h3>
+                            </div>
+                            <div class="tour_booking_amount_area">
+                                <ul>
+                                    <li>Payment method: <span>Bank transfer</span></li>
+                                    <li>Booking status: <span>Success</span></li>
+                                </ul>
+                                <ul>
+                                    <li class="remove_coupon_tour">Discount <span>10%</span></li>
+                                    <li>Tax <span>5%</span></li>
+                                </ul>
+                                <div class="total_subtotal_booking">
+                                    <h6 class="remove_coupon_tour">Subtotal <span>$38,000.00</span></h6>
+                                </div>
+                                {#<div class="total_subtotal_booking">
+                                    <h6><span class="remove_coupon_tour"></span> Coupon code (OFF 5000)
+                                        <span>$5,000.00</span>
+                                    </h6>
+                                </div>#}
+                                <div class="total_subtotal_booking">
+                                    <h6 class="remove_coupon_tour">Total Amount <span>$33,000.00</span> </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    </div>
+</div>
+
+    {% endblock %}

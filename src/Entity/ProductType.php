@@ -59,7 +59,7 @@ class ProductType
     {
         if (!$this->offerProductTypes->contains($offerProductType)) {
             $this->offerProductTypes->add($offerProductType);
-            $offerProductType->setProductTypeidProductType($this);
+            $offerProductType->setProductType($this);
         }
 
         return $this;
@@ -69,8 +69,8 @@ class ProductType
     {
         if ($this->offerProductTypes->removeElement($offerProductType)) {
             // set the owning side to null (unless already changed)
-            if ($offerProductType->getProductTypeidProductType() === $this) {
-                $offerProductType->setProductTypeidProductType(null);
+            if ($offerProductType->getProductType() === $this) {
+                $offerProductType->setProductType(null);
             }
         }
 

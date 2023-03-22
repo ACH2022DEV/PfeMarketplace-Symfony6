@@ -3,9 +3,10 @@
 namespace App\Controller\Shared;
 
 use App\Entity\Offer;
+use App\Entity\SellerOffer;
 use App\Form\OfferType;
 use App\Repository\OfferRepository;
-use Proxies\__CG__\App\Entity\OfferProductType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,11 +32,20 @@ class OfferController extends AbstractController
     #[Route('/getAllOffers', name: 'app_offer_seller', methods: ['GET'])]
     public function getOffer(OfferRepository $offerRepository): Response
     {
-        return $this->render('seller/dashboard/home_seller.html.twig', [
+        return $this->render('seller/dashboard/offerList.html.twig', [
             'offer' => $offerRepository->findAll(),
         ]);
     }
-    //
+    //add home Page
+    #[Route('/Home', name: 'app_Home_seller', methods: ['GET'])]
+    public function getPageHome(): Response
+    {
+        return $this->render('seller/dashboard/home_seller.html.twig', [
+            //'offer' => $offerRepository->findAll(),
+        ]);
+    }
+
+    //end home page
    /* #[Route('/GetAllOffers', name: 'offer_list', methods: ['GET'])]
     public function getAllOffres(): Response
     {
@@ -83,16 +93,42 @@ class OfferController extends AbstractController
         ]);
     }
 
-    //
+
+
 
     #[Route('/{id}/edit', name: 'app_offer_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Offer $offer, OfferRepository $offerRepository): Response
+    public function edit(Request $request, Offer $offer, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(OfferType::class, $offer);
+
+        // Store original offerProductTypes for removal check
+        $originalOfferProductTypes = new ArrayCollection();
+        foreach ($offer->getOfferProductTypes() as $offerProductTypes) {
+            $originalOfferProductTypes->add($offerProductTypes);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $offerRepository->save($offer, true);
+            // Remove offerProductTypes that were removed from the form
+            foreach ($originalOfferProductTypes as $offerProductTypes) {
+                if (false === $offer->getOfferProductTypes()->contains($offerProductTypes)) {
+                    // Check if offer product type has any associated child records
+                    if ($offerProductTypes->getProductType()) {
+                        // Remove the association with the child record first to avoid foreign key constraint errors
+                        $offerProductTypes->getProductType()->removeOfferProductType($offerProductTypes);
+                    }
+                    $manager->remove($offerProductTypes);
+                }
+            }
+
+            // Add new offerProductTypes
+            foreach ($form->get('offerProductTypes')->getData() as $offerProductTypes) {
+                $offerProductTypes->setOffer($offer);
+                $manager->persist($offerProductTypes);
+            }
+
+            $manager->flush();
 
             return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -102,6 +138,8 @@ class OfferController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
 
     #[Route('/{id}', name: 'app_offer_delete', methods: ['POST'])]
     public function delete(Request $request, Offer $offer, OfferRepository $offerRepository): Response

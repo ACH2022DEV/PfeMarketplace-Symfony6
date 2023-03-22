@@ -62,7 +62,7 @@ export default class extends Controller {
         this.modalTitleTarget.innerHTML = this.modalTitleValue;
         this.modalBodyTarget.innerHTML = 'Loading...';
         this.modal = new Modal(this.modalTarget);
-        if(this.urlRedirectTwoValue != ""){
+        if(this.urlRedirectTwoValue !== ""){
             this.modalFooterTarget.hide()
         }
         this.modal.show();
@@ -79,7 +79,7 @@ export default class extends Controller {
         this.modalTitleTwoTarget.innerHTML = this.modalTitleTwoValue;
         this.modalBodyTwoTarget.innerHTML = 'Loading...';
         this.modalTwo = new Modal(this.modalTwoTarget);
-        if(this.urlRedirectTwoValue != ""){
+        if(this.urlRedirectTwoValue !== ""){
             this.modalFooterTwoTarget.hide()
         }
         this.modalTwo.show();
