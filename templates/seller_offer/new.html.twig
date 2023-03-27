@@ -1,11 +1,78 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}
 
-{% block title %}New SellerOffer{% endblock %}
+{% block title %}New SellerOffer{% endblock %}#}
+{% extends 'seller/base_seller.html.twig' %}
 
 {% block body %}
     <h1>Create new SellerOffer</h1>
 
     {{ include('seller_offer/_form.html.twig') }}
 
+
     <a href="{{ path('app_seller_offer_index') }}">back to list</a>
+
+
+    <div class="card ">
+        <div class="card-header " >
+
+        </div>
+        <div class="card-body" style="margin-top: 150px">
+
+            <div class="col-md-10 col-10 mx-auto col-lg-8 col-sm-12 col-xl-8 h-100 my-2 sticky-top mb-1" style="top: 100px; z-index: 4;">
+
+                <div class="tour_details_right_sidebar_wrapper">
+                    <div class="tour_detail_right_sidebar">
+                        <div class="tour_details_right_boxed">
+                            <div class="tour_details_right_box_heading">
+                                <h3>Panier details</h3>
+                            </div>
+
+                            <div class="container">
+                                <div class="row">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nom</th>
+                                            <th>nbProductTypes</th>
+                                            <th>StartDate</th>
+                                            <th>IDOffer</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tour_booking_amount_area">
+
+                                <ul>
+                                    <li class="remove_coupon_tour">Discount <span>10%</span></li>
+                                    <li>Tax <span>5%</span></li>
+                                </ul>
+                                <div class="total_subtotal_booking">
+                                    <h6 class="remove_coupon_tour text-start">Subtotal <span>$38,000.00</span></h6>
+                                </div>
+                                {# <div class="coupon_add_area">
+                                    <h6><span class="remove_coupon_tour">Remove</span> Coupon code (OFF 5000)
+                                        <span>$5,000.00</span>
+                                    </h6>
+                                </div>#}
+                                <div class="total_subtotal_booking">
+                                    <h6 class="remove_coupon_tour">Total Amount <span>$33,000.00</span> </h6>
+                                </div>
+                                {#                                <a class=" btn my-2 btn_theme  w-100" href="{{ path('app_seller_Confirmation')}}"> Passez la Commander</a>#}
+{#                                <a class=" btn my-2 btn_theme  w-100" href="{{ path('app_seller_Confirmation')}}"> Confirmer la Commander</a>#}
+                                {#                                <button href="{{ path('app_seller_Confirmation')}}" class=" btn my-2 btn_theme  w-100"> Passez la Commander</button>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

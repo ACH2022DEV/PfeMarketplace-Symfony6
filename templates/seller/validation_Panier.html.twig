@@ -1,0 +1,60 @@
+{% extends 'seller/base_seller.html.twig' %}
+
+{% block container  %}
+    <div class="card ">
+        <div class="card-header " >
+
+        </div>
+        <div class="card-body" style="margin-top: 150px">
+
+            <div class="col-md-10 col-10 mx-auto col-lg-8 col-sm-12 col-xl-8 h-100 my-2 sticky-top mb-1" style="top: 100px; z-index: 4;">
+
+                <div class="tour_details_right_sidebar_wrapper">
+                    <div class="tour_detail_right_sidebar">
+                        <div class="tour_details_right_boxed">
+                            <div class="tour_details_right_box_heading">
+                                <h3>Panier details</h3>
+                            </div>
+
+                            <div class="container">
+                                <div class="row">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nom</th>
+                                            <th>nbProductTypes</th>
+                                            <th>StartDate</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+{#                                        {{ form_start(form) }}#}
+<h1>Mon panier</h1>
+<form method="POST" action="{{ path('app_seller_offer_NewPanier') }}">
+<table>
+    <thead>
+    <tr>
+        <th>Offre</th>
+        <th>Prix</th>
+        <th>Nombre de jours</th>
+        <th>Date de début</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for offer in panier %}
+        <tr>
+            <td>{{ offer.id }}</td>
+            <td>{{ offer.name }}</td>
+            <td>{{ offer.nbDays }}</td>
+            <td>{{ form_widget(form['startDate_' ~ offer.id], {'attr': {'class': 'form-control'}}) }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table><button type="submit" class="btn btn-primary">Valider</button>
+
+</form>
+
+
+{% endblock %}

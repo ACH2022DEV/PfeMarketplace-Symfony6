@@ -14,11 +14,11 @@ class SellerOffer
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sellerOffers')]
+    #[ORM\ManyToOne( inversedBy: 'sellerOffers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sellerOffers')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'sellerOffers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Seller $seller = null;
 

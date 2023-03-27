@@ -3,16 +3,19 @@
 namespace App\Controller\Shared;
 
 use App\Entity\Offer;
+use App\Entity\Seller;
 use App\Entity\SellerOffer;
 use App\Form\OfferType;
 use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 
 #[Route('/offer')]
@@ -196,7 +199,7 @@ class OfferController extends AbstractController
     }
 
 //
-    public function __construct(private ManagerRegistry $doctrine,EntityManagerInterface $manager, OfferRepository $offer) {
+    public function __construct(private Security $security,private ManagerRegistry $doctrine,EntityManagerInterface $manager, OfferRepository $offer) {
         $this->em=$doctrine;
         $this->offer=$offer;
         $this->manager=$manager;

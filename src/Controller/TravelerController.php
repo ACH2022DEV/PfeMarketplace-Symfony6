@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Seller;
+use App\Entity\SellerOffer;
 use App\Entity\Traveler;
 use App\Form\TravelerType;
 use App\Repository\TravelerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/traveler')]
 class TravelerController extends AbstractController
@@ -75,4 +79,5 @@ class TravelerController extends AbstractController
 
         return $this->redirectToRoute('app_traveler_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

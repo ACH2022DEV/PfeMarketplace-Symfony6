@@ -36,7 +36,7 @@ class Seller
     #[ORM\OneToOne(inversedBy: 'seller', cascade: ['persist', 'remove'])]
     private ?Api $api = null;
 
-    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: SellerOffer::class)]
+    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: SellerOffer::class, cascade: ['persist', 'remove'])]
     private Collection $sellerOffers;
 
     public function __construct()
@@ -151,5 +151,10 @@ class Seller
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }

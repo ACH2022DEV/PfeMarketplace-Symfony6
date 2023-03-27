@@ -8,15 +8,21 @@ use App\Entity\Seller;
 use App\Entity\SellerOffer;
 use App\Entity\User;
 use App\Events\SellerCreatedEvent;
+use App\Form\SellerOfferType;
 use App\Repository\SellerOfferRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Array_;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Form\SellerType;
 use App\Repository\SellerRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,9 +39,11 @@ class SellerController extends AbstractController
 {
     private $em;
 
-    public function __construct(  private Security $security,private ManagerRegistry $doctrine,SellerOfferRepository $sellerOfferRepository){
+    public function __construct(  private Security $security,private ManagerRegistry $doctrine,SellerOfferRepository $sellerOfferRepository,SellerRepository $sellerRepository){
         $this->em=$doctrine;
         $this->sellerOfferRepository = $sellerOfferRepository;
+        $this->sellerRepository = $sellerRepository;
+
 
     }
     #[Route('/', name: 'app_seller_index', methods: ['GET'])]
@@ -218,7 +226,7 @@ class SellerController extends AbstractController
 
 
 // ajouterAuPanier
-    #[Route('/{id}/AddSellerOffer1', name: 'Add_Seller_Offer2', methods: ['POST'])]
+  /*  #[Route('/{id}/AddSellerOffer1', name: 'Add_Seller_Offer2', methods: ['POST'])]
     public function ajouterAuPanier1(Request $request, Security $security): Response
     {
         $user = $this->security->getUser();
@@ -231,7 +239,7 @@ class SellerController extends AbstractController
         return $this->render('seller/show.html.twig', [
           //  'seller' => $seller,
         ]);
-    }
+    }*/
     #[Route('/{id}/AddSellerOffer', name: 'Add_Seller_Offer', methods: ['POST'])]
     public function ajouterAuPanier(Request $request, Security $security): Response
     {
@@ -239,44 +247,33 @@ class SellerController extends AbstractController
         $user = $this->security->getUser();
         $userId = $user->getId();
         $session = $request->getSession();
-
-
-
+        $panier = $session->get('panier', new ArrayCollection());
         $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
-        $sellerOffer = new SellerOffer();
-        $sellerOffer->setSeller($seller);
-        $sellerOffer->setCreationDate(new DateTime());
-        $sellerOffer->setStartDate(new DateTime());
         $id = $request->attributes->get('id');
-
-       // var_dump($id); // affiche la valeur de l'ID dans la console ou dans la page web
-        // $id = $request->request->get('id');
-        //$id=64;
         $offer = $this->em->getRepository(Offer::class)->find($id);
-        $existingSellerOffer = $this->sellerOfferRepository->findExistingSellerOffer($seller->getId(), $offer->getId());
-        if ($existingSellerOffer) {
-            /*return new JsonResponse([
-                'status' => false,
-                'message' => 'L\'offre existe déjà dans le panier de ce vendeur.',
-            ]);*/
+
+      // $StartDate=new DateTime();
+
+        $isAlreadyInCart = false;
+        foreach ($panier as $item) {
+            if ($item->getId() === $offer->getId()) {
+                $isAlreadyInCart = true;
+                break;
+            }
+        }
+
+        if ($isAlreadyInCart) {
             return $this->redirectToRoute('app_offer_seller', [], Response::HTTP_SEE_OTHER);
-        }else{
-            $sellerOffer->setOffer($offer);
+        } else {
+            $panier->add($offer);
+            $session->set('panier', $panier);
         }
 
 
-
-        $entityManager = $this->em->getManager();
-        $entityManager->persist($sellerOffer);
-        $entityManager->flush();
-
-      /* return new JsonResponse([
-            'status' => true,
-            'message' => 'Vous avez ajouté les offres à votre panier',
-        ]);*/
-
         return $this->render('seller/panier_Seller.html.twig', [
               'seller' => $seller,
+            'session'=> $session,
+            'userId'=>$userId,
         ]);
 
     }
@@ -290,41 +287,159 @@ class SellerController extends AbstractController
         $user = $this->security->getUser();
         $userId = $user->getId();
         $session = $request->getSession();
+        //$session->set('panier', 55);
         $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
         return $this->render('seller/panier_Seller.html.twig', [
-        'seller' => $seller
+        'seller' => $seller,
+            'session'=> $session,
+            'userId'=>$userId,
+
         ]);
     }
     //fin panier
 
     //supprimer un offre d'un panier()sellerOffers
     #[Route('/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
-    public function removeOfferFromCart(Request $request, SellerOffer $sellerOffer, SellerOfferRepository $sellerOfferRepository):Response
+    public function removeOfferFromCart(Request $request, Security $security):Response
     {
-       /* $user = $this->security->getUser();
+        $user = $this->security->getUser();
         $userId = $user->getId();
         $session = $request->getSession();
-        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
-        //$sellerOffers=$seller->getSellerOffers();
         $id = $request->attributes->get('id');
-        $offer = $this->em->getRepository(SellerOffer::class)->find($id);
-        if ($this->isCsrfTokenValid('delete'.$offer->getId(), $request->request->get('_token'))) {
-            $sellerOfferRepository->remove($offer, true);
+        $offer = $this->em->getRepository(Offer::class)->find($id);
+        $panier = $session->get('panier');
+        foreach ($panier as $key => $item) {
+            if ($item->getId() === $offer->getId()) {
+                $panier->remove($key);
+                break;
+            }
         }
-        if ($sellerOffers->contains($offer)) {
-            $sellerOffers->removeElement($offer);
-            $entityManager = $this->em->getManager();
-            $entityManager->flush();
-        }*/
-        $id = $request->attributes->get('id');
-        $offerSeller = $this->em->getRepository(SellerOffer::class)->find($id);
-        $entityManager = $this->em->getManager();
-        $entityManager->remove($offerSeller);
-        $entityManager->flush();
 
-      // return $this->redirectToRoute('Get_Seller_Panier');
+        $session->set('panier', $panier);
+
+
         return $this->redirectToRoute('Get_Seller_Panier', [], Response::HTTP_SEE_OTHER);
     }
 
     //
+   /* #[Route('/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
+    public function removeOfferFromCart(Request $request, Security $security): Response
+    {
+        $user = $security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $id = $request->attributes->get('id');
+        $offer = $this->em->getRepository(Offer::class)->find($id);
+        $panier = $session->get('panier') ?? new ArrayCollection();
+
+        $indexToRemove = null;
+        foreach ($panier as $index => $item) {
+            if ($item === $offer) {
+                $indexToRemove = $index;
+                break;
+            }
+        }
+
+        if ($indexToRemove !== null) {
+            $panier->removeElement($offer);
+           // $panier->removeElement()
+            $session->set('panier', $panier);
+        }
+
+        return $this->redirectToRoute('Get_Seller_Panier', [], Response::HTTP_SEE_OTHER);
+    }*/
+    //Validation d'un commande
+
+   #[Route('/ValiderCommande', name: 'app_seller_validationPanier', methods: ['GET', 'POST'])]
+    public function validerCommande(Request $request,Security $security,SellerOfferRepository $sellerOfferRepository ): Response
+    {
+
+       /* //ajouter le formulaire de sellersOffers
+        $sellerOffer = new SellerOffer();
+        $form = $this->createForm(SellerOfferType::class, $sellerOffer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sellerOfferRepository->save($sellerOffer, true);
+
+            return $this->redirectToRoute('app_seller_offer_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        //fin sellersOffers
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);*/
+        return $this->render('seller/show.html.twig', [
+           /* 'seller' => $seller,
+            'session'=> $session,
+            'userId'=>$userId,
+            'form' => $form,
+            'seller_offer' => $sellerOffer,*/
+        ]);
+    }
+    //fin Validation d'un commande
+    #[Route('/NewPanier', name: 'app_seller_offer_NewPanier', methods: ['POST','GET'])]
+    public function cart(Request $request,Security $security): Response
+    {
+
+        $user = $this->security->getUser();
+
+        $userId = $user->getId();
+        var_dump($userId);
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+
+
+       var_dump($seller->getId());
+
+        $session = $request->getSession();
+
+        $panier = $request->getSession()->get('panier');
+        //  $session = $request->getSession();
+
+        $formBuilder = $this->createFormBuilder();
+        foreach ($panier as $offer) {
+            $formBuilder->add('startDate_'.$offer->getId(), DateType::class, [
+                'label' => $offer->getName(),
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'datepicker'],
+                'data' => new \DateTime(),
+            ]);
+        }
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->em->getManager();
+
+             $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+             var_dump($seller->getId());
+
+            foreach ($panier as $offer) {
+                $sellerOffer = new SellerOffer();
+                $sellerOffer->setOffer($offer);
+               /* $sellerId=24;
+                $seller = $this->em->getRepository(Seller::class)->find($sellerId);*/
+                $sellerOffer->setSeller($seller);
+                $sellerOffer->setCreationDate(new \DateTime());
+                $sellerOffer->setStartDate($form->get('startDate_'.$offer->getId())->getData());
+
+                $entityManager->persist($sellerOffer);
+            }
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_offer_index');
+        }
+
+        return $this->render('seller/validation_Panier.html.twig', [
+            'panier' => $panier,
+            'session'=> $session,
+            'form' => $form->createView(),
+        ]);
+    }
+
 }
