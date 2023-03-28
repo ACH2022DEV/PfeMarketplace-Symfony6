@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Seller;
 use App\Entity\SellerOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -49,7 +50,15 @@ class SellerOfferRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
-
+    /*public function findSellerByUserId(int $userId): ?Seller
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.user', 'u')
+            ->andWhere('u.id = :user_id')
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }*/
 
 //    /**
 //     * @return SellerOffer[] Returns an array of SellerOffer objects

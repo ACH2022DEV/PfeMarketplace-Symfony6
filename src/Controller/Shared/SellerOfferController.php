@@ -95,4 +95,5 @@ class SellerOfferController extends AbstractController
 
 //end panier
 
+
 }

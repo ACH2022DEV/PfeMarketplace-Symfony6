@@ -18,8 +18,7 @@ class Offer
     #[ORM\Column(length: 45)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $nbProductTypes = null;
+
 
     #[ORM\Column]
     private ?int $nbDays = null;
@@ -53,17 +52,9 @@ class Offer
         return $this;
     }
 
-    public function getNbProductTypes(): ?int
-    {
-        return $this->nbProductTypes;
-    }
 
-    public function setNbProductTypes(int $nbProductTypes): self
-    {
-        $this->nbProductTypes = $nbProductTypes;
 
-        return $this;
-    }
+
 
     public function getNbDays(): ?int
     {

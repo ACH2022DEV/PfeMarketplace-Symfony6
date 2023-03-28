@@ -7,6 +7,8 @@ parameters:
     app.locales: [fr, en]
     locale: fr
     images_directory: '%kernel.project_dir%/public/assets/images'
+    brochures_directory: '%kernel.project_dir%/public/uploads/brochures'
+    personne_directory: '%kernel.project_dir%/public/uploads/personnes'
 services:
     # default configuration for services in *this* file
     _defaults:

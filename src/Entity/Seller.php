@@ -6,8 +6,12 @@ use App\Repository\SellerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: SellerRepository::class)]
+#[Vich\Uploadable]
+
 class Seller
 {
 
@@ -35,6 +39,20 @@ class Seller
 
     #[ORM\OneToOne(inversedBy: 'seller', cascade: ['persist', 'remove'])]
     private ?Api $api = null;
+    #[ORM\Column(type: 'string')]
+    private $brochureFilename;
+
+    public function getBrochureFilename()
+    {
+        return $this->brochureFilename;
+    }
+
+    public function setBrochureFilename($brochureFilename)
+    {
+        $this->brochureFilename = $brochureFilename;
+
+        return $this;
+    }
 
     #[ORM\OneToMany(mappedBy: 'seller', targetEntity: SellerOffer::class, cascade: ['persist', 'remove'])]
     private Collection $sellerOffers;
