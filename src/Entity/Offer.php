@@ -135,4 +135,13 @@ class Offer
         // TODO: Implement __toString() method.
         return $this->name;
     }
+    //ajouter la méthode de la date de l'Api
+   /* public function getEndDate(): \DateTime
+    {
+        $endDate = clone $this->
+        $endDate->add(new \DateInterval('P' . $this->getNbDays() . 'D'));
+        return $endDate;
+    }*/
+
+    //end method
 }

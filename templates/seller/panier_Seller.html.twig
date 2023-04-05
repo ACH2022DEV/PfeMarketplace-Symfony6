@@ -32,6 +32,15 @@
 
                         </div>
                     {% endfor %}#}
+                  {#  {% for offerTotalPrice in getOffersTotalPrice(app.session, app.repository(Offer)) %}
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
+                            <div class="top_service_boxed wallet_area_boxed">
+                                <span class="d-block fst-italic text-danger fs-4 fw-semibold  me-2 "><p>id: {{ offerTotalPrice.id }} </p> </span>
+                                <span class="d-block fst-italic text-danger fs-4 fw-semibold  me-2 "><p>OfferName: {{ app.repository(Offer).find(offerTotalPrice.id).name }} </p> </span>
+                                <span class="d-block fst-italic text-dark fs-4 fw-semibold  me-2 "><p>Total price: {{ offerTotalPrice.totalPrice }} </p> </span>
+                            </div>
+                        </div>
+                    {% endfor %}#}
 
 
 
@@ -43,15 +52,23 @@
                             <div class="top_service_boxed wallet_area_boxed" >
                                 <!--<div> <img src="{{ asset('assets/images/favicon.png') }}" class="img-fluid rounded-1 " alt="...">
                             </div>-->
-
+                                <!--Ajouter le total -->
+                              {#  {% set total = 0 %}
+                                {% set totalMaxitem = 0 %}
+                                {% for offerProductType in item.offerProductTypes %}
+                                {% set total = total + offerProductType.price %}
+                                {% set totalMaxitem = totalMaxitem + offerProductType.maxItems %}
+                                {% endfor %}#}
+                                <!--fin de l'Ajoute de total -->
 
 
 
                                     <span class="d-block fst-italic text-danger fs-4 fw-semibold  me-2 "><p>id: {{ item.id}} </p> </span>
                                     <span class="d-block fst-italic text-danger fs-4 fw-semibold  me-2 "><p>OfferName: {{ item.name}} </p> </span>
-                                    <span class="d-block fst-italic text-dark fs-4 fw-semibold  me-2 "><p>nbProductTypes: {{ item.nbProductTypes}} </p> </span>
                                     <span class="d-block fst-italic text-dark fs-4 fw-semibold  me-2 "><p>nbDays: {{ item.nbDays}} </p> </span>
-                                    <div class="d-flex">
+
+
+                                <div class="d-flex">
                                         <p  class="text-decoration-line-through  text-muted fs-5 me-5"></p>
 
 
@@ -93,7 +110,13 @@
                                     <li>Tax <span>5%</span></li>
                                 </ul>
                                 <div class="total_subtotal_booking">
-                                    <h6 class="remove_coupon_tour text-start">Subtotal <span>$38,000.00</span></h6>
+                                    <h6 class="remove_coupon_tour text-start">Subtotal
+                                        {% if totalPrice  %}
+                                            <span class="d-block fst-italic text-dark fs-4 fw-semibold  me-2 "><p>TotalPrice: {{totalPrice}} </p> </span>
+                                       {% else %}
+                                           <span class="d-block fst-italic text-dark fs-4 fw-semibold  me-2 "><p>TotalPrice: 0 </p> </span>
+                                        {% endif %}
+                                       </h6>
                                 </div>
                                {# <div class="coupon_add_area">
                                     <h6><span class="remove_coupon_tour">Remove</span> Coupon code (OFF 5000)

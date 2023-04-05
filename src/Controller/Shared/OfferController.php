@@ -49,13 +49,13 @@ class OfferController extends AbstractController
     }
 
     //end home page
-   /* #[Route('/GetAllOffers', name: 'offer_list', methods: ['GET'])]
+    #[Route('/GetAllOfferse', name: 'offer_list', methods: ['GET'])]
     public function getAllOffres(): Response
     {
         $List_offer=$this->offer->findAll();
 
         return $this->json($List_offer,200);
-    }*/
+    }
     #[Route('/new', name: 'app_offer_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OfferRepository $offerRepository): Response
     {

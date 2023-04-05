@@ -14,7 +14,7 @@ class SellerOffer
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne( inversedBy: 'sellerOffers')]
+    #[ORM\ManyToOne( cascade: ['persist','remove'],inversedBy: 'sellerOffers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
 
@@ -80,4 +80,23 @@ class SellerOffer
 
         return $this;
     }
+
+    //ajouter une méthode pour calculer la date
+
+    /**
+     * @throws \Exception
+     */
+    public function getEndDate(): \DateTimeInterface
+    {
+        $endDate = clone $this->getStartDate();
+        $endDate->add(new \DateInterval('P' . $this->offer->getNbDays() . 'D'));
+        //return $endDate->format('Y-m-d H:i:s');
+        return $endDate;
+
+    }
+    public function isPending(): bool
+    {
+        return $this->getEndDate() > new \DateTime();
+    }
+    //end method
 }

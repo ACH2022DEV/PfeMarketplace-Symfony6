@@ -30,7 +30,7 @@
                             {{ form_errors(form) }}
 {#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
                             {% if seller.brochureFilename %}
-                                <img class=" rounded-circle w-75" width="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
+                                <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
                             {% endif %}
 
                             <h3 class="text-center">Name :{{ seller.name}}</h3>

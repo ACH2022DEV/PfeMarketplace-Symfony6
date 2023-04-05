@@ -5,7 +5,7 @@
         <div class="card-header " >
 
         </div>
-        <div class="card-body" style="margin-top: 150px">
+        <div class="card-body mb-5" style="margin-top: 150px">
 
             <div class="col-md-10 col-10 mx-auto col-lg-8 col-sm-12 col-xl-8 h-100 my-2 sticky-top mb-1" style="top: 100px; z-index: 4;">
 
@@ -13,48 +13,93 @@
                     <div class="tour_detail_right_sidebar">
                         <div class="tour_details_right_boxed">
                             <div class="tour_details_right_box_heading">
-                                <h3>Panier details</h3>
+                                <h3 class="text-primary">Passez Votre Commande</h3>
                             </div>
 
-                            <div class="container">
-                                <div class="row">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nom</th>
-                                            <th>nbProductTypes</th>
-                                            <th>StartDate</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+
 {#                                        {{ form_start(form) }}#}
-<h1>Mon panier</h1>
+
 <form method="POST" action="{{ path('app_seller_NewPanier') }}">
-<table>
+    {{ form_start(form) }}
+<table class="table mt-1">
     <thead>
-    <tr>
-        <th>Offre</th>
-        <th>Prix</th>
-        <th>Nombre de jours</th>
-        <th>Date de début</th>
+    <tr class="table-light">
+{#        <th>IdOffre</th>#}
+        <th>OfferName</th>
+        <th>Price</th>
+        <th>Number Of days</th>
+        <th>Start Date of your Offer</th>
     </tr>
     </thead>
     <tbody>
 
     {% for offer in panier %}
         <tr>
-            <td>{{ offer.id }}</td>
-            <td>{{ offer.name }}</td>
-            <td>{{ offer.nbDays }}</td>
-            <td>{{ form_widget(form['startDate_' ~ offer.id], {'attr': {'class': 'form-control'}}) }}</td>
+{#            <td>{{ offer.id }}</td>#}
+            <td class="fw-bold my-2">{{ offer.name }}</td>
+            <td class="fw-bold my-2">{{ offer.name }}</td>
+            <td class="fw-bold my-2">{{ offer.nbDays }}</td>
+{#            <td>{{ form_widget(form['startDate_' ~ offer.id], {'attr': {'class': 'form-control'}}) }}</td>#}
+            <td>{#{{ form_widget(form['startDate_' ~ offer.id], {
+                'attr': {
+                    'class': 'form-control datepicker',
+                    'data-format': 'dd/mm/yyyy'
+                }
+            }) }}#}
+                {{ form_widget(form['startDate_' ~ offer.id], {
+                    'widget': 'single_text',
+                    'html5': true,
+                    'attr': {
+                        'type': 'datetime-local'
+
+                    }
+                }) }}
+              {#
+                <input type="datetime-local" id="{{ form['startDate_' ~ offer.id].vars.id }}"
+                       name="{{ form['startDate_' ~ offer.id].vars.full_name }}"
+                       value="{{ form['startDate_' ~ offer.id].vars.value|date('Y-m-d\\TH:i:s') }}"
+                       step="1">#}
+            </td>
         </tr>
     {% endfor %}
 
     </tbody>
-</table><button type="submit" class="btn btn-primary">Valider</button>
+</table>
+    <!--Ajouter le formulaire de payment en ligne-->
+    <h3 class="my-2 text-secondary text-center fw-semibold">Remplissez vos informations</h3>
+    <div class="container">
+        <div class="row">
+{#            <h4 class="text-center my-2 "> <span><img src="{{ asset('assets/images/images Payme.png') }}"></span>Payez en ligne maintenant avec Paymee</h4>#}
 
+
+        </div>
+    </div>
+    <div class="container ">
+        <div class="row   ">
+          <div class="col-6">
+                <input class="form-control border-2" placeholder="first_name">
+            </div>
+            <div class="col-6">
+                <input class="form-control border-2" placeholder="last_name">
+            </div>
+            <div class="col-6">
+                <input class="form-control border-2" placeholder="Email">
+            </div>
+            <div class="col-6">
+                <input class="form-control border-2" placeholder="Phone">
+            </div>
+            <div class="my-2  text-center fw-semibold">
+                <h4>Total:</h4>
+
+            </div>
+        </div>
+    </div>
+    <!--Ajouter le formulaire de payment en ligne-->
+
+
+<div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary shadow-sm rounded-pill my-2 w-25">Payer</button></div>
+    {{ form_end(form) }}
 </form>
-
 
 {% endblock %}

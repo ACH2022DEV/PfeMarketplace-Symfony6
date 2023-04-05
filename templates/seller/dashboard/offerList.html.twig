@@ -98,7 +98,12 @@
                 <div class="col-lg-9">
                     <div class="row ">
                         {% for of in offer %}
-
+                            {% set total = 0 %}
+                            {% set totalMaxitem = 0 %}
+                            {% for offerProductType in of.offerProductTypes %}
+                                {% set total = total + offerProductType.price %}
+                                {% set totalMaxitem = totalMaxitem + offerProductType.maxItems %}
+                            {% endfor %}
                         <div class="col-lg-4 col-md-6 col-sm-12 col-12">
                             <div class="top_service_boxed wallet_area_boxed" >
                                 <a href="{{ path('app_offerProductTypes_ForSeller', {'id': of.id}) }}">
@@ -106,6 +111,7 @@
                                     <div class="wallet_boxed_flex d-block text-start m-0">
                                         <div class="wallet_blance_boxed ">
                                             <p class="m-2">Nombre Of Days <span class="fst-italic text-primary"> {{ of.nbDays }}</span></p>
+                                            <p>total  : {{ total }}</p>
 
                                         </div>
                                         <div class="wallet_blance_boxed ">

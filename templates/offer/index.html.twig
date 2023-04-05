@@ -16,7 +16,6 @@
                         <tr>
                             <th class="text-dark">ID</th>
                             <th>Name</th>
-                            <th>Number of Product Types</th>
                             <th>Number of Days</th>
                             <th>Actions</th>
                         </tr>
@@ -26,7 +25,6 @@
                             <tr>
                                 <td class="text-dark">{{ offer.id }}</td>
                                 <td class="text-dark">{{ offer.name }}</td>
-                                <td class="text-dark">{{ offer.nbProductTypes }}</td>
                                 <td class="text-dark">{{ offer.nbDays }}</td>
                                 <td>
                                     <a class="btn btn-dark me-2" href="{{ path('app_offer_show', {'id': offer.id}) }}"><i class="bi bi-zoom-in"></i></a>

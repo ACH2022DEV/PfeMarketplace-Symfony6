@@ -9,12 +9,15 @@ use App\Entity\SellerOffer;
 use App\Entity\User;
 use App\Events\SellerCreatedEvent;
 use App\Form\SellerOfferType;
+use App\Repository\OfferRepository;
 use App\Repository\SellerOfferRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\Types\Array_;
+use PhpParser\Node\Expr\Cast\Double;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -37,7 +40,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 
-#[Route('/seller')]
+//#[Route('/seller')]
 class SellerController extends AbstractController
 {
     private $em;
@@ -49,7 +52,7 @@ class SellerController extends AbstractController
 
 
     }
-    #[Route('/', name: 'app_seller_index', methods: ['GET'])]
+    #[Route('/seller/', name: 'app_seller_index', methods: ['GET'])]
     public function index(SellerRepository $sellerRepository): Response
     {
         return $this->render('seller/index.html.twig', [
@@ -57,7 +60,7 @@ class SellerController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{idM?null}', name: 'app_seller_new', methods: ['GET', 'POST'])]
+    #[Route('/seller/new/{idM?null}', name: 'app_seller_new', methods: ['GET', 'POST'])]
     public function new(Request $request,
                         SellerRepository $sellerRepository,
                         UserRepository $userRepository,
@@ -124,7 +127,7 @@ class SellerController extends AbstractController
             ));
     }
 
-    #[Route('/{id}', name: 'app_seller_show', methods: ['GET'])]
+    #[Route('/seller/{id}', name: 'app_seller_show', methods: ['GET'])]
     public function show(Seller $seller): Response
     {
         return $this->render('seller/show.html.twig', [
@@ -146,8 +149,41 @@ class SellerController extends AbstractController
     }*/
 
     //en of add new page for edit
-//add a controller for seller_Profile
-    #[Route('/ViewProfile', name: 'app_seller_show', methods: ['GET'])]
+//add a controller for seller_Profile and sellerBooking_history
+    #[Route('/seller/View_Booking_History', name: 'app_seller_show_Booking_History', methods: ['GET'])]
+    public function showBookingHistory(Request $request): Response
+    {
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+
+        //pagination
+        $page = $request->query->getInt('page', 1);
+        $limit = 10; // nombre d'éléments par page
+        $offset = ($page - 1) * $limit;
+        $sellerOffers=$seller->getSellerOffers();
+
+      //  $sellerOffers = // Récupérez vos offres de vendeurs à partir de votre base de données
+
+        $totalOffers = count($sellerOffers);
+
+        $totalPages = ceil($totalOffers / $limit);
+        //fin de pagination
+        return $this->render('seller/booking_seller_History.html.twig', [
+            'seller' => $seller,
+
+          //  'sellerOffers' => to($sellerOffers->getValues(), $offset, $limit),
+            //'sellerOffers' => array_slice($sellerOffers->getValues(), $offset, $limit),
+            //'sellerOffers' => array_slice($sellerOffers->toArray(), $offset, $limit),
+            //'sellerOffers' => array_slice($sellerOffers->slice($offset), $limit),
+              'sellerOffers' => array_slice($sellerOffers->getValues(),$offset, $limit),
+            'page' => $page,
+            'limit' => $limit,
+            'totalPages' => $totalPages,
+        ]);
+    }
+    #[Route('/seller/ViewProfile', name: 'app_seller_show', methods: ['GET'])]
     public function showProfile(Seller $seller): Response
     {
         return $this->render('seller/show.html.twig', [
@@ -156,7 +192,7 @@ class SellerController extends AbstractController
     }
 
     //passez la commande
-    #[Route('/Confirmation', name: 'app_seller_Confirmation', methods: ['GET'])]
+    #[Route('/seller/Confirmation', name: 'app_seller_Confirmation', methods: ['GET'])]
     public function passezCommande(Request $request, Security $security): Response
     {
         $user = $this->security->getUser();
@@ -194,7 +230,7 @@ class SellerController extends AbstractController
 
 
     //add a uploader images:
-    #[Route('/editProfile', name: 'app_seller_dashboard', methods: ['GET', 'POST'])]
+    #[Route('/seller/editProfile', name: 'app_seller_dashboard', methods: ['GET', 'POST'])]
     public function edit_Profil_SellerAndImages(Request $request, SellerRepository $sellerRepository, SluggerInterface $slugger): Response
     {
         $session = $request->getSession();
@@ -255,7 +291,7 @@ class SellerController extends AbstractController
     //end of add uploader images
 
 //end images
-    #[Route('/{id}', name: 'app_seller_delete', methods: ['POST'])]
+    #[Route('/seller/{id}', name: 'app_seller_delete', methods: ['POST'])]
     public function delete(Request $request, Seller $seller, SellerRepository $sellerRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$seller->getId(), $request->request->get('_token'))) {
@@ -281,7 +317,7 @@ class SellerController extends AbstractController
           //  'seller' => $seller,
         ]);
     }*/
-    #[Route('/{id}/AddSellerOffer', name: 'Add_Seller_Offer', methods: ['POST'])]
+    #[Route('/seller/{id}/AddSellerOffer', name: 'Add_Seller_Offer', methods: ['POST'])]
     public function ajouterAuPanier(Request $request, Security $security): Response
     {
         //$data = json_decode($request->getContent(), true);
@@ -320,9 +356,24 @@ class SellerController extends AbstractController
     }
 
     //fin ajouterAuPanier
-
+  /*  public function getOffersTotalPrice( Request $request,OfferRepository $offerRepository): array
+    {
+        $session = $request->getSession();
+        $offersTotalPrice = [];
+        $panier = $session->get('panier');
+        foreach ($panier as $offerId) {
+            $offer = $offerRepository->find($offerId);
+            $offerProductTypes = $offer->getOfferProductTypes();
+            $totalPrice = 0.0;
+            foreach ($offerProductTypes as $offerProductType) {
+                $totalPrice += $offerProductType->getPrice();
+            }
+            $offersTotalPrice[] = ['id' => $offerId, 'totalPrice' => $totalPrice];
+        }
+        return $offersTotalPrice;
+    }*/
     //afficher le panier d'un utilisateur
-    #[Route('/MonPanier', name: 'Get_Seller_Panier', methods: ['GET'])]
+    #[Route('/seller/MonPanier', name: 'Get_Seller_Panier', methods: ['GET'])]
     public function getPanier(Request $request, Security $security): Response
     {
         $user = $this->security->getUser();
@@ -330,17 +381,63 @@ class SellerController extends AbstractController
         $session = $request->getSession();
         //$session->set('panier', 55);
         $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        $totalPrice = 0.0;
+        $panier = $session->get('panier');
+        if($panier){
+        foreach ($panier as $offer) {
+            $offerId = $offer->getId();
+            $offerRepo = $this->em->getRepository(Offer::class);
+            $offer = $offerRepo->find($offerId);
+            $offerProductTypes = $offer->getOfferProductTypes();
+            $offerPriceTotal = 0.0;
+            foreach ($offerProductTypes as $offerProductType) {
+                $offerPriceTotal += $offerProductType->getPrice();
+            }
+            $totalPrice += $offerPriceTotal;
+        }
+        }
+//        foreach ($panier as $offer) {
+//            $offerId = $this->em->getRepository(Offer::class)->find($offer);
+//            $totalPrice += $this->getTotalPrice($offerId);
+//        }
+
+
+        //add a methode
+       //fin méthode
+        $panier = $session->get('panier');
+//        foreach ($panier as $offerId) {
+//            $offer = $this->em->getRepository(Offer::class)->find($offerId);
+//            // Obtenez la collection d'OfferProductType associée à l'entité Offer.
+//            $offerProductTypes = $offer->getOfferProductTypes();
+//            //Calculer la somme
+//            $totalPrice = 0.0;
+//            foreach ($offerProductTypes as $offerProductType) {
+//                $totalPrice += $offerProductType->getPrice();
+//            }
+
+            // Utilisez la méthode map() pour obtenir une collection de prix pour chaque OfferProductType.
+//            $prices = $offerProductTypes->map(function($offerProductType) {
+//                return $offerProductType->getPrice();
+//            });
+            // Utilisez la méthode sum() pour calculer la somme des prix.
+           // $totalPrice = $prices->map();
+
+            // Faites quelque chose avec le prix total...
+      //  }
+
+        //end of total
         return $this->render('seller/panier_Seller.html.twig', [
         'seller' => $seller,
             'session'=> $session,
             'userId'=>$userId,
+            'totalPrice'=> $totalPrice
 
         ]);
     }
     //fin panier
 
     //supprimer un offre d'un panier()sellerOffers
-    #[Route('/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
+    #[Route('/seller/{id}/RemoveOffer', name: 'delete_sellerOffer', methods: ['POST'])]
     public function removeOfferFromCart(Request $request, Security $security):Response
     {
         $user = $this->security->getUser();
@@ -391,7 +488,7 @@ class SellerController extends AbstractController
     }*/
     //Validation d'un commande
 
-   #[Route('/ValiderCommande', name: 'app_seller_validationPanier', methods: ['GET', 'POST'])]
+   #[Route('/seller/ValiderCommande', name: 'app_seller_validationPanier', methods: ['GET', 'POST'])]
     public function validerCommande(Request $request,Security $security,SellerOfferRepository $sellerOfferRepository ): Response
     {
 
@@ -421,61 +518,70 @@ class SellerController extends AbstractController
     }
     //fin Validation d'un commande
     #[Route('/NewPanier', name: 'app_seller_NewPanier', methods: ['POST','GET'])]
-    public function cart(Request $request,Security $security): Response
+    public function cart(Request $request, Security $security): Response
     {
-        $user = $this->security->getUser();
+        $user = $security->getUser();
         $userId = $user->getId();
-        var_dump($userId);
-        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        //var_dump($userId);
 
         $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
-        var_dump($seller->getId());
 
+        if (!$seller) {
+            throw new \Exception("No seller found for user with ID $userId");
+        }
 
-       //var_dump($seller->getId());
+       // var_dump($seller->getId());
 
         $session = $request->getSession();
 
-        $panier = $request->getSession()->get('panier');
-        //  $session = $request->getSession();
+        $panier = $session->get('panier');
 
         $formBuilder = $this->createFormBuilder();
+
         foreach ($panier as $offer) {
-            $formBuilder->add('startDate_'.$offer->getId(), DateType::class, [
+            //pour ajouter just le jour sans minutes
+          /*  $formBuilder>add('startDate_' . $offer->getId(), DateType::class, [
                 'label' => $offer->getName(),
                 'widget' => 'single_text',
-                'html5' => false,
+                'html5' => true,
                 'attr' => ['class' => 'datepicker'],
+                'data' => new \DateTime(),
+            ]);*/
+            $formBuilder->add('startDate_' . $offer->getId(), DateTimeType::class, [
+                'label' => $offer->getName(),
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'datetimepicker',
+                    'type' => 'datetime-local',
+                    'step' => '1'
+                ],
                 'data' => new \DateTime(),
             ]);
         }
 
         $form = $formBuilder->getForm();
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $entityManager = $this->em->getManager();
 
             foreach ($panier as $offer) {
+                $offerId = $this->em->getRepository(Offer::class)->find($offer);
                 $sellerOffer = new SellerOffer();
-                $sellerOffer->setOffer($offer);
-                $entityManager = $this->em->getManager();
-
-
-
-               /* $sellerId=24;
-                $seller = $this->em->getRepository(Seller::class)->find($sellerId);*/
+                $sellerOffer->setOffer($offerId);
                 $sellerOffer->setSeller($seller);
                 $sellerOffer->setCreationDate(new \DateTime());
-                $sellerOffer->setStartDate($form->get('startDate_'.$offer->getId())->getData());
+                $sellerOffer->setStartDate($form->get('startDate_' . $offer->getId())->getData());
 
                 $entityManager->persist($sellerOffer);
-            }
 
+              //  $entityManager->remove($offer);
+
+            }
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_offer_index');
+            return $this->redirectToRoute('app_seller_Confirmation');
         }
 
         return $this->render('seller/validation_Panier.html.twig', [
@@ -484,5 +590,16 @@ class SellerController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    private function getTotalPrice($offer)
+    {
+        $offerProductTypes = $offer->getOfferProductTypes();
+        $prices = $offerProductTypes->map(function($offerProductType) {
+            return $offerProductType->getPrice();
+        });
+        $totalPrice = $prices->sum();
+        return $totalPrice;
+    }
+
 
 }

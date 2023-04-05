@@ -27,15 +27,7 @@ class OfferType extends AbstractType
                     'placeholder' => 'Enter name',
                 ],
             ])
-           ->add('nbProductTypes',IntegerType::class,[
-               'row_attr' => [
-                   'class' => 'col-md-12 bg-light my-2 p-2',
-               ],
-               'label' => false,
-               'attr' => [
-                   'placeholder' => 'Enter nbProductTypes',
-               ],
-           ])
+
             ->add('nbDays',IntegerType::class,[
                 'row_attr' => [
                     'class' => 'col-md-12 bg-light my-2 p-2',
