@@ -6,6 +6,7 @@ use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 class Offer
@@ -13,20 +14,28 @@ class Offer
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?string $name = null;
 
 
 
     #[ORM\Column]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?int $nbDays = null;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferProductType::class, cascade: ['persist','remove'])]
+    #[Groups(['offer','Seller','SellerOffers'])]
     private Collection $offerProductTypes;
 
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: SellerOffer::class, cascade: ['persist','remove'])]
+    #[Groups(['offer'])]
     private Collection $sellerOffers;
 
     public function __construct()

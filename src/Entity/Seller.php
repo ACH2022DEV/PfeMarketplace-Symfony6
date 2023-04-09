@@ -6,6 +6,7 @@ use App\Repository\SellerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
@@ -18,28 +19,40 @@ class Seller
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column ]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?string $website = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?string $address = null;
 
     #[ORM\ManyToOne(inversedBy: 'sellers')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['Seller','SellerOffers'])]
+
     private ?City $city = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?User $user = null;
-
     #[ORM\OneToOne(inversedBy: 'seller', cascade: ['persist', 'remove'])]
+    #[Groups(['Seller','SellerOffers'])]
     private ?Api $api = null;
     #[ORM\Column(type: 'string')]
+    #[Groups(['Seller','SellerOffers'])]
     private $brochureFilename;
 
     public function getBrochureFilename()
@@ -55,6 +68,7 @@ class Seller
     }
 
     #[ORM\OneToMany(mappedBy: 'seller', targetEntity: SellerOffer::class, cascade: ['persist', 'remove'])]
+    #[Groups(['Seller'])]
     private Collection $sellerOffers;
 
     public function __construct()

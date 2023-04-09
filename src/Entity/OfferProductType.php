@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OfferProductTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -14,6 +15,7 @@ class OfferProductType
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['SellerOffers'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne( inversedBy: 'offerProductTypes')]
@@ -23,12 +25,16 @@ class OfferProductType
     #[ORM\ManyToOne(cascade: ['persist','remove'], inversedBy: 'offerProductTypes')]
     #[ORM\JoinColumn( nullable: true)]
     #[Assert\NotBlank(message: 'This value should not be blank')]
+    #[Groups(['SellerOffers'])]
+
     private ?ProductType $productType = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['SellerOffers'])]
     private ?string $maxItems = null;
 
     #[ORM\Column]
+    #[Groups(['SellerOffers'])]
     private ?float $price = null;
 
     public function getId(): ?int

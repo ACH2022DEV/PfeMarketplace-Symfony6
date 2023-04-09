@@ -14,11 +14,13 @@ use App\Repository\SellerOfferRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
+use http\Exception;
 use phpDocumentor\Reflection\Types\Array_;
 use PhpParser\Node\Expr\Cast\Double;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,11 +33,13 @@ use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Helpers;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -58,6 +62,31 @@ class SellerController extends AbstractController
         return $this->render('seller/index.html.twig', [
             'sellers' => $sellerRepository->findAll(),
         ]);
+    }
+    /*#[Route('/getAllSeller', name: 'Seller_list', methods: ['GET'])]
+    public function getAllSellers(SerializerInterface $serializer,SellerRepository $sellerRepository): Response
+    {
+        $List_Seller=$sellerRepository->findAll();
+         $serializedSeller = $serializer->serialize($List_Seller, 'json', ['groups' => 'Seller']);
+        $data = json_decode($serializedSeller, true);
+        return $this->json($data,200);
+    }*/
+    #[Route('/getAllSeller', name: 'Seller_list', methods: ['GET'])]
+    public function getAllSellers(SerializerInterface $serializer, SellerRepository $sellerRepository): Response
+    {
+        $List_Seller = $sellerRepository->findAll();
+
+        // Option de normalisation pour convertir les objets en tableaux associatifs
+        $normalizedSeller = $serializer->normalize($List_Seller, null, ['groups' => 'Seller']);
+
+        // Conversion du tableau associatif en JSON
+        $serializedSeller = $serializer->serialize($normalizedSeller, 'json');
+
+        // Décode le JSON en tant qu'objet ou tableau PHP
+        $data = json_decode($serializedSeller, true);
+
+        // Retourne la réponse JSON
+        return $this->json($data, 200);
     }
 
     #[Route('/seller/new/{idM?null}', name: 'app_seller_new', methods: ['GET', 'POST'])]
@@ -600,6 +629,72 @@ class SellerController extends AbstractController
         $totalPrice = $prices->sum();
         return $totalPrice;
     }
+//get image of seller
+    #[Route('/getImages', name: 'app_seller_Images', methods: ['GET'])]
+    public function getImage(Request $request): BinaryFileResponse
+    {
+        // file name from database
+        $filePath = $this->getParameter('brochures_directory').'/'.$request->query->get('filename');
+        // check if there is filepath or not
+        $path = (file_exists($filePath)) ? $filePath : $this->getParameter('brochures_directory2').'/error/avatar.png';
+        // Create a response object with the file data
+        $response = new BinaryFileResponse($path);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
+        return $response;
+    }
 
+    /* #[Route('/getImages', name: 'app_seller_Images', methods: ['GET'])]
+     public function getImage(Request $request): BinaryFileResponse
+     {
+         //$filename = $request->query->get('filename');
+         $filename = $this->getParameter('brochures_directory').'/brochures/'.$request->query->get('filename');
+         // search for the seller entity with the matching brochureFilename
+         $seller = $this->em->getRepository(Seller::class)->findOneBy(['brochureFilename' => $filename]);
+
+         if (!$seller) {
+           //  return $this->json(['error' => 'Seller not found'], 404);
+             throw new \Exception('Seller not found', 404);
+         }
+
+         // get the full path of the image file
+         //$filePath = $this->getParameter('brochures_directory').'/brochures/'.$seller->getBrochureFilename();
+         $filePath = (file_exists($seller)) ? $filename : $this->getParameter('brochures_directory').'/error/avatar.png';
+         // check if the file exists
+         if (!file_exists($filePath)) {
+             $filePath = $this->getParameter('brochures_directory').'/error/avatar.png';
+         }
+
+         // create a response object with the file data
+        // return $this->json(new BinaryFileResponse($filePath));
+         $response = new BinaryFileResponse($filePath);
+         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
+         return $response;
+
+     }*/
+//end images
+
+   /* #[Route('/getImages', name: 'app_seller_Images', methods: ['GET'])]
+    public function getImage(Request $request): JsonResponse
+    {
+        $filename = $request->query->get('filename');
+
+        // search for the seller entity with the matching brochureFilename
+        $seller = $this->getDoctrine()->getRepository(Seller::class)->findOneBy(['brochureFilename' => $filename]);
+
+        if (!$seller) {
+            return $this->json(['error' => 'Seller not found'], 404);
+        }
+
+        // get the full path of the image file
+        $filePath = $this->getParameter('brochures_directory').'/brochures/'.$seller->getBrochureFilename();
+
+        // check if the file exists
+        if (!file_exists($filePath)) {
+            $filePath = $this->getParameter('brochures_directory').'/error/avatar.png';
+        }
+
+        // create a response object with the file data
+        return $this->json(new BinaryFileResponse($filePath));
+    }*/
 
 }

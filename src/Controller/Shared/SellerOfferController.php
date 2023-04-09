@@ -12,10 +12,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 #[Route('/sellerOffer')]
@@ -35,11 +38,61 @@ class SellerOfferController extends AbstractController
         ]);
     }
     //previous code of app_seller_offer_new
+    #[Route('/getAllSellerOffers', name: 'SellerOffers_list', methods: ['GET'])]
+    public function getAllSellerOffers_list(SerializerInterface $serializer, SellerOfferRepository $sellerOfferRepository): Response
+    {
+        $List_SellerOffers = $sellerOfferRepository->findAll();
+
+
+        // Option de normalisation pour convertir les objets en tableaux associatifs
+        $normalizedSellerOffers = $serializer->normalize($List_SellerOffers, null, ['groups' => 'SellerOffers']);
+
+        // Conversion du tableau associatif en JSON
+        $serializedSellerOffers = $serializer->serialize($normalizedSellerOffers, 'json');
+
+        // Décode le JSON en tant qu'objet ou tableau PHP
+        $data = json_decode($serializedSellerOffers, true);
+
+        // Retourne la réponse JSON
+        return $this->json($data, 200);
+    }
+
+    //add new method
+    #[Route('/getSellerOffers', name: 'SellerOffers_lists', methods: ['GET'])]
+    public function getSellerOffers_lists(SerializerInterface $serializer, SellerOfferRepository $sellerOfferRepository): Response
+    {
+
+
+        $qb = $sellerOfferRepository->createQueryBuilder('so');
+        $qb->join('so.offer','o')
+            ->where('so.startDate <= :now')
+            ->andWhere('DATE_ADD(so.startDate, o.nbDays, \'day\') > :now')
+            ->setParameters([
+                'now' => new \DateTime(),
+
+            ]);
+        $List_SellerOffers = $qb->getQuery()->getResult();
+
+
+        // Option de normalisation pour convertir les objets en tableaux associatifs
+        $normalizedSellerOffers = $serializer->normalize($List_SellerOffers, null, ['groups' => 'SellerOffers']);
+
+        // Conversion du tableau associatif en JSON
+        $serializedSellerOffers = $serializer->serialize($normalizedSellerOffers, 'json');
+
+        // Décode le JSON en tant qu'objet ou tableau PHP
+        $data = json_decode($serializedSellerOffers, true);
+
+        // Retourne la réponse JSON
+        return $this->json($data, 200);
+    }
+    //end new method
 
 
     #[Route('/{id}', name: 'app_seller_offer_show', methods: ['GET'])]
     public function show(SellerOffer $sellerOffer): Response
     {
+
         return $this->render('seller_offer/show.html.twig', [
             'seller_offer' => $sellerOffer,
         ]);
@@ -94,6 +147,7 @@ class SellerOfferController extends AbstractController
 //add cart
 
 //end panier
+
 
 
 }

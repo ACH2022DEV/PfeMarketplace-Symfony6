@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 #[Route('/offer')]
@@ -50,11 +51,16 @@ class OfferController extends AbstractController
 
     //end home page
     #[Route('/GetAllOfferse', name: 'offer_list', methods: ['GET'])]
-    public function getAllOffres(): Response
+    public function getAllOffres(SerializerInterface $serializer): Response
     {
         $List_offer=$this->offer->findAll();
-
-        return $this->json($List_offer,200);
+        $serializedOffers = $serializer->serialize($List_offer, 'json', ['groups' => 'offer']);
+        $data = json_decode($serializedOffers, true);
+    /*    foreach ($data as $item) {
+            echo "Offer Product Types: " . json_encode($item['offerProductTypes']) . PHP_EOL;
+            echo "Seller Offers: " . json_encode($item['sellerOffers']) . PHP_EOL;
+        }*/
+        return $this->json($data,200);
     }
     #[Route('/new', name: 'app_offer_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OfferRepository $offerRepository): Response

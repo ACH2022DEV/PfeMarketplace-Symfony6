@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SellerOfferRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SellerOfferRepository::class)]
 class SellerOffer
@@ -12,20 +13,25 @@ class SellerOffer
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['Seller','SellerOffers'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne( cascade: ['persist','remove'],inversedBy: 'sellerOffers')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?Offer $offer = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'sellerOffers')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['SellerOffers'])]
     private ?Seller $seller = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?\DateTimeInterface $creationDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?\DateTimeInterface $startDate = null;
 
     public function getId(): ?int

@@ -6,6 +6,7 @@ use App\Repository\ApiRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApiRepository::class)]
 class Api
@@ -13,24 +14,30 @@ class Api
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['Seller','SellerOffers'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?string $baseUrl = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?string $apiKeyValue = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?string $login = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['Seller','SellerOffers'])]
     private ?string $password = null;
 
     #[ORM\OneToOne(mappedBy: 'api', cascade: ['persist', 'remove'])]
     private ?Seller $seller = null;
 
     #[ORM\OneToMany(mappedBy: 'api', targetEntity: ApiProduct::class)]
+    #[Groups(['Seller','SellerOffers'])]
     private Collection $apiProducts;
 
     public function __construct()

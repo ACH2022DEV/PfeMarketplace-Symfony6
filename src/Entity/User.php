@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Trait\TimeStampTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -19,26 +20,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['Seller'])]
+
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(['Seller'])]
+
     private $email;
 
     #[ORM\Column(type: 'json')]
+    #[Groups(['Seller'])]
+
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['Seller'])]
+
     private $display_name;
 
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['Seller'])]
+
     private $isVerified = false;
 
 
     #[ORM\Column(length: 255)]
+    #[Groups(['Seller'])]
+
     private ?string $username = null;
 
     #[ORM\Column(nullable: true)]

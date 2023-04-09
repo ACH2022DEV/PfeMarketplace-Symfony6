@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
@@ -20,16 +21,19 @@ class Country
     #[ORM\Column(type: 'string', length: 2, unique: true)]
     #[Assert\Length(min: 2, max: 2)]
     #[Assert\NotBlank]
+    #[Groups(['Seller','SellerOffers'])]
     private $code;
 
     #[ORM\Column(type: 'string', length: 3, unique: true)]
     #[Assert\Length(min: 3, max: 3)]
     #[Assert\NotBlank]
+    #[Groups(['Seller','SellerOffers'])]
     private $alpha3;
 
     #[ORM\Column(type: 'string', length: 64, unique: true)]
     #[Assert\Length(min: 3, max: 64)]
     #[Assert\NotBlank]
+    #[Groups(['Seller','SellerOffers'])]
     private $name;
 
 
@@ -38,10 +42,12 @@ class Country
         max: 2000
     )]
     #[ORM\Column(type: 'smallint', nullable: true)]
+    #[Groups(['Seller','SellerOffers'])]
     private $phone_code;
 
 
     #[ORM\Column(type: 'string', length: 64, nullable: true)]
+    #[Groups(['Seller','SellerOffers'])]
     private $capital;
 
     #[ORM\ManyToOne(targetEntity: Continent::class, inversedBy: 'countries')]
@@ -56,6 +62,7 @@ class Country
 
     #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'countries')]
     #[ORM\JoinColumn(name: "currency_code", referencedColumnName: 'code')]
+    #[Groups(['Seller','SellerOffers'])]
     private $currency;
 
 

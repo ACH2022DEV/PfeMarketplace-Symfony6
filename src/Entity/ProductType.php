@@ -6,6 +6,7 @@ use App\Repository\ProductTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductTypeRepository::class)]
 class ProductType
@@ -13,9 +14,11 @@ class ProductType
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['SellerOffers'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['SellerOffers'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'productType', targetEntity: OfferProductType::class)]

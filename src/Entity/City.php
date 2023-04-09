@@ -6,6 +6,7 @@ use App\Repository\CityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
@@ -14,23 +15,29 @@ class City
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['Seller'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
     #[Assert\NotBlank(message: 'This value should not be blank')]
+    #[Groups(['Seller'])]
     private $name;
 
     #[ORM\Column(type: 'decimal', precision: 16, scale: 12 , nullable: true)]
+    #[Groups(['Seller'])]
     private $latitude;
 
     #[ORM\Column(type: 'decimal', precision: 16, scale: 12 , nullable: true)]
+    #[Groups(['Seller'])]
     private $longitude;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['Seller'])]
     private $active;
 
     #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'cities')]
     #[ORM\JoinColumn(name: "country_code", referencedColumnName: 'code')]
+    #[Groups(['Seller'])]
     private $country_code;
 
     #[ORM\OneToMany(mappedBy: 'city_idCity', targetEntity: Seller::class)]
