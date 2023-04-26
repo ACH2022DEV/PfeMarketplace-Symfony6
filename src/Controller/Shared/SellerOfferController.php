@@ -65,12 +65,16 @@ class SellerOfferController extends AbstractController
 
         $qb = $sellerOfferRepository->createQueryBuilder('so');
         $qb->join('so.offer','o')
+            /*->join('o.offerProductTypes', 'opt')
+            ->join('opt.productType', 'pt')*/
             ->where('so.startDate <= :now')
             ->andWhere('DATE_ADD(so.startDate, o.nbDays, \'day\') > :now')
+           // ->andWhere('pt.name = :productTypeName')
             ->setParameters([
                 'now' => new \DateTime(),
-
             ]);
+           //->setParameter('productTypeName', 'hotels');
+
         $List_SellerOffers = $qb->getQuery()->getResult();
 
 
