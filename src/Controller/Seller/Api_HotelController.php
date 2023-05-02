@@ -8,11 +8,11 @@ use App\Repository\SellerOfferRepository;
 use App\Service\Helpers;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-//use http\Client;
 use GuzzleHttp\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\HttpFoundation\Request;
+//use http\Client;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +22,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+//use GuzzleHttp\Promise\Promise;
+//use React\Promise\Promise;
+use GuzzleHttp\Promise;
+
+
+
 
 
 
@@ -41,7 +47,7 @@ class Api_HotelController extends AbstractController
 
 
     }
-    #[Route('/getApiHotel', name: 'ApiHotel_list', methods: ['GET','POST'])]
+    #[Route('/getApiHotels', name: 'ApiHotel_list', methods: ['GET','POST'])]
     public function getApi_hotel(HttpFoundationRequest $httpFoundationRequest, SerializerInterface $serializer, SellerOfferRepository $sellerOfferRepository): Response
     {
         $client = new Client();
@@ -79,25 +85,34 @@ class Api_HotelController extends AbstractController
                 $productTypeName = $productType['productType']['name'];
                 $productTypeMaxItems = $productType['maxItems'];
                 if($productTypeName=='hotels'){
-                $url = $baseUrl . '?' . http_build_query(['product' => $productTypeName]);
-                $requests[] = new Request('POST', $url, [
-                    'Content-Type' => 'application/json',
-                    'api-key' => $apiKeyValue,
-                    'Login' => $login,
-                    'password' => $password,
-                    'Access-Control-Allow-Origin' => '*',
-                    'Accept' => '*/*'
-                ], json_encode($searchHotel));
+                    $url = $baseUrl . '?' . http_build_query(['product' => $productTypeName]);
+                  //  $url=$baseUrl;
+                    $requests[] = new Request('POST', $url, [
+                        'Content-Type' => 'application/json',
+                        'api-key' => $apiKeyValue,
+                        'Login' => $login,
+                        'password' => $password,
+                        'Access-Control-Allow-Origin' => '*',
+                        'Accept' => '*/*'
+                    ], json_encode($searchHotel));
+//                    $requests[] = new Request('GET', $url, [
+//                        'Content-Type' => 'application/json',
+//                        'Access-Control-Allow-Origin' => '*',
+//                        'Accept' => '*/*'
+//                    ], json_encode(null));
+                }
             }
         }
-        }
+        //1ème méthode
         $results = [];
-
         $pool = new Pool($guzzleClient, $requests, [
             'concurrency' => 10, // Nombre maximal de requêtes en parallèle
-            'fulfilled' => function ($response, $index) use (&$results) {
+            'fulfilled' => function ($response, $index) use (&$results, $sellersValides) {
+                $seller = $sellersValides[$index];
                 $data = json_decode($response->getBody()->getContents(), true);
-                $results[] = $data;
+              $results[] = ['seller' => $seller['seller'], 'data' => $data];
+              //  $results[$seller['seller']['id']] = ['seller' => $seller['seller'], 'data' => $data];
+
             },
             'rejected' => function ($reason, $index) {
                 // Traiter l'erreur ici
@@ -107,14 +122,38 @@ class Api_HotelController extends AbstractController
 
         // Attendre que toutes les demandes soient terminées
         $pool->promise()->wait();
+        //$guzzleClient->
 
         return $this->json($results, 200);
     }
-}
+    //end 1ème méthode
+    //2ème méthode
+    // Créer un tableau de promesses pour chaque requête
+ /*      $promises = [];
+        foreach ($requests as $request) {
+            $promises[] = $guzzleClient->sendAsync($request);
+        }
+
+        // Attendre que toutes les promesses soient résolues
+        $results = [];
+        $resultsPromise = Promise\all($promises)->then(
+            function ($responses) use (&$results) {
+                foreach ($responses as $response) {
+                    $data = json_decode($response->getBody()->getContents(), true);
+                    $results[] = $data;
+                }
+            }
+        );
+        $resultsPromise->wait();
+
+        return $this->json($results, 200);
+    }*/
+    //fin 2ème méthode
+
 /*previousCode*/
 
 //#[Route('/getApiHotel', name: 'ApiHotel_list', methods: ['GET','POST'])]
-//    public function getApi_hotel(Request $request,SerializerInterface $serializer, SellerOfferRepository $sellerOfferRepository):Response
+//    public function getApi_hotel2(Request $request,SerializerInterface $serializer, SellerOfferRepository $sellerOfferRepository):Response
 //    {
 //        //$client = new Client();
 //        $responseOfSellersValides = $this->sellerOfferController->getSellerOffers_lists($serializer, $sellerOfferRepository)->getContent();
@@ -191,5 +230,5 @@ class Api_HotelController extends AbstractController
 //        return $this->json($dataArray, 200);
 //
 //    }
-//
 
+}

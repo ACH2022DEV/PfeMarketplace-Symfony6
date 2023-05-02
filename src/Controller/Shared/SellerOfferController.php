@@ -62,20 +62,34 @@ class SellerOfferController extends AbstractController
     public function getSellerOffers_lists(SerializerInterface $serializer, SellerOfferRepository $sellerOfferRepository): Response
     {
 
-
+//
+//        $qb = $sellerOfferRepository->createQueryBuilder('so');
+//        $qb->join('so.offer','o')
+//            /*->join('o.offerProductTypes', 'opt')
+//            ->join('opt.productType', 'pt')*/
+//            ->where('so.startDate <= :now')
+//            ->andWhere('DATE_ADD(so.startDate, o.nbDays, \'day\') > :now')
+//           // ->andWhere('pt.name = :productTypeName')
+//            ->setParameters([
+//                'now' => new \DateTime(),
+//            ]);
+//           //->setParameter('productTypeName', 'hotels');
+//
+//        $List_SellerOffers = $qb->getQuery()->getResult();
         $qb = $sellerOfferRepository->createQueryBuilder('so');
         $qb->join('so.offer','o')
-            /*->join('o.offerProductTypes', 'opt')
-            ->join('opt.productType', 'pt')*/
+            ->join('o.offerProductTypes', 'opt')
+            ->join('opt.productType', 'pt')
             ->where('so.startDate <= :now')
             ->andWhere('DATE_ADD(so.startDate, o.nbDays, \'day\') > :now')
-           // ->andWhere('pt.name = :productTypeName')
+            ->andWhere('pt.name = :productTypeName')
             ->setParameters([
                 'now' => new \DateTime(),
+                'productTypeName' => 'hotels'
             ]);
-           //->setParameter('productTypeName', 'hotels');
 
         $List_SellerOffers = $qb->getQuery()->getResult();
+
 
 
         // Option de normalisation pour convertir les objets en tableaux associatifs
@@ -86,8 +100,30 @@ class SellerOfferController extends AbstractController
 
         // Décode le JSON en tant qu'objet ou tableau PHP
         $data = json_decode($serializedSellerOffers, true);
+//        dd(  $data);
 
+       /* foreach ($data as $item) {
+            $offerProductTypes = $item['offer']['offerProductTypes'];
+            foreach ($offerProductTypes as $offerProductType) {
+                $id = $offerProductType['id'];
+                $productType = $offerProductType['productType']['name'];
+
+                //dd($hotelsProductTypes);
+                $maxItems = $offerProductType['maxItems'];
+                $price = $offerProductType['price'];
+                // Faites quelque chose avec les données récupérées, comme les afficher ou les enregistrer dans une base de données
+            }
+        }*/
+       // dd( $id);
+      /*  $offerProductTypes = $offer['offerProductTypes'];
+        $hotelsProductTypes = array_filter($offerProductTypes, function($productType) {
+            return $productType['productType']['name'] == 'hotels';
+        });
+        if (!empty($hotelsProductTypes)) {
+            // Afficher l'offre pour les hotels
+        }*/
         // Retourne la réponse JSON
+       // return $this->json($data, 200);
         return $this->json($data, 200);
     }
     //end new method
