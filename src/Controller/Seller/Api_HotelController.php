@@ -104,14 +104,76 @@ class Api_HotelController extends AbstractController
             }
         }
         //1ème méthode
-        $results = [];
+        //$results = [];
+        $hotels = [];
         $pool = new Pool($guzzleClient, $requests, [
             'concurrency' => 10, // Nombre maximal de requêtes en parallèle
-            'fulfilled' => function ($response, $index) use (&$results, $sellersValides) {
-                $seller = $sellersValides[$index];
+            'fulfilled' => function ($response, $index) use (&$hotels,$sellersValides) {
+
+               $seller = $sellersValides[$index];
+               // dd($seller);
                 $data = json_decode($response->getBody()->getContents(), true);
-              $results[] = ['seller' => $seller['seller'], 'data' => $data];
-              //  $results[$seller['seller']['id']] = ['seller' => $seller['seller'], 'data' => $data];
+              //  $hotels[] = $data['response'];
+               // dd($hotels);
+                //premiére methode
+               foreach ($data['response'] as $dataIndex) {
+                    $hotel = $dataIndex;
+                    // Vérifier si l'hôtel existe déjà dans le tableau des hôtels
+                    if (isset($hotels[$hotel['hotelName']])) {
+                      //  $hotels[$hotel['hotelName']][] =  $seller['seller'];
+                        $hotels[$hotel['hotelName']]['seller'][] = $seller['seller'];
+                        // Ajouter le vendeur à l'hôtel existant
+                    } else {
+                        $hotels[$hotel['hotelName']] = ['hotel'=>$hotel ,'seller'=>[$seller['seller']]]; // Créer un nouvel hôtel et ajouter le vendeur
+                    }
+
+
+
+
+                }
+               //$hotels[$hotel['hotelName']] = array_values($hotels[$hotel['hotelName']]);
+              //  $hotels = array_values($hotels);
+                //$hotels = array_values($hotels);
+//                $hotels = array_values($hotels);
+
+                //2éme méthode
+
+              /*  foreach ($data['response'] as $dataIndex) {
+                    $hotel = $dataIndex['hotelName'];
+
+                    // Vérifier si l'hôtel existe déjà dans le tableau des hôtels
+                    $existingHotel = array_filter($hotels, function ($value) use ($hotel) {
+                        return $value['hotel']['hotelName'] === $hotel;
+                    });
+
+                    if (!empty($existingHotel)) {
+                        // Ajouter le vendeur à l'hôtel existant
+                        $existingHotel[key($existingHotel)]['sellers'][] = $seller['seller'];
+                    } else {
+                        // Créer un nouvel hôtel et ajouter le vendeur
+                        $hotels[] = [
+                            'hotel' => $dataIndex,
+                            'sellers' => $seller['seller']
+                        ];
+                    }
+                }*/
+
+                //end methode
+                    /*foreach ($data['response'] as $dataindex){
+                      //  dd($dataindex);
+                      //  $hotel =$dataindex['hotelName'];
+                        if (in_array($dataindex, $data['response'])) {
+                            $hotels[] = ['seller' => $seller['seller']];// Ajouter le vendeur aux résultats
+                        } else {
+                            $hotels[] =  ['seller' => $seller['seller'] ,'hotel'=> $dataindex];
+                           // $hotels[] = $dataindex; // Ajouter l'hôtel au tableau des hôtels
+                        }*/
+                      //  $results[] = ['seller' => $seller['seller'], 'data' =>['hotel'=> $dataindex]];
+                   //}
+                // $results[] = ['seller' => $seller['seller'], 'data' => $data];
+            //  $results[] = ['seller' => $seller['seller'], 'data' => $data['response']];
+           //    if()
+              //  $results[] = ['seller' => $seller['seller']];
 
             },
             'rejected' => function ($reason, $index) {
@@ -124,7 +186,7 @@ class Api_HotelController extends AbstractController
         $pool->promise()->wait();
         //$guzzleClient->
 
-        return $this->json($results, 200);
+        return $this->json($hotels, 200);
     }
     //end 1ème méthode
     //2ème méthode
