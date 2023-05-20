@@ -122,9 +122,9 @@ class Api_HotelController extends AbstractController
                     if (isset($hotels[$hotel['hotelName']])) {
                       //  $hotels[$hotel['hotelName']][] =  $seller['seller'];
                        // $hotels[$hotel['hotelName']]['seller'][] = ['seller'=>$seller['seller'],'hotelSeller'=>$hotel['lowPrice']];
-                        $hotels[$hotel['hotelName']]['seller'][] = [
-                            'seller' => $seller['seller'],
-                            'hotelSeller' => $hotel['lowPrice']
+                        $hotels[$hotel['hotelName']]['sellers'][] = [
+                            'sellerData' => $seller['seller'],
+                            'PrixSeller' => $hotel['lowPrice']
                         ];
 
                         // Ajouter le vendeur à l'hôtel existant
@@ -132,10 +132,10 @@ class Api_HotelController extends AbstractController
                       //  $hotels[$hotel['hotelName']] = ['hotel'=>$hotel ,'seller'=>['seller'=>$seller['seller'],'hotelSeller'=>$hotel['lowPrice']]];
                         $hotels[$hotel['hotelName']] = [
                             'hotel' => $hotel,
-                            'seller' => [
+                            'sellers' => [
                                 [
-                                    'seller' => $seller['seller'],
-                                    'hotelSeller' => $hotel['lowPrice']
+                                    'sellerData' => $seller['seller'],
+                                    'PrixSeller' => $hotel['lowPrice']
                                 ]
                             ]
                         ];// Créer un nouvel hôtel et ajouter le vendeur
