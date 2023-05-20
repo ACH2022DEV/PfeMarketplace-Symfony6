@@ -121,10 +121,24 @@ class Api_HotelController extends AbstractController
                     // Vérifier si l'hôtel existe déjà dans le tableau des hôtels
                     if (isset($hotels[$hotel['hotelName']])) {
                       //  $hotels[$hotel['hotelName']][] =  $seller['seller'];
-                        $hotels[$hotel['hotelName']]['seller'][] = $seller['seller'];
+                       // $hotels[$hotel['hotelName']]['seller'][] = ['seller'=>$seller['seller'],'hotelSeller'=>$hotel['lowPrice']];
+                        $hotels[$hotel['hotelName']]['seller'][] = [
+                            'seller' => $seller['seller'],
+                            'hotelSeller' => $hotel['lowPrice']
+                        ];
+
                         // Ajouter le vendeur à l'hôtel existant
                     } else {
-                        $hotels[$hotel['hotelName']] = ['hotel'=>$hotel ,'seller'=>[$seller['seller']]]; // Créer un nouvel hôtel et ajouter le vendeur
+                      //  $hotels[$hotel['hotelName']] = ['hotel'=>$hotel ,'seller'=>['seller'=>$seller['seller'],'hotelSeller'=>$hotel['lowPrice']]];
+                        $hotels[$hotel['hotelName']] = [
+                            'hotel' => $hotel,
+                            'seller' => [
+                                [
+                                    'seller' => $seller['seller'],
+                                    'hotelSeller' => $hotel['lowPrice']
+                                ]
+                            ]
+                        ];// Créer un nouvel hôtel et ajouter le vendeur
                     }
 
 
