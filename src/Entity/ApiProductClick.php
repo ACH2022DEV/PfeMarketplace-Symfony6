@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ApiProductClickRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApiProductClickRepository::class)]
 class ApiProductClick
@@ -12,23 +13,29 @@ class ApiProductClick
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['apiProduct'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['apiProduct'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 45, nullable: true)]
+    #[Groups(['apiProduct'])]
     private ?string $ipTraveler = null;
 
     #[ORM\Column(length: 45, nullable: true)]
+    #[Groups(['apiProduct'])]
     private ?string $ipLocation = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProductClicks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['apiProduct'])]
     private ?Traveler $traveler = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProductClicks')]
     #[ORM\JoinColumn(nullable: false)]
+
     private ?ApiProduct $apiProduct = null;
 
 

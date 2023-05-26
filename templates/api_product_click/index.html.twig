@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ApiProductClick index{% endblock %}
+
+{% block body %}
+    <h1>ApiProductClick index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>IpTraveler</th>
+                <th>IpLocation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for api_product_click in api_product_clicks %}
+            <tr>
+                <td>{{ api_product_click.id }}</td>
+                <td>{{ api_product_click.date ? api_product_click.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ api_product_click.ipTraveler }}</td>
+                <td>{{ api_product_click.ipLocation }}</td>
+                <td>
+                    <a href="{{ path('app_api_product_click_show', {'id': api_product_click.id}) }}">show</a>
+                    <a href="{{ path('app_api_product_click_edit', {'id': api_product_click.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_api_product_click_new') }}">Create new</a>
+{% endblock %}

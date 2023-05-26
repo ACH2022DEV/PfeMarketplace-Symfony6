@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ApiProductClick{% endblock %}
+
+{% block body %}
+    <h1>Edit ApiProductClick</h1>
+
+    {{ include('api_product_click/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_api_product_click_index') }}">back to list</a>
+
+    {{ include('api_product_click/_delete_form.html.twig') }}
+{% endblock %}

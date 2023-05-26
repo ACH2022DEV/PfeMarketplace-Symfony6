@@ -6,6 +6,7 @@ use App\Repository\ApiProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ApiProductRepository::class)]
 class ApiProduct
@@ -13,25 +14,32 @@ class ApiProduct
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['apiProduct'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['apiProduct'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProducts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['apiProduct'])]
     private ?ProductType $productType = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProducts')]
+    #[Groups(['apiProduct'])]
     private ?Api $api = null;
 
     #[ORM\Column(length: 45, nullable: true)]
+    #[Groups(['apiProduct'])]
     private ?string $idProductFromApi = null;
 
     #[ORM\ManyToMany(targetEntity: SellerOffer::class)]
+    #[Groups(['apiProduct'])]
     private Collection $SellerOffer_has_Product;
 
     #[ORM\OneToMany(mappedBy: 'apiProduct', targetEntity: ApiProductClick::class)]
+    #[Groups(['apiProduct'])]
     private Collection $apiProductClicks;
 
 

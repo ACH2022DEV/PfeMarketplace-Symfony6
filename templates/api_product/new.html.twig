@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ApiProduct{% endblock %}
+
+{% block body %}
+    <h1>Create new ApiProduct</h1>
+
+    {{ include('api_product/_form.html.twig') }}
+
+    <a href="{{ path('app_api_product_index') }}">back to list</a>
+{% endblock %}

@@ -14,23 +14,24 @@ class Api
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['Seller','SellerOffers'])]
+    #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['Seller','SellerOffers'])]
+    #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?string $baseUrl = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['Seller','SellerOffers'])]
+    #[Groups(['Seller','SellerOffers','apiProduct'])]
+
     private ?string $apiKeyValue = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['Seller','SellerOffers'])]
+    #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?string $login = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['Seller','SellerOffers'])]
+    #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?string $password = null;
 
     #[ORM\OneToOne(mappedBy: 'api', cascade: ['persist', 'remove'])]
