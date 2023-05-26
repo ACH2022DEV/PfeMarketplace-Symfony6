@@ -219,7 +219,13 @@ class SellerController extends AbstractController
             'seller' => $seller,
         ]);
     }
-
+    #[Route('/seller/ViewStatistics', name: 'app_seller_Statistics', methods: ['GET'])]
+    public function showStatistics(Seller $seller): Response
+    {
+        return $this->render('seller/show.html.twig', [
+            'seller' => $seller,
+        ]);
+    }
     //passez la commande
     #[Route('/seller/Confirmation', name: 'app_seller_Confirmation', methods: ['GET'])]
     public function passezCommande(Request $request, Security $security): Response

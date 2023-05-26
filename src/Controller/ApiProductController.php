@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Api;
 use App\Entity\ApiProduct;
+use App\Entity\ApiProductClick;
 use App\Entity\ProductType;
 use App\Form\ApiProductType;
 use App\Repository\ApiProductRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,36 +70,47 @@ class ApiProductController extends AbstractController
     public function create(Request $request, ApiProductRepository $apiProductRepository): Response
     {
         $jsonData = json_decode($request->getContent(), true);
-        $api=$jsonData['api'];
-        $apiProduct = new ApiProduct();
-       // $apiProduct->setApi($api);
-        $apiProduct->setName($jsonData['name']);
-        $apiProduct->setIdProductFromApi($jsonData['idProductFromApi']);
-       // $apiProduct->setProductType($jsonData['productType']);
-        $apiProductId = $jsonData['api'];
-        $api = $this->em->getRepository(Api::class)->find($apiProductId);
-        if (!$api) {
-            return new JsonResponse(['error' => 'L\'API spécifiée est introuvable'], Response::HTTP_NOT_FOUND);
+
+        $apiProduct = null;
+
+        if (isset($jsonData['name'])) {
+            // Check if ApiProduct with the given name already exists
+            $apiProduct = $apiProductRepository->findOneBy(['name' => $jsonData['name']]);
         }
 
-        $apiProduct->setApi($api);
+        if ($apiProduct === null) {
+            // Create a new ApiProduct only if it doesn't exist
+            $apiProduct = new ApiProduct();
+            $apiProduct->setName($jsonData['name']);
+            $apiProduct->setIdProductFromApi($jsonData['idProductFromApi']);
 
-// Récupérer l'objet ProductType à partir de son identifiant
-        $productTypeId = $jsonData['productType'];
-        $productType = $this->em->getRepository(ProductType::class)->find($productTypeId);
-        if (!$productType) {
-            return new JsonResponse(['error' => 'Le type de produit spécifié est introuvable'], Response::HTTP_NOT_FOUND);
+            $apiProductId = $jsonData['api'];
+            $api = $this->em->getRepository(Api::class)->find($apiProductId);
+            if (!$api) {
+                return new JsonResponse(['error' => 'L\'API spécifiée est introuvable'], Response::HTTP_NOT_FOUND);
+            }
+            $apiProduct->setApi($api);
+
+            $productTypeId = $jsonData['productType'];
+            $productType = $this->em->getRepository(ProductType::class)->find($productTypeId);
+            if (!$productType) {
+                return new JsonResponse(['error' => 'Le type de produit spécifié est introuvable'], Response::HTTP_NOT_FOUND);
+            }
+            $apiProduct->setProductType($productType);
+
+            $this->manager->persist($apiProduct);
         }
 
-        $apiProduct->setProductType($productType);
-// Enregistrer l'objet ApiProduct dans la base de données
+        $apiProductClick = new ApiProductClick();
+        $apiProductClick->setDate(new DateTime());
+        $apiProductClick->setIpLocation($jsonData['apiProductClick']['ipLocation']);
+        $apiProductClick->setIpTraveler($jsonData['apiProductClick']['ipTraveler']);
 
-        $this->manager->persist($apiProduct);
+        $apiProduct->addApiProductClick($apiProductClick);
 
         $this->manager->flush();
 
-        return new JsonResponse(['message' => 'Produit créé avec succès'], JsonResponse::HTTP_CREATED);
-
+        return new JsonResponse(['message' => 'Produit créé avec succès'], Response::HTTP_CREATED);
     }
 
     #[Route('/{id}', name: 'app_api_product_show', methods: ['GET'])]

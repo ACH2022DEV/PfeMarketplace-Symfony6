@@ -13,24 +13,24 @@ class ApiProductClick
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 45, nullable: true)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?string $ipTraveler = null;
 
     #[ORM\Column(length: 45, nullable: true)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?string $ipLocation = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProductClicks')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?Traveler $traveler = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProductClicks')]

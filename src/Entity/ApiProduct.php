@@ -14,16 +14,17 @@ class ApiProduct
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProducts')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?ProductType $productType = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiProducts')]
@@ -31,15 +32,15 @@ class ApiProduct
     private ?Api $api = null;
 
     #[ORM\Column(length: 45, nullable: true)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private ?string $idProductFromApi = null;
 
     #[ORM\ManyToMany(targetEntity: SellerOffer::class)]
-    #[Groups(['apiProduct'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private Collection $SellerOffer_has_Product;
 
-    #[ORM\OneToMany(mappedBy: 'apiProduct', targetEntity: ApiProductClick::class)]
-    #[Groups(['apiProduct'])]
+    #[ORM\OneToMany(mappedBy: 'apiProduct', targetEntity: ApiProductClick::class, cascade: ['persist','remove'])]
+    #[Groups(['apiProduct','Seller','SellerOffers'])]
     private Collection $apiProductClicks;
 
 
