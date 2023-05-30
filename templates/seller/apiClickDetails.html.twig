@@ -1,0 +1,114 @@
+{% extends 'seller/base_seller.html.twig' %}
+{#{% set totalPending = 0 %}#}
+{% block container  %}
+    <div class="card ">
+        <div class="card-header my-5" >
+
+        </div>
+        <div class="card-body">
+            <section id="dashboard_main_arae" class="section_padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="dashboard_sidebar">
+                                <div class="dashboard_sidebar_user">
+
+                                    {#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
+                                    {% if seller.brochureFilename %}
+                                        <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
+                                    {% endif %}
+
+                                    <h3 class="text-center">Name :{{ seller.name}}</h3>
+                                    {#                            <h3> Website : {{ seller.website}}</h3>#}
+                                    <p class="text-center"><a href="tel:+00-123-456-789">Email : {{ seller.user.email }}</a></p>
+                                    <p class="text-center"><a href="mailto:sherlyn@domain.com">Website :  {{  seller.website }}</a></p>
+                                </div>
+                                <div class="dashboard_menu_area">
+                                    <ul>
+                                        <li><a href="dashboard.html" class="active"><i
+                                                        class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                                        <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
+                                                    class="fas fa-address-card"></i>My bookings
+                                            <span> <i class="fas fa-angle-down"></i></span>
+                                            <div class="booing_sidebar_dashboard" id="show_dropdown_item"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li><a href="hotel-booking.html"><i class="fas fa-hotel"></i>Hotel
+                                                            booking</a></li>
+                                                    <li><a href="flight-booking.html"><i class="fas fa-paper-plane"></i>Flight
+                                                            booking</a></li>
+                                                    <li>
+                                                        <a href="tour-booking.html">
+                                                            <i class="fas fa-map"></i>Tour booking
+                                                        </a>
+                                                    </li>
+                                                    <li><a href="booking-history.html">
+                                                            <i class="fas fa-history"></i>Booking history</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
+                                        <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
+                                        <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
+                                        <li>
+                                            {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-sign-out-alt"></i>Logout
+                                    </a>#}
+                                            <a href="{{ path('app_logout') }}" >
+                                                <i class="fas fa-sign-out-alt"></i>Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+
+                            <div class="dashboard_common_table">
+                                <h3>Statistics Details</h3>
+                                <div class="table-responsive-lg table_common_area">
+                                   {% if productDeatils|length > 0 %}
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            {# <th>Sl no.</th> #}
+                                            <th>Click ID</th>
+                                            <th>Click Date </th>
+                                            <th>IP Traveler</th>
+                                            <th>IP Location</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {# {% for sellerOffer in sellerOffers|slice((page - 1) * limit, limit) %} #}
+                                        {% for apiProductClick in productDeatils %}
+                                            <tr>
+
+
+                                                                    <td >#{{ apiProductClick.id }}</td>
+                                                                    <td class="text-primary">{{ apiProductClick.date|date('Y-m-d H:i:s') }}</td>
+                                                                    <td>{{ apiProductClick.ipTraveler ?: 'N/A' }}</td>
+                                                                    <td>{{ apiProductClick.ipLocation }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+
+
+
+
+                                        </tbody>
+                                    </table>
+
+                                   {% else %}
+                                       <p>No API product clicks found.</p>
+                                   {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+{% endblock %}

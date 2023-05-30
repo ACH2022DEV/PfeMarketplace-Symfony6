@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ApiProduct;
 use App\Entity\MarketSubscriptionRequest;
 use App\Entity\Offer;
 use App\Entity\Seller;
@@ -193,6 +194,8 @@ class SellerController extends AbstractController
         $offset = ($page - 1) * $limit;
         $sellerOffers=$seller->getSellerOffers();
 
+
+
       //  $sellerOffers = // Récupérez vos offres de vendeurs à partir de votre base de données
 
         $totalOffers = count($sellerOffers);
@@ -210,6 +213,7 @@ class SellerController extends AbstractController
             'page' => $page,
             'limit' => $limit,
             'totalPages' => $totalPages,
+            'totals'=>$totalOffers,
         ]);
     }
     #[Route('/seller/ViewProfile', name: 'app_seller_show', methods: ['GET'])]
@@ -220,9 +224,59 @@ class SellerController extends AbstractController
         ]);
     }
     #[Route('/seller/ViewStatistics', name: 'app_seller_Statistics', methods: ['GET'])]
-    public function showStatistics(Seller $seller): Response
+    public function showStatistics(Request $request): Response
     {
-        return $this->render('seller/show.html.twig', [
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+
+        $page = $request->query->getInt('page', 1);
+        $limit = 10; // nombre d'éléments par page
+        $offset = ($page - 1) * $limit;
+        $apiProduct=$seller->getApi()->getApiProducts();
+
+
+
+        //  $sellerOffers = // Récupérez vos offres de vendeurs à partir de votre base de données
+
+        $totalProducts = count($apiProduct);
+
+        $totalPages = ceil($totalProducts / $limit);
+        //fin de pagination
+        return $this->render('seller/statistique.html.twig', [
+            'seller' => $seller,
+
+            //  'sellerOffers' => to($sellerOffers->getValues(), $offset, $limit),
+            //'sellerOffers' => array_slice($sellerOffers->getValues(), $offset, $limit),
+            //'sellerOffers' => array_slice($sellerOffers->toArray(), $offset, $limit),
+            //'sellerOffers' => array_slice($sellerOffers->slice($offset), $limit),
+            'apiProducts' => array_slice($apiProduct->getValues(),$offset, $limit),
+            'page' => $page,
+            'limit' => $limit,
+            'totalPages' => $totalPages,
+            'totals'=>$totalProducts,
+        ]);
+    }
+    #[Route('/seller/ViewStatisticsDetails/{id}', name: 'app_seller_StatisticsDetails', methods: ['GET'])]
+    public function showProductDetails($id,Request $request)
+    {
+        $user = $this->security->getUser();
+        $userId = $user->getId();
+        $session = $request->getSession();
+        $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
+        // Retrieve the product details from the database or any other data source
+        $product = $this->em->getRepository(ApiProduct::class)->find($id);
+        $productDeatils= $product->getApiProductClicks();
+//dd($product);
+        // Handle the case when the product doesn't exist
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
+        // Render the product details using a template
+        return $this->render('seller/apiClickDetails.html.twig', [
+            'productDeatils' => $productDeatils,
             'seller' => $seller,
         ]);
     }

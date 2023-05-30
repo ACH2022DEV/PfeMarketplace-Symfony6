@@ -1,5 +1,5 @@
 {% extends 'seller/base_seller.html.twig' %}
-
+{#{% set totalPending = 0 %}#}
 {% block container  %}
 <div class="card ">
     <div class="card-header my-5" >
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="dashboard_top_text">
                                             <h3>Total bookings</h3>
-                                            <h1>{{ sellerOffers|length }}</h1>
+                                            <h1>{{ totals }}</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -88,9 +88,10 @@
                                                 <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                                             </svg>
                                         </div>
+                                        {% set totalPending = sellerOffers|filter(item => item.isPending)|length %}
                                         <div class="dashboard_top_text">
                                             <h3>Pending bookings</h3>
-                                            <h1>23</h1>
+                                            <h1>{{ totalPending }}</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -126,6 +127,7 @@
                                         <td>{{ sellerOffer.getEndDate()|date('d/m/Y H:i:s') }}</td>
 {#                                        {% if sellerOffer.getEndDate()|date('d/m/Y H:i:s') > "now"|date %}#}
                                         {% if sellerOffer.isPending() %}
+{#                                            {% set totalPending = totalPending + 1 %}#}
                                             <td class="complete">Pending</td>
                                         {% else %}
                                             <td  class="cancele">Completed</td>

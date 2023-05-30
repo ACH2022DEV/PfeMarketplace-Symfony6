@@ -1,0 +1,216 @@
+{% extends 'seller/base_seller.html.twig' %}
+{#{% set totalPending = 0 %}#}
+{% block container  %}
+    <div class="card ">
+        <div class="card-header my-5" >
+
+        </div>
+        <div class="card-body">
+            <section id="dashboard_main_arae" class="section_padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="dashboard_sidebar">
+                                <div class="dashboard_sidebar_user">
+
+                                    {#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
+                                    {% if seller.brochureFilename %}
+                                        <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
+                                    {% endif %}
+
+                                    <h3 class="text-center">Name :{{ seller.name}}</h3>
+                                    {#                            <h3> Website : {{ seller.website}}</h3>#}
+                                    <p class="text-center"><a href="tel:+00-123-456-789">Email : {{ seller.user.email }}</a></p>
+                                    <p class="text-center"><a href="mailto:sherlyn@domain.com">Website :  {{  seller.website }}</a></p>
+                                </div>
+                                <div class="dashboard_menu_area">
+                                    <ul>
+                                        <li><a href="dashboard.html" class="active"><i
+                                                        class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                                        <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
+                                                    class="fas fa-address-card"></i>My bookings
+                                            <span> <i class="fas fa-angle-down"></i></span>
+                                            <div class="booing_sidebar_dashboard" id="show_dropdown_item"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li><a href="hotel-booking.html"><i class="fas fa-hotel"></i>Hotel
+                                                            booking</a></li>
+                                                    <li><a href="flight-booking.html"><i class="fas fa-paper-plane"></i>Flight
+                                                            booking</a></li>
+                                                    <li>
+                                                        <a href="tour-booking.html">
+                                                            <i class="fas fa-map"></i>Tour booking
+                                                        </a>
+                                                    </li>
+                                                    <li><a href="booking-history.html">
+                                                            <i class="fas fa-history"></i>Booking history</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
+                                        <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
+                                        <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
+                                        <li>
+                                            {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-sign-out-alt"></i>Logout
+                                    </a>#}
+                                            <a href="{{ path('app_logout') }}" >
+                                                <i class="fas fa-sign-out-alt"></i>Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                           {# <div class="dashboard_main_top">
+                                <div class="row">
+                                    #}{#<div class="col-lg-6 h-50">
+                                        <div class="dashboard_top_boxed">
+                                            <div class="dashboard_top_icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="dashboard_top_text">
+                                                <h3>Total Hotels</h3>
+                                                <h1>{{ totals }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>#}{#
+                                   #}{# <div class="col-lg-6 h-50" >
+                                        <h3>Total Hotels</h3>
+                                        <h1>{{ totals }} </h1>
+                                    </div>#}{#
+                                    #}{#<div class="col-lg-6">
+                                        <div class="dashboard_top_boxed">
+                                            <div class="dashboard_top_icon">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                                </svg>
+                                            </div>
+#}{##}{#                                            {% set totalPending = sellerOffers|filter(item => item.isPending)|length %}#}{##}{#
+                                           #}{##}{# <div class="dashboard_top_text">
+                                                <h3>Pending bookings</h3>
+#}{##}{##}{##}{#                                                <h1>{{ totalPending }}</h1>#}{##}{##}{##}{#
+                                            </div>#}{##}{#
+                                        </div>
+                                    </div>#}{#
+                                </div>
+                            </div>#}
+                            <div class="dashboard_common_table">
+                                <h3> Statistics</h3>
+                                <div class="table-responsive-lg table_common_area">
+                                    {% if apiProducts|length > 0 %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                {#                                        <th>Sl no.</th>#}
+                                                <th>Product ID</th>
+                                                <th>Hotel ID </th>
+                                                <th>HotelName</th>
+                                                <th>Number of clicks</th>
+                                                <th>View More</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {#                                    {% for sellerOffer in sellerOffers|slice((page - 1) * limit, limit) %}#}
+                                            {% for apiProduct in apiProducts %}
+
+                                                <tr onclick="window.location.href = '{{ path('app_seller_StatisticsDetails', {'id': apiProduct.id}) }}';">
+
+                                                {#                                        <td>{{ loop.index }}.</td>#}
+                                                    <td>#{{ apiProduct.id }}</td>
+                                                    <td>{{ apiProduct.idProductFromApi }}</td>
+                                                    <td>{{ apiProduct.name }}</td>
+                                                    <td>{{ apiProduct.apiProductClicks.count()  }}</td>
+                                                    <td><i class="bi bi-three-dots-vertical" data-toggle="modal" data-target="#myModal{{ apiProduct.id }}"></i></td>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="myModal{{ apiProduct.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{{ apiProduct.id }}">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="myModalLabel">Détails de l'élément</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Ajoutez ici le contenu supplémentaire que vous souhaitez afficher -->
+                                                                    <!-- Vous pouvez accéder aux détails de l'élément en utilisant la variable 'apiProduct' -->
+                                                                    <p>ID du produit : {{ apiProduct.id }}</p>
+                                                                    <p>Nom du produit : {{ apiProduct.name }}</p>
+                                                                    <!-- Ajoutez d'autres informations selon vos besoins -->
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                {% if page > 1 %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ path('app_seller_Statistics', {'page': page - 1}) }}">Previous</a>
+                                                    </li>
+                                                {% endif %}
+
+                                                {% for i in 1..totalPages %}
+                                                    {% if page == i %}
+                                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                                    {% else %}
+                                                        <li class="page-item"><a class="page-link" href="{{ path('app_seller_Statistics', {'page': i}) }}">{{ i }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                {% if page < totalPages %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ path('app_seller_Statistics', {'page': page + 1}) }}">Next</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
+                                    {% else %}
+                                        <p>No seller offers found.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {# <div class="pagination_area">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">»</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>#}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+{% endblock %}
