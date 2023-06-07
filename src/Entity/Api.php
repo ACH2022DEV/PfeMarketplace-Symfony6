@@ -38,7 +38,7 @@ class Api
     private ?Seller $seller = null;
 
     #[ORM\OneToMany(mappedBy: 'api', targetEntity: ApiProduct::class)]
-    #[Groups(['Seller','SellerOffers'])]
+    //#[Groups(['Seller','SellerOffers'])]
     private Collection $apiProducts;
 
     public function __construct()
