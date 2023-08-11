@@ -39,6 +39,7 @@ class Api
 
     #[ORM\OneToMany(mappedBy: 'api', targetEntity: ApiProduct::class)]
     //#[Groups(['Seller','SellerOffers'])]
+    //forWassim
     private Collection $apiProducts;
 
     public function __construct()
