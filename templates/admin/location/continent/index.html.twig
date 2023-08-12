@@ -1,20 +1,24 @@
-<div>
-    <button
-            class="btn btn-primary btn-sm"
-            data-action="modal-form#openModal"
-            data-form-url-value="{{ path('app_admin_location_continent_new' ) }}"
-            data-url-value="{{ path('app_admin_location_continent_index', { ajax: 1 } ) }}"
-            data-node-dest-id-value="myOneCustomContent"
-            data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Continent'|trans }}"
-            data-refresh-key-value="refresh-html"
-    >
-        {{ 'Buttons.General.Nouveau'|trans }}
-    </button>
+<div class="card container shadow mt-5"  >
     <div>
-        <table data-toggle="table" data-search="true" data-show-columns="true" data-page-size="10"
-               data-buttons-class="md btn-soft-primary" data-pagination="true"
-               data-show-pagination-switch="true" class="table-bordered">
-            <thead class="table-primary">
+        <button
+                class="btn btn-sm btn-success"
+                style="position: relative; top: 65px; left: 20px"
+                data-action="modal-form#openModal"
+                data-form-url-value="{{ path('app_admin_location_continent_new' ) }}"
+                data-url-value="{{ path('app_admin_location_continent_index', { ajax: 1 } ) }}"
+                data-node-dest-id-value="myOneCustomContent"
+                data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Continent'|trans }}"
+                data-refresh-key-value="refresh-html"
+        >
+            <i class="fas fa-plus-circle m-1"></i> {{ 'Buttons.General.Nouveau'|trans }}
+        </button>
+
+    </div>
+    <div class="card-body table-responsive p-3 text-center">
+        <table class="table"  data-search= "true"
+               data-toggle="table"  data-pagination="true" data-page-size="10"
+               data-show-pagination-switch="true" data-show-columns="true">
+            <thead>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -23,11 +27,47 @@
             </tr>
             </thead>
             <tbody data-reload-content-target="myOneCustomContent">
-        {{ include('admin/location/continent/_list.html.twig') }}
+            {{ include('admin/location/continent/_list.html.twig') }}
             </tbody>
         </table>
     </div>
 </div>
+
+
+
+{#<div>#}
+{#    <button#}
+{#            class="btn btn-success btn-sm"#}
+{#            data-action="modal-form#openModal"#}
+{#            data-form-url-value="{{ path('app_admin_location_continent_new' ) }}"#}
+{#            data-url-value="{{ path('app_admin_location_continent_index', { ajax: 1 } ) }}"#}
+{#            data-node-dest-id-value="myOneCustomContent"#}
+{#            data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Continent'|trans }}"#}
+{#            data-refresh-key-value="refresh-html"#}
+{#    >#}
+{#        {{ 'Buttons.General.Nouveau'|trans }}#}
+{#    </button>#}
+{#    <div>#}
+{#        <table data-toggle="table" data-search="true" data-show-columns="true" data-page-size="10"#}
+{#               data-buttons-class="md btn-soft-primary" data-pagination="true"#}
+{#               data-show-pagination-switch="true" class="table-bordered">#}
+{#        <table class="table align-middle mb-0 bg-white shadow-lg " data-search= "true"#}
+{#               data-toggle="table"  data-pagination="true" data-page-size="10"#}
+{#               data-show-pagination-switch="true" data-show-columns="true" >#}
+{#            <thead class="bg-secondary text-white">#}
+{#            <tr>#}
+{#                <th>Code</th>#}
+{#                <th>Name</th>#}
+{#                <th>Active</th>#}
+{#                <th>actions</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody data-reload-content-target="myOneCustomContent">#}
+{#        {{ include('admin/location/continent/_list.html.twig') }}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#</div>#}
 
 
 

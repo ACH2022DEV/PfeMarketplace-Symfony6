@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Trait\TimeStampTrait;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,8 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user')]
 #[IsGranted('ROLE_SUPER_ADMIN')]
+#[HasLifecycleCallbacks]
+
 class UserController extends AbstractController
 {
+    use TimeStampTrait;
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {

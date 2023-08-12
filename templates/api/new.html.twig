@@ -1,0 +1,13 @@
+{% extends 'admin/base_admin.html.twig' %}
+{% block title %}New Api{% endblock %}
+{% block container %}
+
+
+
+    <h1>Create new Api</h1>
+
+    {{ include('api/_form.html.twig') }}
+
+    <a href="{{ path('app_api_index') }}">back to list</a>
+
+{% endblock %}

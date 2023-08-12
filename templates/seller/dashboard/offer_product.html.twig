@@ -1,159 +1,275 @@
 {% extends 'seller/base_seller.html.twig' %}
 
 {% block container %}
-
-
-
-<!-- Common Banner Area -->
-<section id="common_banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="common_bannner_text">
-                    <h2>Hotel search result</h2>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><span><i class="fas fa-circle"></i></span> Hotel</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Form Area -->
-
-<!-- Hotel Search Areas -->
-<section id="explore_area" class="section_padding">
-    <div class="container">
+    <br>
+    <br>
+    <br>
+    <!-- Hotel Search Areas -->
+    <section id="explore_area" class="section_padding">
+        {#    <div class="container">#}
         <!-- Section Heading -->
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="section_heading_center">
+        {#        <div class="row">#}
+        {#            <div class="col-lg-12 col-md-12 col-sm-12 col-12">#}
+        {#                <div class="section_heading_center">#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div></div>#}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="main-txt mb-5">
+                        <h2><span>Offer : </span>{{ offer.name }}</h2>
+                    </div>
+                    <style>
+                        .main-txt h2{
+                            text-align: center;
+                            margin-top: 30px;
+                            font-weight: 500;
+                            text-shadow: 0px 1px 1px black;
+                        }
+                        .main-txt h2 span{
+                            color: #8b3eea;
+                        }
+                    </style>
+                </div>
+
+                {#            <div class="col-lg-3">#}
+                {#<br>#}
+
+                {#                    <div class="left_side_search_boxed">#}
+                {#                        <div class="left_side_search_heading">#}
+                {#                            <h5>Hotel service</h5>#}
+                {#                        </div>#}
+
+                {#                        <form id="daysFilterForm" class="form-inline">#}
+                {#                            <div class="form-check mb-3">#}
+                {#                                <input class="form-check-input" type="checkbox" name="name[]" value="Hotel" id="daysFilterForm-checkbox1">#}
+                {#                                <label class="form-check-label" for="daysFilterForm-checkbox1">#}
+                {#                                    Hotel#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check mb-3">#}
+                {#                                <input class="form-check-input" type="checkbox" name="name[]" value="Omra" id="daysFilterForm-checkbox2">#}
+                {#                                <label class="form-check-label" for="daysFilterForm-checkbox2">#}
+                {#                                    Omra#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check mb-3">#}
+                {#                                <input class="form-check-input" type="checkbox" name="name[]" value="Circuit" id="daysFilterForm-checkbox3">#}
+                {#                                <label class="form-check-label" for="daysFilterForm-checkbox3">#}
+                {#                                    Circuit#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check mb-3">#}
+                {#                                <input class="form-check-input" type="checkbox" name="name[]" value="test" id="daysFilterForm-checkbox4">#}
+                {#                                <label class="form-check-label" for="daysFilterForm-checkbox4">#}
+                {#                                    Test#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                        </form>#}
+
+
+                {#                        <script>#}
+                {#                            const form = document.getElementById('daysFilterForm');#}
+                {#                            const checkboxes = form.querySelectorAll('input[type=checkbox]');#}
+
+                {#                            checkboxes.forEach(checkbox => #}{#}#}
+                {#                                checkbox.addEventListener('change', () => #}{#}#}
+                {#                                    const selectedProducts = [];#}
+                {#                                    checkboxes.forEach(checkbox => #}{#}#}
+                {#                                        if (checkbox.checked) #}{#}#}
+                {#                                            selectedProducts.push(checkbox.value);#}
+                {#                                        }#}
+                {#                                    });#}
+                {#                                    const offers = document.querySelectorAll('.pricing-card');#}
+                {#                                    offers.forEach(offer => #}{#}#}
+                {#                                        const productName = offer.dataset.productName;#}
+                {#                                        if (selectedProducts.length === 0 || selectedProducts.includes(productName)) #}{#}#}
+                {#                                            offer.style.display = 'block';#}
+                {#                                        } else #}{#}#}
+                {#                                            offer.style.display = 'none';#}
+                {#                                        }#}
+                {#                                    });#}
+                {#                                });#}
+                {#                            });#}
+                {#                        </script>#}
+
+
+
+
+
+
+
+
+                {#                        <div class="tour_search_type">#}
+                {#                            <div class="form-check">#}
+                {#                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt1">#}
+                {#                                <label class="form-check-label" for="flexCheckDefaultt1">#}
+                {#                                        <span class="area_flex_one">#}
+                {#                                            <span>Gymnasium</span>#}
+                {#                                            <span>20</span>#}
+                {#                                        </span>#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check">#}
+                {#                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt2">#}
+                {#                                <label class="form-check-label" for="flexCheckDefaultt2">#}
+                {#                                        <span class="area_flex_one">#}
+                {#                                            <span>Mountain Bike</span>#}
+                {#                                            <span>14</span>#}
+                {#                                        </span>#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check">#}
+                {#                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt3">#}
+                {#                                <label class="form-check-label" for="flexCheckDefaultt3">#}
+                {#                                        <span class="area_flex_one">#}
+                {#                                            <span>Wifi</span>#}
+                {#                                            <span>62</span>#}
+                {#                                        </span>#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check">#}
+                {#                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt4">#}
+                {#                                <label class="form-check-label" for="flexCheckDefaultt4">#}
+                {#                                        <span class="area_flex_one">#}
+                {#                                            <span>Aerobics Room</span>#}
+                {#                                            <span>08</span>#}
+                {#                                        </span>#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                            <div class="form-check">#}
+                {#                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt5">#}
+                {#                                <label class="form-check-label" for="flexCheckDefaultt5">#}
+                {#                                        <span class="area_flex_one">#}
+                {#                                            <span>Golf Cages</span>#}
+                {#                                            <span>12</span>#}
+                {#                                        </span>#}
+                {#                                </label>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+
+
+                <div class="col-lg-9">
+
+
+                    <div class="row">
+
+
+                        {% for offer in offer.offerProductTypes%}
+
+                            <div class="pricing-card">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                                </svg>
+                                <span><h4>{{ offer.productType.name }}</h4></span>
+                                <h3 class="price ">{{ offer.price }} Dt</h3>
+                                <h5 class="price">{{ offer.maxItems }} Product</h5>
+                                <ul class="package_list">
+                                    <li class="fs-6 text-center">Discover the price of the product</li>
+                                    <li class="fs-6 text-center">Discover the MaxItems of the product</li>
+
+
+                                </ul>
+                                <a href="{{ path('app_offer_seller') }}" class="get_started_btn">discover more offers</a>
+                            </div>
+
+                        {% endfor %}
+
+                        <style>
+                            .pricing-card {
+                                margin: 20px 30px;
+                                height: 400px;
+                                width: 275px;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: space-around;
+                                transition: 0.5s ease-in-out;
+                                padding: 16px 14px;
+                                border-radius: 10px;
+                                border: 2px solid mediumpurple;
+                            }
+                            .pricing-card i {
+                                color: mediumpurple;
+                                height: 60px;
+                                width: 60px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 28px;
+                                border-radius: 50%;
+                                box-shadow: 0 0 34px -12px gray;
+                            }
+                            .pricing-card span {
+                                color: mediumpurple;
+                                margin: -10px 0;
+                                font-weight: bold;
+                                font-size: 14px;
+                            }
+                            .price {
+                                font-size: 30px;
+                                font-family: "Baloo 2";
+                            }
+                            .package_list {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 0 20px;
+                            }
+                            .package_list li {
+                                list-style: none;
+                                margin: 6px 0;
+                                color: gray;
+                                font-size: 14px;
+                            }
+                            .get_started_btn {
+                                border: 2px solid mediumpurple;
+                                color: white;
+                                background: linear-gradient(45deg, mediumpurple, cornflowerblue);
+                                padding: 8px 25px;
+                                border-radius: 20px;
+                                text-decoration: none;
+                                font-weight: bold;
+                                transition: 0.3s ease-in-out;
+                            }
+                            .get_started_btn:hover {
+                                background: transparent;
+                                color: mediumpurple;
+                            }
+
+                        </style>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="pagination_area">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
-        <div></div>
-        <div class="row">
-
-
-            <div class="col-lg-3">
-
-                    <div class="left_side_search_boxed">
-                        <div class="left_side_search_heading">
-                            <h5>Hotel service</h5>
-                        </div>
-                        <div class="tour_search_type">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt1">
-                                <label class="form-check-label" for="flexCheckDefaultt1">
-                                        <span class="area_flex_one">
-                                            <span>Gymnasium</span>
-                                            <span>20</span>
-                                        </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt2">
-                                <label class="form-check-label" for="flexCheckDefaultt2">
-                                        <span class="area_flex_one">
-                                            <span>Mountain Bike</span>
-                                            <span>14</span>
-                                        </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt3">
-                                <label class="form-check-label" for="flexCheckDefaultt3">
-                                        <span class="area_flex_one">
-                                            <span>Wifi</span>
-                                            <span>62</span>
-                                        </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt4">
-                                <label class="form-check-label" for="flexCheckDefaultt4">
-                                        <span class="area_flex_one">
-                                            <span>Aerobics Room</span>
-                                            <span>08</span>
-                                        </span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt5">
-                                <label class="form-check-label" for="flexCheckDefaultt5">
-                                        <span class="area_flex_one">
-                                            <span>Golf Cages</span>
-                                            <span>12</span>
-                                        </span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-9">
-
-
-{#                {% set productCount = 0 %}#}
-                <div class="row">
-
-                    {% for offer in offer.offerProductTypes%}
-                       {# <form action="{{ path('Add_Seller_Offer', {'id': offer.id}) }}" method="POST">
-                            <button type="submit" class="btn btn-primary my-1">Ajouter au panier</button>
-                        </form>#}
-                       {# {% if offer.price >= app.request.query.get('minPrice')|default(0) and offerProductType.price <= app.request.query.get('maxPrice')|default(100) %}
-                            {% set productCount = productCount + 1 %}#}
-                            {#                                {{ productType.offerProductTypes.length }}#}
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="theme_common_box_two">
-                                    <div class="theme_two_box_img">
-                                        <a href="{{ path('app_offerProductTypes_ForSeller', {'id': offer.id}) }}"><img src="{{ asset('assets/images/tab-img/hotel1.png') }}" alt="img"></a>
-                                        <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
-                                    </div>
-                                    <div class="theme_two_box_content">
-                                        <h4><a href="">Kantua hotel, Thailand</a></h4>
-                                        <h1>{{ offer.id }}</h1>
-{#                                        <h1>{{ offer. }}</h1>#}
-{#                                        <p><span>nbProductTypes : </span>{{ offer }} <span class="review_count"></span></p>#}
-                                        <span>price : </span><h3>{{ offer.price }} </h3>
-
-                                    </div>
-                                </div>
-                            </div>
-{#                        {% endif %}#}
-                    {% endfor %}
-{#                    <h2>{{productCount }} hotel found</h2>#}
-                </div>
-
-                <div class="col-lg-12">
-                    <div class="pagination_area">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
 {% endblock %}

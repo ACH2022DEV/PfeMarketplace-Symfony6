@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
+use App\Entity\OfferProductType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -32,11 +34,49 @@ class OfferRepository extends ServiceEntityRepository
 
     public function remove(Offer $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        try {
+            $qb->delete(OfferProductType::class, 'opt')
+                ->where('opt.offer = :offer')
+                ->setParameter('offer', $entity)
+                ->getQuery()
+                ->execute();
+
+            $em->remove($entity);
+            if ($flush) {
+                $em->flush();
+            }
+        } catch (ForeignKeyConstraintViolationException $e) {
+            // Handle the exception
+            throw new \Exception($e->getMessage());
         }
+    }
+
+    public function getSumPricesByProductType($offerId)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        $queryBuilder
+            ->select('opt.type, SUM(opt.price) as total')
+            ->from('AppBundle:OfferProductType', 'opt')
+            ->where('opt.offer = :offerId')
+            ->groupBy('opt.type')
+            ->setParameter('offerId', $offerId);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function searchByName($name)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')
+            ->getQuery();
+
+        return $qb->getResult();
     }
 
 //    /**

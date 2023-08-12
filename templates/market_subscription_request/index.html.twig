@@ -1,109 +1,39 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}MarketSubscriptionRequest index{% endblock %}
+{% block title %}{% endblock %}
 
 {% block container %}
-    <h1>Market Subscription Requests</h1>
 
+    <div class="card container shadow mt-5" >
+        <div>
 
-    <div>
-        <table data-toggle="table" data-search="true" data-show-columns="true" data-page-size="10"
-               data-buttons-class="md btn-soft-primary" data-pagination="true"
-               data-show-pagination-switch="true" class="table-bordered">
-            <thead class="table-primary">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Website</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Status</th>
-                <th>actions</th>
-                <th>API</th>
-            </tr>
-            </thead>
-            <tbody data-reload-content-target="myOneCustomContent">
-            {% for market_subscription_request in market_subscription_requests|sort((a, b) => a.status <=> b.status) %}
+            <div class="card-tools text-center mt-2">
+                <h1 class="card-title fs-4 font-italic" style="font-weight: bold;"><ins>Market Subscrption</ins></h1>
+
+            </div>
+        </div>
+        <div class="card-body table-responsive p-3 text-center">
+            <table class="table"  data-search= "true"
+                   data-toggle="table"  data-pagination="true" data-page-size="10"
+                   data-show-pagination-switch="true" data-show-columns="true">
+                <thead>
                 <tr>
-                    <td>{{ market_subscription_request.id }}</td>
-                    <td>{{ market_subscription_request.name }}</td>
-                    <td>{{ market_subscription_request.email }}</td>
-                    <td>{{ market_subscription_request.website }}</td>
-                    <td>{{ market_subscription_request.address }}</td>
-                    <td>{{ market_subscription_request.city }}</td>
-                    <td>{% if(market_subscription_request.status == 'validated') %}
-                            <span class="badge badge-outline-success">Validated</span>
-                        {% else %}
-                                <span class="badge badge-outline-warning">Pending</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <button
-                                class="btn btn-info btn-sm"
-                                data-action="modal-form#openModal"
-                                data-form-url-value="{{ path('app_market_subscription_request_show', {'id': market_subscription_request.id}) }}"
-                                data-node-dest-id-value="myThreeCustomContent"
-                                data-refresh-key-value="refresh-html">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        {% if market_subscription_request.status == 'pending'%}
-                            <button
-                                    class="btn btn-success btn-sm"
-                                    data-action="modal-form#openModal"
-                                    data-form-url-value="{{ path('app_seller_new', {'idM':market_subscription_request.id}) }}"
-                                    data-url-value="{{ path('app_seller_index', { ajax: 1 } ) }}"
-                                    data-node-dest-id-value="myThreeCustomContent"
-                                    data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
-                                    data-refresh-key-value="refresh-html">
-                                <i class="fe-check"></i>
-                            </button>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for user in users %}
-                            {% for seller in sellers %}
-                                {% if user.id == seller.user.id and user.email == market_subscription_request.email%}
-                                    {% if market_subscription_request.status == 'validated' and seller.api == null %}
-{#                                        create api#}
-                                        <button
-                                                class="btn btn-primary btn-sm"
-                                                data-action="modal-form#openModal"
-                                                data-form-url-value="{{ path('app_api_new',{'seller':seller.id}) }}"
-                                                data-url-value="{{ path('app_api_index', { ajax: 1 } ) }}"
-                                                data-node-dest-id-value="myThreeCustomContent"
-                                                data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
-                                                data-refresh-key-value="refresh-html">
-                                            create api
-                                        </button>
-                                    {% else %}
-{#                                        modify api#}
-                                        <button
-                                                class="btn btn-success btn-sm"
-                                                data-action="modal-form#openModal"
-                                                data-form-url-value="{{ path('app_api_edit', {'id':seller.api.id}) }}"
-                                                data-url-value="{{ path('app_seller_index', { ajax: 1 } ) }}"
-                                                data-node-dest-id-value="myThreeCustomContent"
-                                                data-modal-title-value="{{ 'Buttons.Custom.Nouveau.Seller'|trans }}"
-                                                data-refresh-key-value="refresh-html">
-                                            edit api
-                                        </button>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Website</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th>actions</th>
 
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        {% endfor %}
-                    </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="7">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody data-reload-content-target="myOneCustomContent">
+                {{ include('market_subscription_request/_list.html.twig') }}
+                </tbody>
+            </table>
+        </div>
+
 
     </div>
-
-    <a class="btn btn-primary" href="{{ path('app_market_subscription_request_new') }}">Create new</a>
 {% endblock %}

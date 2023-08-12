@@ -1,37 +1,39 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}OfferProductType index{% endblock %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block body %}
-    <h1>OfferProductType index</h1>
+{% block title %}{% endblock %}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>MaxItems</th>
-            <th>Price</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for offer_product_type in offer_product_types %}
-            <tr>
-                <td>{{ offer_product_type.id }}</td>
-                <td>{{ offer_product_type.maxItems }}</td>
-                <td>{{ offer_product_type.price }}</td>
-                <td>
-                    <a href="{{ path('app_offer_product_show', {'id': offer_product_type.id}) }}">show</a>
-                    <a href="{{ path('app_offer_product_edit', {'id': offer_product_type.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block container %}
 
-{#    <a href="{{ path('app_offer_product_new') }}">Create new</a>#}
+    <div class="card container shadow mt-5" >
+        <div>
+            {#            <a href="{{ path('app_offer_product_new') }}" class="btn btn-sm btn-success" style="position: relative; top: 90px; left: 20px">#}
+            {#                <i class="fas fa-plus-circle m-1">  Create new</i>#}
+            {#            </a>#}
+
+            <div class="card-tools text-center">
+                <h1 class="card-title fs-4 font-italic" style="font-weight: bold;"><ins>All OfferProductType</ins></h1>
+
+            </div>
+        </div>
+        <div class="card-body table-responsive p-3 text-center">
+            <table class="table"  data-search= "true"
+                   data-toggle="table"  data-pagination="true" data-page-size="10"
+                   data-show-pagination-switch="true" data-show-columns="true">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>MaxItems</th>
+                    <th>Price</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody data-reload-content-target="myOneCustomContent">
+                {{ include('offer_product/_liste.html.twig') }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
+

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ApiProduct;
 use App\Entity\MarketSubscriptionRequest;
 use App\Entity\Offer;
+use App\Entity\OfferProductType;
 use App\Entity\Seller;
 use App\Entity\SellerOffer;
 use App\Entity\User;
@@ -54,6 +55,7 @@ class SellerController extends AbstractController
         $this->em=$doctrine;
         $this->sellerOfferRepository = $sellerOfferRepository;
         $this->sellerRepository = $sellerRepository;
+
 
 
     }
@@ -287,9 +289,11 @@ class SellerController extends AbstractController
         $user = $this->security->getUser();
         $userId = $user->getId();
         $session = $request->getSession();
+        $panier = $session->get('panier');
         $seller = $this->em->getRepository(Seller::class)->findSellerByUserId($userId);
         return $this->render('seller/commandeConfirmation.html.twig', [
             'seller' => $seller,
+            'panier' => $panier
         ]);
     }
 
@@ -427,7 +431,7 @@ class SellerController extends AbstractController
                 break;
             }
         }
-
+        $offerProductTypes = $offer->getOfferProductTypes();
         if ($isAlreadyInCart) {
             return $this->redirectToRoute('app_offer_seller', [], Response::HTTP_SEE_OTHER);
         } else {
@@ -440,6 +444,8 @@ class SellerController extends AbstractController
               'seller' => $seller,
             'session'=> $session,
             'userId'=>$userId,
+            'offerProductTypes' => $offerProductTypes,
+
         ]);
 
     }
@@ -493,6 +499,28 @@ class SellerController extends AbstractController
 
         //add a methode
        //fin méthode
+        $totals = [];
+        if ($panier) {
+            foreach ($panier as $offerId => $item) {
+                $offer = $this->em->getRepository(Offer::class)->find($offerId);
+
+                if ($offer) {
+                    $totalPrice = 0.0;
+
+                    foreach ($item['offerProductTypes'] as $offerProductType) {
+                        $opt = $this->em->getRepository(OfferProductType::class)->find($offerProductType['id']);
+
+                        if ($opt) {
+                            $totalPrice += $opt->getPrice();
+                        }
+                    }
+
+                    $totals[$offerId] = $totalPrice;
+
+                }
+            }
+        }
+        $session->set('totals', $totals);
         $panier = $session->get('panier');
 //        foreach ($panier as $offerId) {
 //            $offer = $this->em->getRepository(Offer::class)->find($offerId);
@@ -519,7 +547,9 @@ class SellerController extends AbstractController
         'seller' => $seller,
             'session'=> $session,
             'userId'=>$userId,
-            'totalPrice'=> $totalPrice
+            'totalPrice'=> $totalPrice,
+              'panier' => $panier,
+            'totals' => $totals,
 
         ]);
     }
@@ -696,7 +726,7 @@ class SellerController extends AbstractController
         // file name from database
         $filePath = $this->getParameter('brochures_directory').'/'.$request->query->get('filename');
         // check if there is filepath or not
-        $path = (file_exists($filePath)) ? $filePath : $this->getParameter('brochures_directory2').'/error/avatar.png';
+        $path = (file_exists($filePath)) ? $filePath : $this->getParameter('brochures_directory2').'/error/agency.png';
         // Create a response object with the file data
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);

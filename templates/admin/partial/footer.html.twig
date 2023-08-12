@@ -1,8 +1,12 @@
 
 <hr/>
 <br>
-
-<footer class="site-footer">
+<style>
+    .footer{
+        background: #38414a;
+    }
+</style>
+<footer class="footer position-relative top-100">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
@@ -16,7 +20,7 @@
                         {% endfor %}
                     </select>
                 {% endif %}
-                 Journée commercial 28/07/2022
+                Journée commercial 28/07/2022
 
             </div>
             <div class="col-md-4">
@@ -30,3 +34,18 @@
         </div>
     </div>
 </footer>
+
+{#<footer class="main-footer">#}
+{#    <strong>Technology Travel Tourisme#}
+{#        {% if app.session.has('auth_agencies') %}#}
+{#        <select class="mySelect" name="agences" id="agence_id">#}
+{#            {% for agence in app.session.get('auth_agencies') %}#}
+{#                <option value="{{ agence.id }}">{{ agence.name }}</option>#}
+{#            {% endfor %}#}
+{#        </select>#}
+{#        {% endif %} </strong>#}
+{#    Journée commercial 28/07/2022#}
+{#    <div class="float-right d-none d-sm-inline-block">#}
+{#        <b> 2022 © Technology Travel Tourism</b>#}
+{#    </div>#}
+{#</footer>#}

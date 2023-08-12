@@ -1,4 +1,17 @@
 {% macro menu_links(links , i) %}
+
+
+
+    <style>
+        .nav-link:hover
+        {
+
+
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+    </style>
+
   {% for link in links %}
 
     {% if link.children  is defined and link.children is not null  %}

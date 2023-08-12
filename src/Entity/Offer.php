@@ -37,7 +37,10 @@ class Offer
     #[ORM\OneToMany(mappedBy: 'offer', targetEntity: SellerOffer::class, cascade: ['persist','remove'])]
     #[Groups(['offer'])]
     private Collection $sellerOffers;
-
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalPrice;
     public function __construct()
     {
         $this->offerProductTypes = new ArrayCollection();
@@ -139,6 +142,31 @@ class Offer
 
         return $this;
     }
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(?float $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function calculateTotalPrice(): self
+    {
+        $totalPrice = 0;
+
+        foreach ($this->getOfferProductTypes() as $offerProductType) {
+            $totalPrice += $offerProductType->getPrice();
+        }
+
+        $this->setTotalPrice($totalPrice);
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         // TODO: Implement __toString() method.

@@ -90,7 +90,7 @@ export default class extends Controller {
 
     async submitForm() {
         event.preventDefault();
-        if(this.modalTwo != null && this.modalTwo != undefined ){
+        if(this.modalTwo !== null && this.modalTwo !== undefined ){
             let $form = $(this.modalBodyTwoTarget).find('form');
             try {
                 await $.ajax({
@@ -164,7 +164,7 @@ export default class extends Controller {
     }
 
     modalHidden() {
-        if(this.modalTwo != null && this.modalTwo != undefined ){
+        if(this.modalTwo !== null && this.modalTwo !== undefined ){
             this.modalTwo.hide();
             this.modalTwo = null;
         }else{

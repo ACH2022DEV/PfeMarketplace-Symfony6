@@ -50,27 +50,27 @@
                 </div>
             </li>
 
-                    <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
-                        {% for locale in locales %}
-                            {% if locale == app.request.locale %}
-                                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                   data-bs-toggle="dropdown" href="{{ path('change_locale', {'locale': locale}) }}"
-                                   role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{ asset('images/flags/flag_'~locale~'.jpg') }}" alt="{{ locale }}" height="16">
-                                </a>
+            <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
+                {% for locale in locales %}
+                    {% if locale == app.request.locale %}
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+                           data-bs-toggle="dropdown" href="{{ path('change_locale', {'locale': locale}) }}"
+                           role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="{{ asset('images/flags/flag_'~locale~'.jpg') }}" alt="{{ locale }}" height="16">
+                        </a>
 
-                            {% endif %}
-                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
 
-                        <div class="dropdown-menu dropdown-menu-end">
-                            {% for locale in locales %}
-                                <a href="{{ path('change_locale', {'locale': locale}) }}" class="dropdown-item">
-                                    <img src="{{ asset('images/flags/flag_'~locale~'.jpg') }}" alt="{{ locale }}" class="me-1" height="12"> <span
-                                            class="align-middle">{{ locale }}</span>
-                                </a>
-                            {% endfor %}
-                        </div>
-                    </li>
+                <div class="dropdown-menu dropdown-menu-end">
+                    {% for locale in locales %}
+                        <a href="{{ path('change_locale', {'locale': locale}) }}" class="dropdown-item">
+                            <img src="{{ asset('images/flags/flag_'~locale~'.jpg') }}" alt="{{ locale }}" class="me-1" height="12"> <span
+                                    class="align-middle">{{ locale }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </li>
 
 
             <li class="dropdown notification-list topbar-dropdown">

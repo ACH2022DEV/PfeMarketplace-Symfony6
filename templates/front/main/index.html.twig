@@ -23,348 +23,272 @@
 
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-success">Logout</a>
             {% else %}
-                <div>
 
-                    {#<a href="{{ path('app_login') }}" class="btn btn-outline-primary">Se connecter</a>
+
+                {#<a href="{{ path('app_login') }}" class="btn btn-outline-primary">Se connecter</a>
                     <a href="{{ path('app_register') }}" class="btn btn-outline-primary">S'inscrire</a>
                     <a href="/login/btob" class="btn btn-outline-primary">Espace pro</a>#}
-{#                    {{ include('seller/partial/header.html.twig') }}#}
+                {#                    {{ include('seller/partial/header.html.twig') }}#}
 
 
-                    <header class="main_header_arae bg-secondary">
+                {#                    <header class="main_header_arae bg-secondary">#}
 
-                        <!-- Top Bar -->
-                        <div class="topbar-area">
-                            <div class="container">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-6 col-md-6">
-                                        <ul class="topbar-list">
-                                            <li>
-                                                <a href="#!"><i class="fab fa-facebook"></i></a>
-                                                <a href="#!"><i class="fab fa-twitter-square"></i></a>
-                                                <a href="#!"><i class="fab fa-instagram"></i></a>
-                                                <a href="#!"><i class="fab fa-linkedin"></i></a>
-                                            </li>
-                                            <li><a href="#!"><span>+011 234 567 89</span></a></li>
-                                            <li><a href="#!"><span>contact@domain.com</span></a></li>
+                {#                        <!-- Top Bar -->#}
+                {#                        <div class="topbar-area">#}
+                {#                            <div class="container">#}
+                {#                                <div class="row align-items-center">#}
+                {#                                    <div class="col-lg-6 col-md-6">#}
+                {#                                        <ul class="topbar-list">#}
+                {#                                            <li>#}
+                {#                                                <a href="#!"><i class="fab fa-facebook"></i></a>#}
+                {#                                                <a href="#!"><i class="fab fa-twitter-square"></i></a>#}
+                {#                                                <a href="#!"><i class="fab fa-instagram"></i></a>#}
+                {#                                                <a href="#!"><i class="fab fa-linkedin"></i></a>#}
+                {#                                            </li>#}
+                {#                                            <li><a href="#!"><span>+011 234 567 89</span></a></li>#}
+                {#                                            <li><a href="#!"><span>contact@domain.com</span></a></li>#}
 
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <ul class="topbar-others-options">
-                                            <li><a href="{{ path('app_login_seller') }}">Login</a></li>
-                                            <li> <a href="{{ path('app_register_Seller') }}">Sign up</a>
-                                            </li>
-                                            <li>
-                                                <div class="dropdown language-option">
-                                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                        <span class="lang-name"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu language-dropdown-menu">
-                                                        <a class="dropdown-item" href="#">English</a>
-                                                        <a class="dropdown-item" href="#">Arabic</a>
-                                                        <a class="dropdown-item" href="#">French</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="dropdown language-option">
-                                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                        <span class="lang-name"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu language-dropdown-menu">
-                                                        <a class="dropdown-item" href="#">USD</a>
-                                                        <a class="dropdown-item" href="#">BD</a>
-                                                        <a class="dropdown-item" href="#">URO</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                {#                                        </ul>#}
+                {#                                    </div>#}
+                {#                                    <div class="col-lg-6 col-md-6">#}
+                {#                                        <ul class="topbar-others-options">#}
+                {#                                            <li><a href="{{ path('app_login_seller') }}">Login</a></li>#}
+                {#                                            <li> <a href="{{ path('app_register_Seller') }}">Sign up</a>#}
+                {#                                            </li>#}
+                {#                                            <li>#}
+                {#                                                <div class="dropdown language-option">#}
+                {#                                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"#}
+                {#                                                            aria-haspopup="true" aria-expanded="false">#}
+                {#                                                        <span class="lang-name"></span>#}
+                {#                                                    </button>#}
+                {#                                                    <div class="dropdown-menu language-dropdown-menu">#}
+                {#                                                        <a class="dropdown-item" href="#">English</a>#}
+                {#                                                        <a class="dropdown-item" href="#">Arabic</a>#}
+                {#                                                        <a class="dropdown-item" href="#">French</a>#}
+                {#                                                    </div>#}
+                {#                                                </div>#}
+                {#                                            </li>#}
+                {#                                            <li>#}
+                {#                                                <div class="dropdown language-option">#}
+                {#                                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"#}
+                {#                                                            aria-haspopup="true" aria-expanded="false">#}
+                {#                                                        <span class="lang-name"></span>#}
+                {#                                                    </button>#}
+                {#                                                    <div class="dropdown-menu language-dropdown-menu">#}
+                {#                                                        <a class="dropdown-item" href="#">USD</a>#}
+                {#                                                        <a class="dropdown-item" href="#">BD</a>#}
+                {#                                                        <a class="dropdown-item" href="#">URO</a>#}
+                {#                                                    </div>#}
+                {#                                                </div>#}
+                {#                                            </li>#}
+                {#                                        </ul>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <!-- Navbar Bar -->#}
+
+                {#                    </header>#}
+                {#                <div style="position: relative;">#}
+                {#                    <img src="{{ asset('assets/images/femme-montrant-quelque.jpg') }}" alt="Concept voyage">#}
+                {#                    <div class="buttons-container">#}
+                {#                        <p style="position: absolute;top: 50px; left: 100px; font-size: 60px;color: black;font-weight: bold">Bienvenue !<br><br>#}
+                {#                            sur notre marketplace de voyage !</p>#}
+                {#                        <div class="container justify-content-center">#}
+                {#                            <div>#}
+                {#                        <a  href="{{ path('app_login_seller') }}" class="log"  style="position: absolute; top: 300px; left: 100px; ">Se connecter</a>#}
+                {#                        <a href="{{ path('app_market_subscription_request_new') }}" class="reg" style="position: absolute; top: 300px; left: 350px; ">Demande D'inscription</a>#}
+                {#                            </div>#}
+                {#                        </div>#}
+
+                {#                        <style>#}
+
+
+
+
+
+
+                {#                            /*p {*/#}
+                {#                            /*    position: relative;*/#}
+                {#                            /*    top: 30px;*/#}
+                {#                            /*}*/#}
+
+                {#                            p a {#}
+                {#                                color: black;#}
+                {#                                text-decoration: none;#}
+                {#                            }#}
+
+                {#                            a {#}
+                {#                                cursor: pointer;#}
+                {#                                border: 0;#}
+                {#                                border-radius: 4px;#}
+                {#                                font-weight: 600;#}
+                {#                                margin: 0 10px;#}
+                {#                                width: 200px;#}
+                {#                                padding: 10px 0;#}
+                {#                                box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);#}
+                {#                                transition: 0.4s;#}
+                {#                            }#}
+
+                {#                            .reg {#}
+                {#                                color: white;#}
+                {#                                background-color: rgba(104, 85, 224, 1);#}
+                {#                            }#}
+
+                {#                            .log {#}
+                {#                                color: rgb(104, 85, 224);#}
+                {#                                background-color: rgba(255, 255, 255, 1);#}
+                {#                                border: 1px solid rgba(104, 85, 224, 1);#}
+                {#                            }#}
+
+                {#                            a:hover {#}
+                {#                                color: white;#}
+                {#                                width:;#}
+                {#                                box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);#}
+                {#                                background-color: rgba(104, 85, 224, 1);#}
+                {#                            }#}
+
+                {#                        </style>#}
+                {#                    </div>#}
+
+                {#                </div>#}
+
+                <!-- Section: Design Block -->
+                <!-- Section: Design Block -->
+
+                <!-- Jumbotron -->
+                <style>
+                    .container {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        /* autres styles pour le conteneur */
+                    }
+
+                    .image-container {
+                        position: relative;
+                        /* autres styles pour le conteneur d'image */
+                    }
+                </style>
+                <div class="image-container">
+                    <img src="{{ asset('assets/images/img_9.png') }}" alt="Concept voyage" >
+                    <div class="container ">
+                        <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+
+                            <div class="row gx-lg-5 align-items-center">
+                                <div class="col-lg-6 mb-5 mb-lg-0 mr-4">
+                                    <h1 class="my-5 display-3 fw-bold ls-tight text-white">
+                                        The best offer <br />
+                                        <span class="text-danger">for your business</span>
+                                    </h1>
+                                    <p class="text-white fs-5">
+                                        a marketplace can offer a wealth of benefits.<br>
+                                        By listing your products or services<br>
+                                        on a marketplace platform, you can gain access<br>
+                                        to a large and diverse customer base that you <br>
+                                        may not have been able to reach otherwise.
+                                    </p>
                                 </div>
+
+                                <div class="col-lg-5  mb-lg-0   py-5 px-md-5">
+
+
+                                    <div class="row rounded-4">
+                                        <div class="d-flex justify-content-center  ">
+                                            <a href="{{ path('app_login_seller') }}"  class="btn h-75 btn-white bg-white shadow text-dark rounded-pill  mb-4 fs-4 col-lg-8 " >
+                                                Sign in
+                                            </a></div>
+                                        <div class="d-flex justify-content-center rounded-5 ">
+                                            <a href="{{ path('app_market_subscription_request_new') }}" class="btn h-75 btn-white bg-white shadow text-dark rounded-pill  mb-4 fs-4 col-lg-8 " >
+                                                Subscription request
+                                            </a></div>
+
+
+                                        <style>
+
+                                            .btn:hover {
+                                                background-color: #953b3b;
+
+                                                color:#0a67eb;
+
+                                            }
+                                        </style>
+                                    </div>
+
+                                    {#                                            <form>#}
+                                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                                    {#                                                <div class="row">#}
+                                    {#                                                    <div class="col-md-6 mb-4">#}
+                                    {#                                                        <div class="form-outline">#}
+                                    {#                                                            <input type="text" id="form3Example1" class="form-control" />#}
+                                    {#                                                            <label class="form-label" for="form3Example1">First name</label>#}
+                                    {#                                                        </div>#}
+                                    {#                                                    </div>#}
+                                    {#                                                    <div class="col-md-6 mb-4">#}
+                                    {#                                                        <div class="form-outline">#}
+                                    {#                                                            <input type="text" id="form3Example2" class="form-control" />#}
+                                    {#                                                            <label class="form-label" for="form3Example2">Last name</label>#}
+                                    {#                                                        </div>#}
+                                    {#                                                    </div>#}
+                                    {#                                                </div>#}
+
+                                    <!-- Email input -->
+                                    {#                                                <div class="form-outline mb-4">#}
+                                    {#                                                    <input type="email" id="form3Example3" class="form-control" />#}
+                                    {#                                                    <label class="form-label" for="form3Example3">Email address</label>#}
+                                    {#                                                </div>#}
+
+                                    <!-- Password input -->
+                                    {#                                                <div class="form-outline mb-4">#}
+                                    {#                                                    <input type="password" id="form3Example4" class="form-control" />#}
+                                    {#                                                    <label class="form-label" for="form3Example4">Password</label>#}
+                                    {#                                                </div>#}
+
+                                    <!-- Checkbox -->
+                                    {#                                                <div class="form-check d-flex justify-content-center mb-4">#}
+                                    {#                                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />#}
+                                    {#                                                    <label class="form-check-label" for="form2Example33">#}
+                                    {#                                                        Subscribe to our newsletter#}
+                                    {#                                                    </label>#}
+                                    {#                                                </div>#}
+
+                                    <!-- Submit button -->
+
+
+                                    <!-- Register buttons -->
+                                    <div class="text-center">
+                                        <p class="m-2 text-white">Contact 3t company</p>
+                                        <a class="m-1" href="https://www.facebook.com/TechnologyTravelTourism3t/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="fab bi bi-facebook text-white" viewBox="0 0 16 16">
+                                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                            </svg></a>
+                                        <a class="m-1" href="https://twitter.com/3TCONTACT" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="fab bi bi-twitter text-white" viewBox="0 0 16 16">
+                                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                            </svg></a>
+                                        <a class="m-1" href="https://www.linkedin.com/company/technology-travel-tourism/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="fab bi bi-linkedin text-white" viewBox="0 0 16 16">
+                                                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                                            </svg></a>
+                                    </div>
+                                    {#                                            </form>#}
+                                </div>
+
+
                             </div>
                         </div>
-                        <!-- Navbar Bar -->
-                        <div class="navbar-area">
-                            <div class="main-responsive-nav">
-                                <div class="container">
-                                    <div class="main-responsive-menu">
-                                        <div class="logo">
-                                            <a href="index.html">
-                                                <img src="{{ 'assets/images/logo.png' }}" alt="logo">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-navbar">
-                                <div class="container">
-                                    <nav class="navbar navbar-expand-md navbar-light">
-                                        <a class="navbar-brand" href="index.html">
-                                            <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
-                                        </a>
-                                        <div class=" navbar-collapse mean-menu" id="navbarSupportedContent">
-                                            <ul class="navbar-nav">
-                                                <li class="nav-item">
-                                                    <a href="{{path('app_offer_seller') }}" class="nav-link">
-                                                        Home
-                                                        <i class="fas fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item">
-                                                            <a href="index.html" class="nav-link">Home One</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="index-2.html" class="nav-link">Home Two</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="index-3.html" class="nav-link">Home Three</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        Tours
-                                                        <i class="fas fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item">
-                                                            <a href="tour-search.html" class="nav-link">Tour</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="tour-details.html" class="nav-link">Tour Details</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="tour-booking-submission.html" class="nav-link">Tour Booking</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="top-destinations.html" class="nav-link">Top Destination</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="top-destinations-details.html" class="nav-link">Destination
-                                                                Details</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        Flights
-                                                        <i class="fas fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item">
-                                                            <a href="flight-search-result.html" class="nav-link">Flight</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="flight-booking-submission.html" class="nav-link">Flight
-                                                                Booking</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        Hotel
-                                                        <i class="fas fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item">
-                                                            <a href="hotel-search.html" class="nav-link">Hotel</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="hotel-details.html" class="nav-link">Hotel Booking</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="room-details.html" class="nav-link">Room Details</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="room-booking.html" class="nav-link">Room Booking</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        Visa
-                                                        <i class="fas fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item">
-                                                            <a href="visa-details.html" class="nav-link">Visa Details</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-application.html" class="nav-link">Visa Application</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-info.html" class="nav-link">Business visa </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-info.html" class="nav-link">Education visa </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-info.html" class="nav-link">Working visa </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-info.html" class="nav-link">Tourist visa </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-info.html" class="nav-link">Medical visa </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="visa-info.html" class="nav-link">On-arrival visa </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link active">
-                                                        Pages
-                                                        <i class="fas fa-angle-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li class="nav-item">
-                                                            <a href="about.html" class="nav-link">About</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="tour-guides.html" class="nav-link">Team</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="testimonials.html" class="nav-link">Testimonials</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="faqs.html" class="nav-link">FAQ</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="booking-confirmation.html" class="nav-link">Booking
-                                                                Confirmation</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="#" class="nav-link">News</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li class="nav-item">
-                                                                    <a href="news.html" class="nav-link">News</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="news-v2.html" class="nav-link">News v2</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="news-v3.html" class="nav-link">News v3</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="news-details.html" class="nav-link">News Details</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="#" class="nav-link active">User Pages</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li class="nav-item">
-                                                                    <a href="login.html" class="nav-link active">Login</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="register.html" class="nav-link">Register</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="forgot-password.html" class="nav-link">Forget
-                                                                        Password</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="verify-otp.html" class="nav-link">Verify OTP</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="reset-password.html" class="nav-link">Reset Password</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="#" class="nav-link">Customer Dashboard</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li class="nav-item">
-                                                                    <a href="{{ path('app_seller_dashboard') }}" class="nav-link">Dashboard</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="hotel-booking.html" class="nav-link">Hotel booking</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="flight-booking.html" class="nav-link">Flight
-                                                                        booking</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="tour-booking.html" class="nav-link">Tour booking</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="booking-history.html" class="nav-link">Booking
-                                                                        history</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="my-profile.html" class="nav-link">My profile</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="wallet.html" class="nav-link">Wallet</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a href="notification.html" class="nav-link">Notifications</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a href="error.html" class="nav-link">404 Error</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="contact.html" class="nav-link">Contact</a>
-                                                </li>
-                                            </ul>
-                                            <div class="others-options d-flex align-items-center">
-                                                <div class="option-item">
-                                                    <a href="#" class="search-box">
-                                                        <i class="bi bi-search"></i></a>
-                                                </div>
-                                                <div class="option-item">
-                                                    <a href="{{ path('app_market_subscription_request_new') }}" class="btn  btn_navber">Become a Vendor</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="others-option-for-responsive">
-                                <div class="container">
-                                    <div class="dot-menu">
-                                        <div class="inner">
-                                            <div class="circle circle-one"></div>
-                                            <div class="circle circle-two"></div>
-                                            <div class="circle circle-three"></div>
-                                        </div>
-                                    </div>
-                                    <div class="container">
-                                        <div class="option-inner">
-                                            <div class="others-options d-flex align-items-center">
-                                                <div class="option-item">
-                                                    <a href="#" class="search-box"><i class="fas fa-search"></i></a>
-                                                </div>
-                                                <div class="option-item">
-                                                    <a href="contact.html" class="btn  btn_navber">Get free quote</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-
-
-
+                    </div>
+                    <!-- Jumbotron -->
                 </div>
+                <!-- Section: Design Block -->
+                <!-- Section: Design Block -->
+
+
+
+
             {% endif %}
         </div>
     {% endblock %}
 
-   {# <div class="example-wrapper">
+    {# <div class="example-wrapper">
         <h1>Front wassim Page ✅</h1>
     </div>#}
 {% endblock %}

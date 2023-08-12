@@ -1,5 +1,29 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#<button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>#}
+{#<style>#}
+{#    .btn-secondary {#}
+{#        background-color: #1B52AC ; /* change la couleur de fond */#}
+{#        color: #fff; /* change la couleur du texte */#}
+{#    }#}
+{#</style>#}
 
-{{ form_end(form) }}
+{#{{ form_end(form) }}#}
+
+
+<div class="form-floating mb-3">
+    {{ form_start(form) }}
+    <div class="form-floating mb-3">
+        {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'id': 'floatingInput', 'placeholder': 'Name'} }) }}
+        {{ form_label(form.name, 'name', { 'label_attr': {'for': 'floatingInput'} }) }}
+    </div>
+    <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>
+
+<style>
+    .btn-secondary {
+        background-color: #1B52AC ; /* change la couleur de fond */
+        color: #fff; /* change la couleur du texte */
+    }
+</style>

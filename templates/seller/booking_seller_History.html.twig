@@ -1,171 +1,175 @@
 {% extends 'seller/base_seller.html.twig' %}
 {#{% set totalPending = 0 %}#}
 {% block container  %}
-<div class="card ">
-    <div class="card-header my-5" >
+    <div class="card ">
+        <div class="card-header my-5" >
 
-    </div>
-    <div class="card-body">
-        <section id="dashboard_main_arae" class="section_padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="dashboard_sidebar">
-                            <div class="dashboard_sidebar_user">
+        </div>
+        <div class="card-body">
+            <section id="dashboard_main_arae" class="section_padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="dashboard_sidebar">
+                                <div class="dashboard_sidebar_user">
 
-                                {#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
-                                {% if seller.brochureFilename %}
-                                    <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
-                                {% endif %}
+                                    {#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
+                                    {% if seller.brochureFilename %}
+                                        <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
+                                    {% endif %}
 
-                                <h3 class="text-center">Name :{{ seller.name}}</h3>
-                                {#                            <h3> Website : {{ seller.website}}</h3>#}
-                                <p class="text-center"><a href="tel:+00-123-456-789">Email : {{ seller.user.email }}</a></p>
-                                <p class="text-center"><a href="mailto:sherlyn@domain.com">Website :  {{  seller.website }}</a></p>
-                            </div>
-                            <div class="dashboard_menu_area">
-                                <ul>
-                                    <li><a href="dashboard.html" class="active"><i
-                                                    class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-                                    <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
-                                                class="fas fa-address-card"></i>My bookings
-                                        <span> <i class="fas fa-angle-down"></i></span>
-                                        <div class="booing_sidebar_dashboard" id="show_dropdown_item"
-                                             style="display: none;">
-                                            <ul>
-                                                <li><a href="hotel-booking.html"><i class="fas fa-hotel"></i>Hotel
-                                                        booking</a></li>
-                                                <li><a href="flight-booking.html"><i class="fas fa-paper-plane"></i>Flight
-                                                        booking</a></li>
-                                                <li>
-                                                    <a href="tour-booking.html">
-                                                        <i class="fas fa-map"></i>Tour booking
-                                                    </a>
-                                                </li>
-                                                <li><a href="booking-history.html">
-                                                        <i class="fas fa-history"></i>Booking history</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
-                                    <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
-                                    <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
-                                    <li>
-                                        {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <h3 class="text-center">Name :{{ seller.name}}</h3>
+                                    {#                            <h3> Website : {{ seller.website}}</h3>#}
+                                    <p class="text-center"><a href="tel:+00-123-456-789">Email : {{ seller.user.email }}</a></p>
+                                    <p class="text-center"><a href="mailto:sherlyn@domain.com">Website :  {{  seller.website }}</a></p>
+                                </div>
+                                <div class="dashboard_menu_area">
+                                    <ul>
+                                        <li><a href="{{ path('app_Home_seller') }}" class="active"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                                                    <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+                                                    <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+                                                </svg>   Dashboard</a></li>
+                                        <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-person-vcard-fill" viewBox="0 0 16 16">
+                                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/>
+                                            </svg>   My bookings
+                                            <span> <i class="fas fa-angle-down"></i></span>
+                                            <div class="booing_sidebar_dashboard" id="show_dropdown_item"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li><a href="{{ path('app_seller_show_Booking_History') }}">
+                                                            <i class="fas fa-history"></i>Booking history</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li><a href="{{ path('Get_Seller_Panier') }}"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart4 mx-1" viewBox="0 0 16 16">
+                                                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                                </svg>   Panier</a></li>
+
+                                        <li>
+                                            {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-sign-out-alt"></i>Logout
                                     </a>#}
-                                        <a href="{{ path('app_logout') }}" >
-                                            <i class="fas fa-sign-out-alt"></i>Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="dashboard_main_top">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="dashboard_top_boxed">
-                                        <div class="dashboard_top_icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                                            </svg>
-                                        </div>
-                                        <div class="dashboard_top_text">
-                                            <h3>Total bookings</h3>
-                                            <h1>{{ totals }}</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="dashboard_top_boxed">
-                                        <div class="dashboard_top_icon">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-                                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-                                            </svg>
-                                        </div>
-                                        {% set totalPending = sellerOffers|filter(item => item.isPending)|length %}
-                                        <div class="dashboard_top_text">
-                                            <h3>Pending bookings</h3>
-                                            <h1>{{ totalPending }}</h1>
-                                        </div>
-                                    </div>
+                                            <!--ajouter modale pour logout-->
+                                            {#                                    <a href="{{ path('app_logout') }}" >#}
+                                            {#                                        <i class="fas fa-sign-out-alt"></i>Logout#}
+                                            {#                                    </a>#}
+                                            <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                                </svg>  Logout
+                                            </a>
+                                            <!--fin de modale-->
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="dashboard_common_table">
-                            <h3>My bookings</h3>
-                            <div class="table-responsive-lg table_common_area">
-                                {% if sellerOffers|length > 0 %}
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-{#                                        <th>Sl no.</th>#}
-                                        <th>Booking ID</th>
-                                        <th>OfferName </th>
-                                        <th>CreationDate</th>
-                                        <th>StartDate</th>
-                                        <th>Date de fin</th>
-                                        <th>Status</th>
+                        <div class="col-lg-8">
+                            <div class="dashboard_main_top">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="dashboard_top_boxed">
+                                            <div class="dashboard_top_icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="dashboard_top_text">
+                                                <h3>Total bookings</h3>
+                                                <h1>{{ totals }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="dashboard_top_boxed">
+                                            <div class="dashboard_top_icon">
 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-{#                                    {% for sellerOffer in sellerOffers|slice((page - 1) * limit, limit) %}#}
-                                    {% for sellerOffer in sellerOffers %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                                </svg>
+                                            </div>
+                                            {% set totalPending = sellerOffers|filter(item => item.isPending)|length %}
+                                            <div class="dashboard_top_text">
+                                                <h3>Pending bookings</h3>
+                                                <h1>{{ totalPending }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard_common_table">
+                                <h3>My bookings</h3>
+                                <div class="table-responsive-lg table_common_area">
+                                    {% if sellerOffers|length > 0 %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                {#                                        <th>Sl no.</th>#}
+                                                <th>Booking ID</th>
+                                                <th>OfferName </th>
+                                                <th>CreationDate</th>
+                                                <th>StartDate</th>
+                                                <th>Date de fin</th>
+                                                <th>Status</th>
 
-                                    <tr>
-{#                                        <td>{{ loop.index }}.</td>#}
-                                        <td>#{{ sellerOffer.id }}</td>
-                                        <td>{{ sellerOffer.offer.name }}</td>
-                                        <td>{{ sellerOffer.creationDate|date('Y-m-d H:i:s') }}</td>
-                                        <td>{{ sellerOffer.startDate|date('Y-m-d H:i:s') }}</td>
-                                        <td>{{ sellerOffer.getEndDate()|date('d/m/Y H:i:s') }}</td>
-{#                                        {% if sellerOffer.getEndDate()|date('d/m/Y H:i:s') > "now"|date %}#}
-                                        {% if sellerOffer.isPending() %}
-{#                                            {% set totalPending = totalPending + 1 %}#}
-                                            <td class="complete">Pending</td>
-                                        {% else %}
-                                            <td  class="cancele">Completed</td>
-                                        {% endif %}
-{#                                        <td><i class="fas fa-eye"></i></td>#}
-                                    </tr>
-                                   {% endfor %}
-                                    </tbody>
-                                </table>
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination">
-                                            {% if page > 1 %}
-                                                <li class="page-item">
-                                                    <a class="page-link" href="{{ path('app_seller_show_Booking_History', {'page': page - 1}) }}">Previous</a>
-                                                </li>
-                                            {% endif %}
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {#                                    {% for sellerOffer in sellerOffers|slice((page - 1) * limit, limit) %}#}
+                                            {% for sellerOffer in sellerOffers %}
 
-                                            {% for i in 1..totalPages %}
-                                                {% if page == i %}
-                                                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
-                                                {% else %}
-                                                    <li class="page-item"><a class="page-link" href="{{ path('app_seller_show_Booking_History', {'page': i}) }}">{{ i }}</a></li>
-                                                {% endif %}
+                                                <tr>
+                                                    {#                                        <td>{{ loop.index }}.</td>#}
+                                                    <td>#{{ sellerOffer.id }}</td>
+                                                    <td>{{ sellerOffer.offer.name }}</td>
+                                                    <td>{{ sellerOffer.creationDate|date('Y-m-d H:i:s') }}</td>
+                                                    <td>{{ sellerOffer.startDate|date('Y-m-d H:i:s') }}</td>
+                                                    <td>{{ sellerOffer.getEndDate()|date('d/m/Y H:i:s') }}</td>
+                                                    {#                                        {% if sellerOffer.getEndDate()|date('d/m/Y H:i:s') > "now"|date %}#}
+                                                    {% if sellerOffer.isPending() %}
+                                                        {#                                            {% set totalPending = totalPending + 1 %}#}
+                                                        <td class="complete">Pending</td>
+                                                    {% else %}
+                                                        <td  class="cancele">Completed</td>
+                                                    {% endif %}
+                                                    {#                                        <td><i class="fas fa-eye"></i></td>#}
+                                                </tr>
                                             {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                {% if page > 1 %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ path('app_seller_show_Booking_History', {'page': page - 1}) }}">Previous</a>
+                                                    </li>
+                                                {% endif %}
 
-                                            {% if page < totalPages %}
-                                                <li class="page-item">
-                                                    <a class="page-link" href="{{ path('app_seller_show_Booking_History', {'page': page + 1}) }}">Next</a>
-                                                </li>
-                                            {% endif %}
-                                        </ul>
-                                    </nav>
-                                {% else %}
-                                    <p>No seller offers found.</p>
-                                {% endif %}
+                                                {% for i in 1..totalPages %}
+                                                    {% if page == i %}
+                                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                                    {% else %}
+                                                        <li class="page-item"><a class="page-link" href="{{ path('app_seller_show_Booking_History', {'page': i}) }}">{{ i }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                {% if page < totalPages %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ path('app_seller_show_Booking_History', {'page': page + 1}) }}">Next</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
+                                    {% else %}
+                                        <p>No seller offers found.</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                       {# <div class="pagination_area">
+                            {# <div class="pagination_area">
                             <ul class="pagination">
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -184,10 +188,33 @@
                                 </li>
                             </ul>
                         </div>#}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body logout_modal_content">
+                    <div class="btn_modal_closed">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg></button>
+                    </div>
+                    <h3>
+                        Are you sure? <br>
+                        you want to log out.
+                    </h3>
+                    <div class="logout_approve_button">
+                        <a  href="{{ path('app_logout') }}" class="btn btn_theme btn_md">Yes Confirm</a>
+                        <button data-bs-dismiss="modal" class="btn btn_border btn_md">No Cancel</button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
-</div>
 {% endblock %}

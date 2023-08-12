@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ApiRepository::class)]
 class Api
 {
@@ -17,7 +17,9 @@ class Api
     #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
+    #[ORM\Column(length: 100)]
+    #[Assert\NotNull(message: 'This value should not be blank.')]
+    #[Assert\Url(message: '{{value}} is not a valid Url')]
     #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?string $baseUrl = null;
 
@@ -27,10 +29,22 @@ class Api
     private ?string $apiKeyValue = null;
 
     #[ORM\Column(length: 45)]
+    #[Assert\NotNull(message: 'This value should not be blank.')]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'login must be at least {{ limit }} characters long',
+    )]
     #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?string $login = null;
 
     #[ORM\Column(length: 45)]
+    #[Assert\NotBlank(message: 'This value should not be blank.')]
+    #[Assert\Length(
+        min: 5,
+        max: 100,
+        minMessage: 'Password must be at least {{ limit }} characters long',
+        maxMessage: 'Password cannot be longer than {{ limit }} characters',
+    )]
     #[Groups(['Seller','SellerOffers','apiProduct'])]
     private ?string $password = null;
 
@@ -39,7 +53,6 @@ class Api
 
     #[ORM\OneToMany(mappedBy: 'api', targetEntity: ApiProduct::class)]
     //#[Groups(['Seller','SellerOffers'])]
-    //forWassim
     private Collection $apiProducts;
 
     public function __construct()
@@ -58,7 +71,7 @@ class Api
         return $this->baseUrl;
     }
 
-    public function setBaseUrl(string $baseUrl): self
+    public function setBaseUrl(?string $baseUrl): self
     {
         $this->baseUrl = $baseUrl;
 
@@ -70,7 +83,7 @@ class Api
         return $this->apiKeyValue;
     }
 
-    public function setApiKeyValue(string $apiKeyValue): self
+    public function setApiKeyValue(?string $apiKeyValue): self
     {
         $this->apiKeyValue = $apiKeyValue;
 
@@ -82,7 +95,7 @@ class Api
         return $this->login;
     }
 
-    public function setLogin(string $login): self
+    public function setLogin(?string $login): self
     {
         $this->login = $login;
 
@@ -94,7 +107,7 @@ class Api
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -155,6 +168,7 @@ class Api
     public function __toString(): string
     {
         // TODO: Implement __toString() method.
-        return $this->getBaseUrl();
+        return $this->getLogin();
+
     }
 }

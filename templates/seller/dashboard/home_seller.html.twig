@@ -3,597 +3,617 @@
 
 {% block container %}
 
-<section id="home_two_banner">
-    <div class="home_two_banner_slider_wrapper owl-carousel owl-theme">
-        <div class="banner_two_slider_item fadeInUp" data-wow-duration="2s"
-             style="background-image: url({{ asset('assets/images/banner/banner-two-bg-1.png') }});">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="banner_two_text">
-                            <h3 class="title">BEST TRAVEL AGENCY</h3>
-                            <h1 class="slider-sttle">EXPLORE</h1>
-                            <h2 class="slider-pararp">The world with us!</h2>
-                            <h4 class="slider-pararp">Find awesome flights, hotel, tour, car and packages</h4>
-                            <div class="home_two_button btn-animation">
-                                <a href="top-destinations.html" class="btn btn_theme_white btn_md">Discover</a>
-                                <a href="top-destinations.html" class="btn btn_theme_transparent btn_md">Know
-                                    more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner_two_slider_item fadeInUp" data-wow-duration="2s"
-             style="background-image: url({{ asset('assets/images/banner/banner-two-bg-2.png') }});">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="banner_two_text">
-                            <h3 class="title">BEST TRAVEL AGENCY</h3>
-                            <h1 class="slider-sttle">EXPLORE</h1>
-                            <h2 class="slider-pararp">The world with us!</h2>
-                            <h4 class="slider-pararp">Find awesome flights, hotel, tour, car and packages</h4>
-                            <div class="home_two_button btn-animation">
-                                <a href="top-destinations.html" class="btn btn_theme_white btn_md">Discover</a>
-                                <a href="top-destinations.html" class="btn btn_theme_transparent btn_md">Know
-                                    more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner_two_slider_item fadeInUp" data-wow-duration="2s"
-             style="background-image: url({{ asset('assets/images/banner/banner-two-bg-3.png') }});">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="banner_two_text">
-                            <h3 class="title">BEST TRAVEL AGENCY</h3>
-                            <h1 class="slider-sttle">EXPLORE</h1>
-                            <h2 class="slider-pararp">The world with us!</h2>
-                            <h4 class="slider-pararp">Find awesome flights, hotel, tour, car and packages</h4>
-                            <div class="home_two_button btn-animation">
-                                <a href="top-destinations.html" class="btn btn_theme_white btn_md">Discover</a>
-                                <a href="top-destinations.html" class="btn btn_theme_transparent btn_md">Know
-                                    more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Top Service And Tour Area-->
-<section id="top_service_andtour" class="section_padding_top">
-    <div class="container">
-        <!-- Section Heading -->
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="section_heading_center">
-                    <h2>And tour top services</h2>
-                </div>
-            </div>
-        </div>
+    <section id="home_two_banner">
+        <div class="home_two_banner_slider_wrapper owl-carousel owl-theme">
+            <div class="banner_two_slider_item fadeInUp" data-wow-duration="2s"
+                 style="background-image: url({{ asset('assets/images/homephoto2.png') }});">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="banner_two_text">
+                                <h3 class="title">BEST TRAVEL AGENCY</h3>
+                                <h1 class="slider-sttle">EXPLORE</h1>
+                                <h2 class="slider-pararp">The world with us!</h2>
+                                <h4 class="slider-pararp">Find awesome flights, hotel, tour, car and packages</h4>
+                                <div class="home_two_button btn-animation">
+                                    {% if is_granted('ROLE_SELLER') %}
+                                        <a href="{{ path('app_offer_seller') }}" class="btn btn_theme_white btn_md">Discover</a>
+                                    {% endif %}
+                                    {% if not is_granted('ROLE_SELLER') %}
+                                        <a href="{{ path('app_market_subscription_request_new') }}" class="btn btn_theme_white btn_md">Become a vendor </a>
+                                    {% endif %}
+                                    <a href="#suite" class="btn btn_theme_transparent btn_md">Know
+                                        more</a>
 
 
-     {#   <div class="row ">
-            {% for of in offer %}
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="top_service_boxed">
-        <a href="{{ path('app_offerProductTypes_ForSeller', {'id': of.id}) }}">
-            <p> {{ of.name }}  </p>
-               <p>{{ of.nbDays }}</p>
-               <p>{{ of.nbProductTypes }}</p>  </a>
-            <form action="{{ path('Add_Seller_Offer', {'id': of.id}) }}" method="POST">
-                <button type="submit" class="btn btn-primary my-1">Ajouter au panier</button>
-            </form>
-
-
-
-            </div>
-            </div> {% endfor %}
-        </div>#}
-
-        <!--product type -->
-    {#    <div class="row">
-            {% for product_type in product_types %}
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="top_service_boxed">
-                        {% set image = "" %}
-                        {% if product_type.name == "Circuit" %}
-                            {% set image = asset('assets/images/circuit.jpg') %}
-                        {% elseif product_type.name == "Omra" %}
-                            {% set image = asset('assets/images/omra.jpg') %}
-                        {% elseif product_type.name == "Hotel" %}
-                            {% set image = asset('assets/images/hotel.jpg') %}
-                        {% elseif product_type.name == "chambre" %}
-                            {% set image = asset('assets/images/chambre.jpg') %}
-                        {% endif %}
-
-
-
-                        <a href="{{ path('offerProductTypes_seller', {'id': product_type.id}) }}">
-                            <img src="{{ image }}">
-                            <h3>Hotel Booking</h3>
-                            {{ product_type.name }}
-                        </a>
-
-                    </div>
-                </div>
-            {% endfor %}
-        </div>#}
-
-
-    </div>
-</section>
-
-<!-- Holiday Destinations  Area-->
-<section id="holiday_destinations" class="section_padding_top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="holiday_left_heading">
-                            <div class="heading_left_area">
-                                <h2>Explore most popular holiday <span>destinations</span></h2>
-                                <h5>Discover your ideal experience with us</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="holiday_small_boxed">
-                            <a href="top-destinations-details.html">
-                                <img src="{{ asset('assets/images/holiday-img/holiday-1.png')}}" alt="img">
-                                <div class="holiday_small_box_content">
-                                    <div class="holiday_inner_content">
-                                        <div class="rating_outof">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <h5>5 Out of 5</h5>
-                                        </div>
-                                        <h3>China | $6000</h3>
-                                        <h4>8 days 7 nights</h4>
-                                        <p>Cupidatat consectetur ea cillum nt
-                                            consectetur excepteur.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="holiday_small_boxed">
-                            <a href="top-destinations-details.html">
-                                <img src="{{ asset('assets/images/holiday-img/holiday-2.png') }}" alt="img">
-                                <div class="holiday_small_box_content">
-                                    <div class="holiday_inner_content">
-                                        <div class="rating_outof">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <h5>5 Out of 5</h5>
-                                        </div>
-                                        <h3>China | $6000</h3>
-                                        <h4>8 days 7 nights</h4>
-                                        <p>Cupidatat consectetur ea cillum nt
-                                            consectetur excepteur.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="holiday_small_boxed">
-                            <a href="top-destinations-details.html">
-                                <img src="{{ asset('assets/images/holiday-img/holiday-3.png') }}" alt="img">
-                                <div class="holiday_small_box_content">
-                                    <div class="holiday_inner_content">
-                                        <div class="rating_outof">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <h5>5 Out of 5</h5>
-                                        </div>
-                                        <h3>China | $6000</h3>
-                                        <h4>8 days 7 nights</h4>
-                                        <p>Cupidatat consectetur ea cillum nt
-                                            consectetur excepteur.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="holiday_small_boxed">
-                            <a href="top-destinations-details.html">
-                                <img src="{{ asset('assets/images/holiday-img/holiday-4.png') }}" alt="img">
-                                <div class="holiday_small_box_content">
-                                    <div class="holiday_inner_content">
-                                        <div class="rating_outof">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <h5>5 Out of 5</h5>
-                                        </div>
-                                        <h3>China | $6000</h3>
-                                        <h4>8 days 7 nights</h4>
-                                        <p>Cupidatat consectetur ea cillum nt
-                                            consectetur excepteur.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                <div class="holiday_small_boxed">
-                                    <a href="top-destinations-details.html">
-                                        <img src="{{ asset('assets/images/holiday-img/holiday-5.png') }}" alt="img">
-                                        <div class="holiday_small_box_content">
-                                            <div class="holiday_inner_content">
-                                                <div class="rating_outof">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <h5>5 Out of 5</h5>
-                                                </div>
-                                                <h3>China | $6000</h3>
-                                                <h4>8 days 7 nights</h4>
-                                                <p>Cupidatat consectetur ea cillum nt
-                                                    consectetur excepteur.</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                <div class="holiday_small_boxed">
-                                    <a href="top-destinations-details.html">
-                                        <img src="{{ asset('assets/images/holiday-img/holiday-6.png') }}" alt="img">
-                                        <div class="holiday_small_box_content">
-                                            <div class="holiday_inner_content">
-                                                <div class="rating_outof">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <h5>5 Out of 5</h5>
-                                                </div>
-                                                <h3>China | $6000</h3>
-                                                <h4>8 days 7 nights</h4>
-                                                <p>Cupidatat consectetur ea cillum nt
-                                                    consectetur excepteur.</p>
-                                            </div>
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- About Area -->
-<section id="about_two_area" class="section_padding_top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                <div class="about_two_left">
-                    <div class="about_two_left_top">
-                        <h5>About us</h5>
-                        <h2>Discover your all the destinations with us!</h2>
-                        <p>
-                            Sint est eu sit ipsum enim amet esse sunt incididunt. Occaecat aliquip commodo ipsum
-                            officia
-                            in Lorem commodo aliquip dolore. Nisi domip excepteur commodo ea nostrud mollit.
-                        </p>
+        </div>
+    </section>
+
+    <!-- Top Service And Tour Area-->
+    <section id="top_service_andtour" class="section_padding_top">
+        <div class="container">
+            <!-- Section Heading -->
+            <div class="row ">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+                    <div class="main-txt">
+                        <h2><span>Product</span> Type</h2>
                     </div>
-                    <div class="about_two_left_middel">
-                        <div class="about_two_item">
-                            <div class="about_two_item_icon">
-                                <img src="{{ asset('assets/images/icon/about-1.png') }}" alt="icon">
-                            </div>
-                            <div class="about_two_item_text">
-                                <h3>Experienced tour guide</h3>
-                                <p>Dolore ullamco voluptate duis est voluptate exercitation officia ad qui nostrud
-                                    adipisicing non.</p>
-                            </div>
-                        </div>
-                        <div class="about_two_item">
-                            <div class="about_two_item_icon">
-                                <img src="{{ asset('assets/images/icon/about-2.png') }}" alt="icon">
-                            </div>
-                            <div class="about_two_item_text">
-                                <h3>Affordable tour packages</h3>
-                                <p>Dolore ullamco voluptate duis est voluptate exercitation officia ad qui nostrud
-                                    adipisicing non.</p>
-                            </div>
-                        </div>
-                        <div class="about_two_item">
-                            <div class="about_two_item_icon">
-                                <img src="{{ asset('assets/images/icon/about-3.png') }}" alt="icon">
-                            </div>
-                            <div class="about_two_item_text">
-                                <h3>Explore top places over the world</h3>
-                                <p>Dolore ullamco voluptate duis est voluptate exercitation officia ad qui nostrud
-                                    adipisicing non.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <style>
+                        .main-txt h2{
+                            text-align: center;
+                            margin-top: 180px;
+                            font-weight: 500;
+                            text-shadow: 0px 1px 1px black;
+                        }
+                        .main-txt h2 span{
+                            color: #8b3eea;
+                        }
+                    </style>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-12 col-sm-12 col-12">
-                <div class="about_two_left_img">
-                    <img src="{{ asset('assets/images/common/about_two.png') }}" alt="img">
-                </div>
-            </div>
+
         </div>
+    </section>
 
-    </div>
-</section>
-
-<!-- Partner Area -->
-<section id="partner_area" class="section_padding_top">
-    <div class="container">
-        <div class="partner_area_bg">
+    <!-- Holiday Destinations  Area-->
+    <section id="holiday_destinations" class="section_padding_top">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="partner_area_left">
-                        <h5>Find your best travel partner</h5>
-                        <h2>Prepare yourself and let’s enjoy
-                            the beauty of the world</h2>
-                        <p>Sint est eu sit ipsum enim amet esse sunt incididunt. Occaecat aliquip commodo ipsum
-                            officia in Lorem commodo aliquip dolore. Nisi domip excepteur commodo ea nostrud mollit.
-                        </p>
-                        <div class="partner_video_area">
-                            <a class="video_btn video_play_area" href="https://www.youtube.com/watch?v=_2LLXnUdUIc"
-                               title="Youtube Video"><i class="fas fa-play"></i></a>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="holiday_left_heading">
+                                <div class="heading_left_area">
+                                    <h2>Explore most popular holiday <span>destinations</span></h2>
+                                    <h5>Discover your ideal experience with us</h5>
+                                </div>
+                            </div>
                         </div>
-                        <div class="local_counter_area">
-                            <div class="local_counter_box">
-                                <h2>12K</h2>
-                                <h5>Local guides</h5>
+                        <div class="col-lg-6">
+                            <div class="holiday_small_boxed">
+                                {% if is_granted('ROLE_SELLER') %}
+                                <a href="{{ path('app_offer_seller_Hotels') }}">
+                                    {% endif %}
+                                    <img src="{{ asset('assets/images/hotell2.png')}}" alt="img">
+                                    <div class="holiday_small_box_content">
+                                        <div class="holiday_inner_content">
+
+                                            <h3>Hotel</h3>
+
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="local_counter_box">
-                                <h2>750+</h2>
-                                <h5>Destinations</h5>
+                            {#                            <div class="holiday_small_boxed">#}
+                            {#                                <a href="top-destinations-details.html">#}
+                            {#                                    <img src="{{ asset('assets/images/omra.jpg') }}" alt="img">#}
+                            {#                                    <div class="holiday_small_box_content">#}
+                            {#                                        <div class="holiday_inner_content">#}
+
+                            {#                                            <h3>Omra</h3>#}
+
+
+                            {#                                        </div>#}
+                            {#                                    </div>#}
+                            {#                                </a>#}
+                            {#                            </div>#}
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="holiday_small_boxed">
+                                {% if is_granted('ROLE_SELLER') %}
+                                <a href="top-destinations-details.html">
+                                    {% endif %}
+                                    <img src="{{ asset('assets/images/circuit2.png') }}" alt="img">
+
+                                    <div class="holiday_small_box_content">
+                                        <div class="holiday_inner_content">
+
+                                            <h3>Circuit</h3>
+
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="local_counter_box">
-                                <h2>100%</h2>
-                                <h5>Happiness</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="holiday_small_boxed">
+                                {% if is_granted('ROLE_SELLER') %}
+                                <a href="top-destinations-details.html">
+                                    {% endif %}
+                                    <img src="{{ asset('assets/images/img.png') }}" alt="img">
+                                    <div class="holiday_small_box_content">
+                                        <div class="holiday_inner_content">
+
+                                            <h3>Flight</h3>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="holiday_small_boxed">
+                                        {% if is_granted('ROLE_SELLER') %}
+                                        <a href="top-destinations-details.html">
+                                            {% endif %}
+                                            <img src="{{ asset('assets/images/img_4.png') }}" alt="img">
+                                            <div class="holiday_small_box_content">
+                                                <div class="holiday_inner_content">
+
+                                                    <h3>Tour</h3>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="holiday_small_boxed">
+                                        {% if is_granted('ROLE_SELLER') %}
+                                        <a href="top-destinations-details.html">
+                                            {% endif %}
+                                            <img src="{{ asset('assets/images/omra.jpg') }}" alt="img">
+                                            <div class="holiday_small_box_content">
+                                                <div class="holiday_inner_content">
+
+                                                    <h3>Omra</h3>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-    </div>
-</section>
+    <!-- About Area -->
+    <section id="about_two_area" class="section_padding_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div class="about_two_left">
+                        <div class="about_two_left_top">
+                            <h5 id="suite" class=" font-weight-bold fs-2">About us</h5>
 
-<!-- Choose your destinations Area-->
-<section id="choose_destinations_area" class="section_padding_top">
-    <div class="container">
-        <!-- Section Heading -->
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="section_heading_center">
-                    <h2>Choose your destinations</h2>
+
+                            <p>
+                                Notre marketplace est une plateforme en ligne qui relie les vendeurs et les acheteurs du monde entier. Nous avons créé cette plateforme pour offrir une expérience d'achat et de vente en ligne exceptionnelle à tous nos utilisateurs. Notre entreprise a été fondée avec une mission en tête : rendre l'achat en ligne plus facile, plus sûr et plus agréable pour tous.
+
+                            </p>
+                        </div>
+                        <div class="about_two_left_middel">
+                            <div class="about_two_item">
+                                <div class="about_two_item_icon">
+                                    <img src="{{ asset('assets/images/icon/about-1.png') }}" alt="icon">
+                                </div>
+                                <div class="about_two_item_text">
+                                    <h3>Augmentation de la confiance</h3>
+                                    <p>offrent un environnement sûr et sécurisé pour les transactions en ligne, ce qui aide à renforcer la confiance des acheteurs et des vendeurs..</p>
+                                </div>
+                            </div>
+                            <div class="about_two_item">
+                                <div class="about_two_item_icon">
+                                    <img src="{{ asset('assets/images/icon/about-2.png') }}" alt="icon">
+                                </div>
+                                <div class="about_two_item_text">
+                                    <h3>Opportunité de croissance</h3>
+                                    <p>offrir aux vendeurs une opportunité de croissance en leur donnant accès à de nouveaux clients potentiels.</p>
+                                </div>
+                            </div>
+                            {#                            <div class="about_two_item">#}
+                            {#                                <div class="about_two_item_icon">#}
+                            {#                                    <img src="{{ asset('assets/images/icon/about-3.png') }}" alt="icon">#}
+                            {#                                </div>#}
+                            {#                                <div class="about_two_item_text">#}
+                            {#                                    <h3>Explore top places over the world</h3>#}
+                            {#                                    <p>Dolore ullamco voluptate duis est voluptate exercitation officia ad qui nostrud#}
+                            {#                                        adipisicing non.</p>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="about_two_left_img">
+                        <img src="{{ asset('assets/images/contact.png') }}" class="w-75 h-100 " style="position: relative;left: 130px" alt="img">
+                    </div>
                 </div>
             </div>
+
         </div>
+    </section>
+    <section id="choose_destinations_area" class="section_padding_top">
+        <div class="container">
+            <!-- Section Heading -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
 
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="choose_desti_wrapper">
-                    <div class="choose_des_inner_wrap">
-                        <div class="choose_boxed_inner">
-                            <img src="{{ asset('assets/images/destination/home-two-des-1.png') }}" alt="img">
-                            <div class="choose_img_text">
-                                <h2>London | $13,500</h2>
-                                <h3>7 days 6 nights</h3>
-                            </div>
-                        </div>
-                        <div class="flep_choose_box">
-                            <div class="flep_choose_box_inner">
-                                <div class="rating_outof">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <h5>5 Out of 5</h5>
-                                </div>
-                                <h2>China | $6000</h2>
-                                <h3>8 days 7 nights</h3>
-                                <p>Cupidatat consectetur ea cillum laborum labore veniam proident consectetur
-                                    excepteur amet pariatur et laboris sint laborum.</p>
-                                <a href="top-destinations-details.html">Tour details</a>
-                            </div>
-                        </div>
+                    <div class="main-txt">
+                        <h2><span>recommended</span> offers</h2>
                     </div>
-
+                    <style>
+                        .main-txt h2{
+                            text-align: center;
+                            margin-bottom: 60px;
+                            font-weight: 500;
+                            text-shadow: 0px 1px 1px black;
+                        }
+                        .main-txt h2 span{
+                            color: #8b3eea;
+                        }
+                    </style>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="choose_desti_wrapper">
-                    <div class="choose_des_inner_wrap">
-                        <div class="choose_boxed_inner">
-                            <img src="{{ asset('assets/images/destination/home-two-des-2.png') }}" alt="img">
-                            <div class="choose_img_text">
-                                <h2>Gangtok | $3,500</h2>
-                                <h3>7 days 6 nights</h3>
-                            </div>
-                        </div>
-                        <div class="flep_choose_box">
-                            <div class="flep_choose_box_inner">
-                                <div class="rating_outof">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <h5>5 Out of 5</h5>
-                                </div>
-                                <h2>Gangtok | $3,500</h2>
-                                <h3>7 days 6 nights</h3>
-                                <p>Cupidatat consectetur ea cillum laborum labore veniam proident consectetur
-                                    excepteur amet pariatur et laboris sint laborum.</p>
-                                <a href="top-destinations-details.html">Tour details</a>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row " style="margin-top: 30px;">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
 
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="choose_desti_wrapper">
-                    <div class="choose_des_inner_wrap">
-                        <div class="choose_boxed_inner">
-                            <img src="{{ asset('assets/images/destination/home-two-des-3.png') }}" alt="img">
-                            <div class="choose_img_text">
-                                <h2>Phuket | $2,500</h2>
-                                <h3>7 days 6 nights</h3>
-                            </div>
-                        </div>
-                        <div class="flep_choose_box">
-                            <div class="flep_choose_box_inner">
-                                <div class="rating_outof">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <h5>5 Out of 5</h5>
-                                </div>
-                                <h2>Phuket | $2,500</h2>
-                                <h3>7 days 7 nights</h3>
-                                <p>Cupidatat consectetur ea cillum laborum labore veniam proident consectetur
-                                    excepteur amet pariatur et laboris sint laborum.</p>
-                                <a href="top-destinations-details.html">Tour details</a>
-                            </div>
-                        </div>
+                        {% for offer in seller_offers %}
+                            <button type="button" style="color: transparent; background-color: transparent" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}" aria-current="{% if loop.first %}true{% endif %}" aria-label="Slide {{ loop.index }}"></button>
+                        {% endfor %}
                     </div>
+                    <div class="carousel-inner" >
+                        {% for offer in seller_offers %}
+                            {% if loop.index0 % 4 == 0 %}
+                                <div class="carousel-item{% if loop.first %} active{% endif %}">
+                                <div class="row ">
+                            {% endif %}
+                            <div class="col-md-3 py-3 py-md-0 d-flex justify-content-center ">
+                                <div class="card shadow">
+                                    {% set total = 0 %}
+                                    {% set totalMaxitem = 0 %}
+                                    {% for offerProductType in offer.offer.offerProductTypes %}
+                                        {% set total = total + offerProductType.price %}
+                                        {% set totalMaxitem = totalMaxitem + offerProductType.maxItems %}
+                                    {% endfor %}
+                                    {% set image = "" %}
+                                    {% if offer.offer.name == "Premuim" %}
+                                        {% set image = asset('assets/images/colorgold.png')  %}
+                                    {% elseif offer.offer.name == "Gold" %}
+                                        {% set image = asset('assets/images/colorgold.png') %}
+                                    {% elseif offer.offer.name == "Silver" %}
+                                        {% set image = asset('assets/images/colorgold.png') %}
+                                        {#                        {% elseif offer.offer.name == "chambre" %}#}
+                                        {#                            {% set image = asset('assets/images/chambre.jpg') %}#}
+                                    {% endif %}
+                                    <img src="{{ image }}" style="width: 300px ; height: 250px" alt="">
+                                    <div class="card-body" style="font-family: Arial, sans-serif;">
+                                        <h2 class="" style="color: mediumpurple;">{{ offer.offer.name }}</h2>
 
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="choose_desti_wrapper">
-                    <div class="choose_des_inner_wrap">
-                        <div class="choose_boxed_inner">
-                            <img src="{{ asset('assets/images/destination/home-two-des-4.png') }}" alt="img">
-                            <div class="choose_img_text">
-                                <h2>Sydney | $6,000</h2>
-                                <h3>4 days 3 nights</h3>
-                            </div>
-                        </div>
-                        <div class="flep_choose_box">
-                            <div class="flep_choose_box_inner">
-                                <div class="rating_outof">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <h5>5 Out of 5</h5>
-                                </div>
-                                <h2>Sydney | $6,000</h2>
-                                <h3>4 days 3 nights</h3>
-                                <p>Cupidatat consectetur ea cillum laborum labore veniam proident consectetur
-                                    excepteur amet pariatur et laboris sint laborum.</p>
-                                <a href="top-destinations-details.html">Tour details</a>
-                            </div>
-                        </div>
-                    </div>
+                                        <h5 class="mt-3">Number Of Day : {{ offer.offer.nbDays }}</h5>
+                                        <h5 class="mb-2">Max Items : {{ totalMaxitem }}</h5>
 
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="choose_desti_wrapper">
-                    <div class="choose_des_inner_wrap">
-                        <div class="choose_boxed_inner">
-                            <img src="{{ asset('assets/images/destination/home-two-des-5.png') }}" alt="img">
-                            <div class="choose_img_text">
-                                <h2>Gangtok | $3,500</h2>
-                                <h3>9 days 8 nights</h3>
-                            </div>
-                        </div>
-                        <div class="flep_choose_box">
-                            <div class="flep_choose_box_inner">
-                                <div class="rating_outof">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <h5>5 Out of 5</h5>
-                                </div>
-                                <h2>Gangtok | $3,500</h2>
-                                <h3>9 days 8 nights</h3>
-                                <p>Cupidatat consectetur ea cillum laborum labore veniam proident consectetur
-                                    excepteur amet pariatur et laboris sint laborum.</p>
-                                <a href="top-destinations-details.html">Tour details</a>
-                            </div>
-                        </div>
-                    </div>
+                                        <h3 style="font-weight:bold">Price: {{ total }}<strong> </strong></h3>
+                                    </div>
 
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="choose_desti_wrapper">
-                    <div class="choose_des_inner_wrap">
-                        <div class="choose_boxed_inner">
-                            <img src="{{ asset('assets/images/destination/home-two-des-6.png') }}" alt="img">
-                            <div class="choose_img_text">
-                                <h2>Pattaya | $4,200</h2>
-                                <h3>5 days 6 nights</h3>
-                            </div>
-                        </div>
-                        <div class="flep_choose_box">
-                            <div class="flep_choose_box_inner">
-                                <div class="rating_outof">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <h5>5 Out of 5</h5>
                                 </div>
-                                <h2>Pattaya | $4,200</h2>
-                                <h3>5 days 6 nights</h3>
-                                <p>Cupidatat consectetur ea cillum laborum labore veniam proident consectetur
-                                    excepteur amet pariatur et laboris sint laborum.</p>
-                                <a href="top-destinations-details.html">Tour details</a>
                             </div>
-                        </div>
+                            {% if loop.index0 % 4 == 3 or loop.last %}
+                                </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
+                    <button class="carousel-control-prev rounded-circle" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next rounded-circle" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                    <style>
+                        .carousel-control-prev,
+                        .carousel-control-next {
+                            background-color: rebeccapurple;
+                            width: 40px;
+                            height: 40px;
+                            top: 180px;
+
+
+                            border-radius: 50%;
+                        }
+                    </style>
 
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    {#    <div id="myCarousel" class="carousel slide m-5" data-bs-ride="carousel">#}
+    {#        <ol class="carousel-indicators">#}
+    {#            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>#}
+    {#            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>#}
+    {#            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>#}
+    {#            <li data-bs-target="#myCarousel" data-bs-slide-to="3"></li>#}
+    {#            <li data-bs-target="#myCarousel" data-bs-slide-to="4"></li>#}
+    {#        </ol>#}
+    {#        <div class="carousel-inner">#}
+    {#            {% set index = 0 %}#}
+    {#            {% set count = 0 %}#}
+    {#            {% for of in offers %}#}
+    {#                {% for offerProductType in of.offerProductTypes %}#}
+    {#                    {% set image = "" %}#}
+    {#                    {% if of.name == "Gold" %}#}
+    {#                        {% set image = asset('assets/images/colorgold.png') %}#}
+    {#                    {% elseif of.name == "Premuim" %}#}
+    {#                        {% set image = asset('assets/images/premiumpreview_herov2.png') %}#}
+    {#                    {% elseif of.name == "Silver" %}#}
+    {#                        {% set image = asset('assets/images/silver.png') %}#}
+    {#                    {% elseif of.name == "Flight" %}#}
+    {#                        {% set image = asset('assets/images/flight.jpg') %}#}
+    {#                    {% elseif of.name == "Tour" %}#}
+    {#                    {% endif %}#}
+    {#                    {% if count < 3 %}#}
+    {#                        <div class="carousel-item{% if index == 0 %} active{% endif %}">#}
+    {#                            <img src="{{ image }}" class="d-block w-25" alt="Image {{ index+1 }}">#}
+
+    {#                        </div>#}
+    {#                        {% set count = count + 1 %}#}
+    {#                    {% endif %}#}
+    {#                    {% set index = index + 1 %}#}
+    {#                {% endfor %}#}
+    {#            {% endfor %}#}
+    {#        </div>#}
+    {#        <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">#}
+    {#            <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+    {#            <span class="visually-hidden">Previous</span>#}
+    {#        </a>#}
+    {#        <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">#}
+    {#            <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+    {#            <span class="visually-hidden">Next</span>#}
+    {#        </a>#}
+    {#    </div>#}
+
+
+    <!-- Choose your destinations Area-->
+    <section id="choose_destinations_area" class="section_padding_top">
+        <div class="container">
+            <!-- Section Heading -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+                    <div class="main-txt">
+                        <h2><span>New</span> Offer</h2>
+                    </div>
+                    <style>
+                        .main-txt h2{
+                            text-align: center;
+                            margin-top: 30px;
+                            font-weight: 500;
+                            text-shadow: 0px 1px 1px black;
+                        }
+                        .main-txt h2 span{
+                            color: #8b3eea;
+                        }
+                    </style>
+                </div>
+            </div>
+
+            <div class="row my-5">
+                {% for of in offers %}
+                    {% set total = 0 %}
+                    {% set MaxItems = 0 %}
+                    {% for offerProductType in of.offerProductTypes %}
+                        {% set total = total + offerProductType.price %}
+                        {% set totalMaxitem = MaxItems + offerProductType.maxItems %}
+
+                    {% endfor %}
+                    {% set image = "" %}
+                    {% if  of.name == "Gold" %}
+                        {% set image = asset('assets/images/colorgold.png') %}
+                    {% elseif of.name == "Premuim" %}
+                        {% set image = asset('assets/images/img_7.png') %}
+                    {% elseif of.name == "Silver" %}
+                        {% set image = asset('assets/images/img_7.png') %}
+                    {% endif %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                        <div class="choose_desti_wrapper">
+                            <div class="choose_des_inner_wrap">
+                                <div class="choose_boxed_inner">
+                                    <img src="{{ image }}" alt="img">
+                                    <div class="choose_img_text">
+                                        <h2></h2>
+                                        <h3></h3>
+                                    </div>
+                                </div>
+                                <div class="flep_choose_box">
+                                    <div class="flep_choose_box_inner">
+
+                                        <h2>{{ of.name }}</h2>
+                                        <h3>price : {{ total }} Dt</h3>
+                                        <p>Number of days : {{ of.nbDays }} </p>
+                                        <p>Max Items : {{ MaxItems }} </p>
+                                        {% if is_granted('ROLE_SELLER') %}
+                                            <a href="{{ path('app_offer_seller') }}">Tour details</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    {#    <div id="carouselExampleControls" class="carousel-sm slide" data-bs-ride="carousel">#}
+    {#        <div class="carousel-inner">#}
+    {#            {% for of in offers %}#}
+    {#                {% for offerProductType in of.offerProductTypes %}#}
+
+    {#                    <div class="carousel-item {% if loop.first %} active {% endif %}">#}
+    {#                        <img src="{{ image }}" class="d-block w-100" alt="...">#}
+    {#                        <div class="carousel-caption">#}
+    {#                            <h5>{{ offerProductType.productType.name }}</h5>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                {% endfor %}#}
+    {#            {% endfor %}#}
+    {#        </div>#}
+    {#        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">#}
+    {#            <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+    {#            <span class="visually-hidden">Previous</span>#}
+    {#        </button>#}
+    {#        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">#}
+    {#            <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+    {#            <span class="visually-hidden">Next</span>#}
+    {#        </button>#}
+    {#    </div>#}
+
+
+
+
+
+
+
+
+    {#    <section id="hometwo_clinet_area" class="section_padding">#}
+    {#        <div class="container">#}
+    {#            <div class="client_two_area_bg">#}
+    {#                <div class="row align-items-center">#}
+    {#                    <div class="col-lg-5">#}
+    {#                        <div class="two_client_area_left">#}
+    {#                            <h2>We Provide Top Destinations#}
+    {#                                Expecially For You#}
+    {#                                Book Now and Enjoy!</h2>#}
+    {#                            <div class="sm_call_area">#}
+    {#                                <img src="{{ asset('assets/images/icon/sm-call.png') }}" alt="icon">#}
+    {#                                <div class="sm_call_number">#}
+    {#                                    <h5>Call now</h5>#}
+    {#                                    <h2><a href="tel:+01-234-567-890">+01 234 567 890</a></h2>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                    <div class="col-lg-6">#}
+    {#                        <div class="home_client_wrpper">#}
+    {#                            <h4>Our testimonials</h4>#}
+    {#                            <h2>What our client say about us</h2>#}
+    {#                            <div class="home-two-quote">#}
+    {#                                <img src="{{asset('assets/images/icon/quote.png')}}" alt="img">#}
+    {#                                <h3>Awesome service</h3>#}
+    {#                            </div>#}
+    {#                            <div class="home_two_client_slider  owl-theme owl-carousel">#}
+    {#                                <div class="client_two_content">#}
+    {#                                    <p>#}
+    {#                                        Ad non quis quis commodo ut nostrud ipsum ad reprehenderit. Lorem eiusmod#}
+    {#                                        excepteur anim adipisicing officia officia.#}
+    {#                                    </p>#}
+    {#                                    <div class="client_two_author">#}
+    {#                                        <h5>Cameron douglas</h5>#}
+    {#                                        <h6>Businessman</h6>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                                <div class="client_two_content">#}
+    {#                                    <p>#}
+    {#                                        Ad non quis quis commodo ut nostrud ipsum ad reprehenderit. Lorem eiusmod#}
+    {#                                        excepteur anim adipisicing officia officia.#}
+    {#                                    </p>#}
+    {#                                    <div class="client_two_author">#}
+    {#                                        <h5>Cameron douglas</h5>#}
+    {#                                        <h6>Businessman</h6>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                                <div class="client_two_content">#}
+    {#                                    <p>#}
+    {#                                        Ad non quis quis commodo ut nostrud ipsum ad reprehenderit. Lorem eiusmod#}
+    {#                                        excepteur anim adipisicing officia officia.#}
+    {#                                    </p>#}
+    {#                                    <div class="client_two_author">#}
+    {#                                        <h5>Cameron douglas</h5>#}
+    {#                                        <h6>Businessman</h6>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                                <div class="client_two_content">#}
+    {#                                    <p>#}
+    {#                                        Ad non quis quis commodo ut nostrud ipsum ad reprehenderit. Lorem eiusmod#}
+    {#                                        excepteur anim adipisicing officia officia.#}
+    {#                                    </p>#}
+    {#                                    <div class="client_two_author">#}
+    {#                                        <h5>Cameron douglas</h5>#}
+    {#                                        <h6>Businessman</h6>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+
+    {#    <section id="our_partners" class="section_padding">#}
+    {#        <div class="container">#}
+    {#            <!-- Section Heading -->#}
+    {#            <div class="row">#}
+    {#                <div class="col-lg-12 col-md-12 col-sm-12 col-12">#}
+    {#                    <div class="section_heading_center">#}
+    {#                        <h2>Our partners</h2>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="row">#}
+    {#                <div class="col-lg-12">#}
+    {#                    <div class="partner_slider_area owl-theme owl-carousel">#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/1.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/2.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/3.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/4.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/5.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/6.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/7.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/8.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/5.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/3.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                        <div class="partner_logo">#}
+    {#                            <a href="#!"><img src="{{ asset('assets/images/partner/2.png') }}" alt="logo"></a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+
+
 {% endblock %}

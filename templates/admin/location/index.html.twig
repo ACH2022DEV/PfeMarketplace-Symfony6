@@ -1,36 +1,70 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Location Parameters{% endblock %}
+{% block title %}
+    Location Parameters
+{% endblock %}
 
-{% block pagetitle %}Localisation{% endblock %}
+{% block pagetitle %}
+    Localisation
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .btn-hover:hover {
+            background-color: #4e73df;
+            border-color: #4e73df;
+            color: #fff;
+        }
+
+    </style>
+{% endblock %}
 
 {% block container %}
-
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
                     <ul class="nav nav-pills navtab-bg nav-justified">
                         <li class="nav-item">
-                            <a href="#tab_continent" data-bs-toggle="tab" aria-expanded="false"
-                               class="nav-link active">
+                            <a href="#tab_continent" data-bs-toggle="tab" aria-expanded="false" class="nav-link active btn-hover bg-black text-white">
                                 Liste des continents
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#tab_country" data-bs-toggle="tab" aria-expanded="true"
-                               class="nav-link">
+                            <a href="#tab_country" data-bs-toggle="tab" aria-expanded="true" class="nav-link btn-hover">
                                 Liste des pays
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#tab_city" data-bs-toggle="tab" aria-expanded="true"
-                               class="nav-link">
+                            <a href="#tab_city" data-bs-toggle="tab" aria-expanded="true" class="nav-link btn-hover">
                                 Liste des villes
                             </a>
                         </li>
                     </ul>
+
+                    <style>
+                        /*.nav-link {*/
+                        /*    color: #fff;*/
+
+                        /*    border-color: #4e73df;*/
+                        /*    box-shadow: 0 2px 5px rgba(0,0,0,0.2);*/
+                        /*    transition: all 0.3s ease-in-out;*/
+                        /*}*/
+
+                        .nav-link:hover,
+                        .nav-link:focus {
+
+
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                        }
+
+                        /*.nav-link.active {*/
+
+
+                        /*    box-shadow: 0 4px 8px rgba(0,0,0,0.3);*/
+                        /*}*/
+                    </style>
 
                     <div class="tab-content">
                         <div class="tab-pane show active" id="tab_continent">
@@ -43,10 +77,8 @@
                             {{ render(path('app_admin_location_city_index')) }}
                         </div>
                     </div>
-
                 </div>
             </div> <!-- end card-->
         </div> <!-- end col -->
     </div>
-
 {% endblock %}

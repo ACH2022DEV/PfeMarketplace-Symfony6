@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Trait\TimeStampTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -26,7 +27,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Groups(['Seller'])]
-
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',)]
+    #[Assert\Length(
+        min: 5,
+        minMessage: 'Not a valid Email')]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -35,9 +40,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Your name must be at least {{ limit }} characters long',
+        maxMessage: 'Your name cannot be longer than {{ limit }} characters',
+    )]
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type(
+        type: 'string',
+        message: 'Not a valid name.',
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Your name must be at least {{ limit }} characters long',
+        maxMessage: 'Your name cannot be longer than {{ limit }} characters',
+    )]
     #[Groups(['Seller'])]
 
     private $display_name;
@@ -182,5 +203,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // TODO: Implement __toString() method.
         return $this->email;
+    }
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

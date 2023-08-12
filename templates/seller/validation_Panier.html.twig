@@ -12,8 +12,8 @@
     <div class="tour_details_right_sidebar_wrapper">
     <div class="tour_detail_right_sidebar">
     <div class="tour_details_right_boxed">
-    <div class="tour_details_right_box_heading">
-        <h3 class="text-primary">Passez Votre Commande</h3>
+    <div class="tour_details_right_box_heading text-center my-2">
+        <h3 class="purple-text">Place Your Order</h3>
     </div>
 
 
@@ -23,7 +23,7 @@
         {{ form_start(form) }}
         <table class="table mt-1">
             <thead>
-            <tr class="table-light">
+            <tr class="table table-borderless">
                 {#        <th>IdOffre</th>#}
                 <th>OfferName</th>
                 <th>Price</th>
@@ -34,13 +34,20 @@
             <tbody>
 
             {% for offer in panier %}
+
                 <tr>
                     {#            <td>{{ offer.id }}</td>#}
                     <td class="fw-bold my-2">{{ offer.name }}</td>
-                    <td class="fw-bold my-2">{{ offer.name }}</td>
-                    <td class="fw-bold my-2">{{ offer.nbDays }}</td>
+                    {% set totalPrice = 0 %}
+                    {% for offerProductType in offer.offerProductTypes %}
+
+                        {% set totalPrice = totalPrice + offerProductType.price %}
+                    {% endfor %}
+                    <td class="fw-bold my-2">{{ totalPrice }} Dt</td>
+                    <td class="fw-bold my-2">{{ offer.nbDays }} Days</td>
                     {#            <td>{{ form_widget(form['startDate_' ~ offer.id], {'attr': {'class': 'form-control'}}) }}</td>#}
-                    <td>{#{{ form_widget(form['startDate_' ~ offer.id], {
+                    <td style="width: 50px;">
+                        {#{{ form_widget(form['startDate_' ~ offer.id], {
                 'attr': {
                     'class': 'form-control datepicker',
                     'data-format': 'dd/mm/yyyy'
@@ -66,7 +73,7 @@
             </tbody>
         </table>
         <!--Ajouter le formulaire de payment en ligne-->
-        <h3 class="my-2 text-secondary text-center fw-semibold">Remplissez vos informations</h3>
+        <h3 class="my-2 text-secondary text-center fw-semibold">Fill your information</h3>
         <div class="container">
             <div class="row">
                 {#            <h4 class="text-center my-2 "> <span><img src="{{ asset('assets/images/images Payme.png') }}"></span>Payez en ligne maintenant avec Paymee</h4>#}
@@ -76,29 +83,51 @@
         </div>
         <div class="container ">
             <div class="row   ">
-                <div class="col-6">
-                    <input class="form-control border-2" placeholder="first_name">
+                <div class="col-6 my-2">
+                    <input class="form-control rounded-pill border-2  borderColor" placeholder="first_name">
                 </div>
-                <div class="col-6">
-                    <input class="form-control border-2" placeholder="last_name">
+                <div class="col-6 my-2">
+                    <input class="form-control rounded-pill border-2  borderColor" placeholder="last_name">
                 </div>
-                <div class="col-6">
-                    <input class="form-control border-2" placeholder="Email">
+                <div class="col-6 my-2">
+                    <input class="form-control rounded-pill border-2  borderColor" placeholder="Email">
                 </div>
-                <div class="col-6">
-                    <input class="form-control border-2" placeholder="Phone">
+                <div class="col-6 my-2" >
+                    <input class="form-control rounded-pill border-2  borderColor" placeholder="Phone">
+                </div>
+                <p class="purple-text ">You have a voucher ?</p>
+                <div class="col-6 my-2" >
+                    <input class="form-control rounded-pill border-2  borderColor" placeholder="Coupon">
                 </div>
                 <div class="my-2  text-center fw-semibold">
-                    <h4>Total:</h4>
+                    {% set total = 0.0 %}
+                    {% for offer in panier %}
+                        {% for offerProductType in offer.offerProductTypes %}
+                            {% set total = total + offerProductType.price %}
+                        {% endfor %}
+                    {% endfor %}
+
 
                 </div>
             </div>
         </div>
         <!--Ajouter le formulaire de payment en ligne-->
 
+        <style>
+            .purple-text {
+                color: #7e42bb;
+            }
 
+            .purple-bg {
+                background-color: #995ad7;
+            }
+            .borderColor {
+                border: 1px solid #a663e7;
+            }
+        </style>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary shadow-sm rounded-pill my-2 w-25">Payer</button></div>
+
+            <button type="submit" class="btn purple-bg shadow-sm rounded-pill text-white my-2 w-25">Pay {{ total }} TND</button></div>
         {{ form_end(form) }}
     </form>
 

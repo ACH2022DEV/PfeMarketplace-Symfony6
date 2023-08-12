@@ -3,179 +3,208 @@
 {% block title %}dashboard{% endblock %}
 
 {% block container %}
-{#    <div style="margin-top: 150px;">#}
+    {#    <div style="margin-top: 150px;">#}
     {#{% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">
             {{ flash_error }}
         </div>
     {% endfor %}#}
 
-    <div>{{ dump(app.session.all) }} </div>
-   <h1>{{ dump(userId) }}</h1>
-    <h2>{{ dump(seller) }}</h2>
+   {# <div>{{ dump(app.session.all) }} </div>
+    <h1>{{ dump(userId) }}</h1>
+    <h2>{{ dump(seller) }}</h2>#}
 
 
-<div class="card">
-    <div class="card-header my-5" >
+    <div class="card">
+        <div class="card-header my-5" >
 
-    </div>
-    <div class="card-body">
-    <section id="dashboard_main_arae" class="section_padding" >
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="dashboard_sidebar">
-                        <div class="dashboard_sidebar_user">
-                            {{ form_start(form) }}
-                            {{ form_errors(form) }}
-{#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
-                            {% if seller.brochureFilename %}
-                                <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
-                            {% endif %}
+        </div>
+        <div class="card-body">
+            <section id="dashboard_main_arae" class="section_padding" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="dashboard_sidebar">
+                                <div class="dashboard_sidebar_user">
+                                    {{ form_start(form) }}
+                                    {{ form_errors(form) }}
+                                    {#                            <img src="{{ asset('assets/images/common/dashboard-user.png') }}" alt="img">#}
+                                    {% if seller.brochureFilename %}
+                                        <img class=" rounded-circle " width="100px" height="100px" src="{{ asset('uploads/brochures/' ~ seller.brochureFilename) }}" alt="Brochure">
+                                    {% endif %}
 
-                            <h3 class="text-center">Name :{{ seller.name}}</h3>
-{#                            <h3> Website : {{ seller.website}}</h3>#}
-                            <p class="text-center"><a href="tel:+00-123-456-789">Email : {{ seller.user.email }}</a></p>
-                            <p class="text-center"><a href="mailto:sherlyn@domain.com">Website :  {{  seller.website }}</a></p>
-                        </div>
-                        <div class="dashboard_menu_area">
-                            <ul>
-                                <li><a href="dashboard.html" class="active"><i
-                                                class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-                                <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
-                                            class="fas fa-address-card"></i>My bookings
-                                    <span> <i class="fas fa-angle-down"></i></span>
-                                    <div class="booing_sidebar_dashboard" id="show_dropdown_item"
-                                         style="display: none;">
-                                        <ul>
-                                            <li><a href="hotel-booking.html"><i class="fas fa-hotel"></i>Hotel
-                                                    booking</a></li>
-                                            <li><a href="flight-booking.html"><i class="fas fa-paper-plane"></i>Flight
-                                                    booking</a></li>
-                                            <li>
-                                                <a href="tour-booking.html">
-                                                    <i class="fas fa-map"></i>Tour booking
-                                                </a>
-                                            </li>
-                                            <li><a href="booking-history.html">
-                                                    <i class="fas fa-history"></i>Booking history</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
-                                <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
-                                <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
-                                <li>
-                                    {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <h3 class="text-center">Name :{{ seller.name}}</h3>
+                                    {#                            <h3> Website : {{ seller.website}}</h3>#}
+                                    <p class="text-center"><a href="tel:+00-123-456-789">Email : {{ seller.user.email }}</a></p>
+                                    <p class="text-center"><a href="mailto:sherlyn@domain.com">Website :  {{  seller.website }}</a></p>
+                                </div>
+                                <div class="dashboard_menu_area">
+                                    <ul>
+                                        <li><a href="dashboard.html" class="active"><i
+                                                        class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                                        <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
+                                                    class="fas fa-address-card"></i>My bookings
+                                            <span> <i class="fas fa-angle-down"></i></span>
+                                            <div class="booing_sidebar_dashboard" id="show_dropdown_item"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li><a href="hotel-booking.html"><i class="fas fa-hotel"></i>Hotel
+                                                            booking</a></li>
+                                                    <li><a href="flight-booking.html"><i class="fas fa-paper-plane"></i>Flight
+                                                            booking</a></li>
+                                                    <li>
+                                                        <a href="tour-booking.html">
+                                                            <i class="fas fa-map"></i>Tour booking
+                                                        </a>
+                                                    </li>
+                                                    <li><a href="booking-history.html">
+                                                            <i class="fas fa-history"></i>Booking history</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
+                                        <li><a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a></li>
+                                        <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
+                                        <li>
+                                            {# <a href="{{ path('app_logout') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-sign-out-alt"></i>Logout
                                     </a>#}
-                                    <a href="{{ path('app_logout') }}" >
-                                        <i class="fas fa-sign-out-alt"></i>Logout
-                                    </a>
-                                </li>
-                            </ul>
+                                            <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                                </svg>  Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="dashboard_common_table">
-                        <h3>My Profile</h3>
-                        <div class="profile_update_form">
-                            <div action="!#" id="profile_form_area">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
+                        <div class="col-lg-8">
+                            <div class="dashboard_common_table">
+                                <h3>My Profile</h3>
+                                <div class="profile_update_form">
+                                    <div action="!#" id="profile_form_area">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
 
-                                            <label for="f-name">First name</label>
-                                            {{ form_row(form.user.username) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="l-name">Last name</label>
-                                            {{ form_row(form.name) }}
+                                                    <label for="f-name">First name</label>
+                                                    {{ form_row(form.user.username) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="l-name">Last name</label>
+                                                    {{ form_row(form.name) }}
 
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="l-name">Email</label>
-                                            {{ form_row(form.user.email) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="mail-address">Adresse</label>
-                                            {{ form_row(form.address) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="l-name">Email</label>
+                                                    {{ form_row(form.user.email) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="mail-address">Adresse</label>
+                                                    {{ form_row(form.address) }}
 
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="mobil-number">Website</label>
-                                            {{ form_row(form.website) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="mobil-number">Website</label>
+                                                    {{ form_row(form.website) }}
 
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="l-name">City</label>
-                                            {{ form_row(form.city) }}
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="l-name">City</label>
+                                                    {{ form_row(form.city) }}
+                                                </div>
+                                            </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="l-name">Importer une photo de Profil</label>
-                                            {{ form_label(form.brochure, '') }}
-                                            <div class="custom-file " style="width: fit-content">
-                                                {{ form_widget(form.brochure, {'attr': {'class': 'w-100', 'style': 'width: 15px'}}) }}
-                                                <label class="custom-file-label" for="{{ form.brochure.vars.id }}">
-                                                    {# <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="l-name">Importer une photo de Profil</label>
+                                                    {{ form_label(form.brochure, '') }}
+                                                    <div class="custom-file " style="width: fit-content">
+                                                        {{ form_widget(form.brochure, {'attr': {'class': 'w-100', 'style': 'width: 15px'}}) }}
+                                                        <label class="custom-file-label" for="{{ form.brochure.vars.id }}">
+                                                            {# <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                                         <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
                                     </svg>#}
-                                                </label>
-                                            </div>
-                                            {{ form_errors(form.brochure) }}
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="change_password_input_boxed">
-                                        <h3>Change password</h3>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group change_password_field">
-                                                    <label for="password">Old Password</label>
-                                                    <input type="password" class="form-control" id="password" value="cdkdkdd">
-
-                                                </div>  </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group change_password_field">
-                                                        <label for="password">New Password</label>
-                                                        <input type="password" class="form-control" id="password" value="cdkdkdd">
-                                                        <p>Change password</p>
-                                                    </div>  </div>
+                                                        </label>
+                                                    </div>
+                                                    {{ form_errors(form.brochure) }}
+                                                </div>
                                             </div>
 
-                                            <button type="submit" class="btn btn_theme btn_md">Save</button>
-                                            {{ form_end(form) }}
-                                        </div>
-                                    </div>
 
+
+                                            <div class="change_password_input_boxed">
+                                                <h3>Change password</h3>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group change_password_field">
+                                                            <label for="password">Old Password</label>
+                                                            <input type="password" class="form-control" id="password" value="cdkdkdd">
+
+                                                        </div>  </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group change_password_field">
+                                                            <label for="password">New Password</label>
+                                                            <input type="password" class="form-control" id="password" value="cdkdkdd">
+                                                            <p>Change password</p>
+                                                        </div>  </div>
+                                                </div>
+
+                                                <button type="submit" class="btn btn_theme btn_md">Save</button>
+                                                {{ form_end(form) }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        </div></div>
+
+
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body logout_modal_content">
+                    <div class="btn_modal_closed">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg></button>
+                    </div>
+                    <h3>
+                        Are you sure? <br>
+                        you want to log out.
+                    </h3>
+                    <div class="logout_approve_button">
+                        <a  href="{{ path('app_logout') }}" class="btn btn_theme btn_md">Yes Confirm</a>
+                        <button data-bs-dismiss="modal" class="btn btn_border btn_md">No Cancel</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-</div></div>
+    </div>
 
-{#</div>#}
+    {#</div>#}
 {% endblock %}
 
 

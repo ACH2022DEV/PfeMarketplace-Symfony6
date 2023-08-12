@@ -5,12 +5,15 @@ namespace App\Controller\Admin;
 
 use App\Entity\ProductType;
 use App\Form\ProductTypeType;
+use App\Repository\ApiProductClickRepository;
+use App\Repository\ApiProductRepository;
 use App\Repository\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 #[Route('/product/type')]
@@ -20,7 +23,10 @@ class ProductTypeController extends AbstractController
     #[Route('/', name: 'app_product_type_index', methods: ['GET'])]
     public function index(ProductTypeRepository $productTypeRepository): Response
     {
-
+//, AuthorizationCheckerInterface $authChecker
+//        if (!$authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+//            return $this->redirectToRoute('app_login_seller');
+//        }
         return $this->render('product_type/index.html.twig', [
             'product_types' => $productTypeRepository->findAll(),
         ]);
@@ -83,9 +89,26 @@ class ProductTypeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_type_delete', methods: ['POST'])]
-    public function delete(Request $request, ProductType $productType, ProductTypeRepository $productTypeRepository): Response
+    public function delete(Request $request, ProductType $productType, ProductTypeRepository $productTypeRepository, ApiProductRepository $apiProductRepository, ApiProductClickRepository $apiProductClickRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$productType->getId(), $request->request->get('_token'))) {
+            // Rechercher les produits de type de produit à supprimer
+            $apiProducts = $apiProductRepository->findBy(['productType' => $productType]);
+
+            // Parcourir chaque produit et supprimer les ApiProductClick correspondants
+            foreach ($apiProducts as $apiProduct) {
+                $apiProductClicks = $apiProductClickRepository->findBy(['apiProduct' => $apiProduct]);
+                foreach ($apiProductClicks as $apiProductClick) {
+                    $apiProductClickRepository->remove($apiProductClick, true);
+                }
+            }
+
+            // Supprimer les produits de type de produit
+            foreach ($apiProducts as $apiProduct) {
+                $apiProductRepository->remove($apiProduct, true);
+            }
+
+            // Supprimer le type de produit
             $productTypeRepository->remove($productType, true);
         }
 

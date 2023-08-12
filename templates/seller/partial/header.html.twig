@@ -1,39 +1,58 @@
-<header class="main_header_arae ">
+<header class="main_header_arae">
     <!-- Top Bar -->
-    <div class="topbar-area bg-secondary">
+    <style>
+        .topbar-area {
+            background: linear-gradient(to right, #6a11cb, rgba(106, 17, 203, 0.5));
+        }
+    </style>
+    <div class="topbar-area">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
                     <ul class="topbar-list">
                         <li>
-                            <a href="#!"><i class="fab fa-facebook"></i></a>
-                            <a href="#!"><i class="fab fa-twitter-square"></i></a>
-                            <a href="#!"><i class="fab fa-instagram"></i></a>
-                            <a href="#!"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.facebook.com/TechnologyTravelTourism3t/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="fab bi bi-facebook" viewBox="0 0 16 16">
+                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                </svg></a>
+                            <a href="https://twitter.com/3TCONTACT" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="fab bi bi-twitter" viewBox="0 0 16 16">
+                                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                </svg></a>
+                            <a href="https://www.linkedin.com/company/technology-travel-tourism/" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="fab bi bi-linkedin" viewBox="0 0 16 16">
+                                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                                </svg></a>
+
                         </li>
-                        <li><a href="#!"><span>+011 234 567 895555</span></a></li>
-                        <li><a href="#!"><span>contact@domain.com</span></a></li>
+                        <li><a href="tel:+216 70 038 220"><span>+216 70 038 220</span></a></li>
+                        <li><a href="mailto:contact@3t.tn"><span>contact@3t.tn</span></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <ul class="topbar-others-options">
-{#                        <li><a href="{{ path('app_login_seller') }}">Login</a></li>#}
-{#                        <li> <a href="{{ path('app_register_Seller') }}">Sign up</a>#}
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li><a href="{{ path('app_seller_dashboard') }}">My Profile</a></li>
-                        <li><a href="{{ path('app_logout') }}">Logout</a></li>
-                        <li><a href="{{ path('Get_Seller_Panier') }}"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart4 p-1" viewBox="0 0 16 16">
-                                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-                                </svg>Panier</a></li>
-                            {% else %}
+                        {#                        <li><a href="{{ path('app_login_seller') }}">Login</a></li>#}
+                        {#                        <li> <a href="{{ path('app_register_Seller') }}">Sign up</a>#}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li><a href="{{ path('app_seller_dashboard') }}">My Profile</a></li>
+                            <li><a href="{{ path('app_logout') }}"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left " viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/> </svg> Logout</a></li>
+                            <li><a href="{{ path('Get_Seller_Panier') }}"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart4 p-1" viewBox="0 0 16 16">
+                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                    </svg>Panier</a></li>
+                        {% else %}
                             <li><a href="{{ path('app_login_seller') }}">Login</a></li>
-                            <li><a href="{{ path('app_register_Seller') }}">Sign up</a></li>
+                            {#                            <li><a href="{{ path('app_register_Seller') }}">Sign up</a></li>#}
                         {% endif %}
-
+                        <style>
+                            .text-white:hover {
+                                color: #fff; /* Changer la couleur de l'icône en blanc lorsque survolé */
+                                /* Changer la couleur d'arrière-plan en noir lorsque survolé */
+                            }
+                        </style>
                         <li>
                             <div class="dropdown language-option">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                <button  type="button" data-bs-toggle="dropdown"
+                                         aria-haspopup="true" aria-expanded="false">
+
                                     <span class="lang-name"></span>
                                 </button>
                                 <div class="dropdown-menu language-dropdown-menu">
@@ -62,13 +81,20 @@
         </div>
     </div>
     <!-- Navbar Bar -->
-    <div class="navbar-area bg-secondary " >
+    <style>
+
+        .navbar-area {
+            background: linear-gradient(to right, #6a11cb, rgba(106, 17, 203, 0.5));
+        }
+
+    </style>
+    <div class="navbar-area " >
         <div class="main-responsive-nav">
             <div class="container">
                 <div class="main-responsive-menu">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+                        <a href="{{ path('app_Home_seller') }}">
+                            <img src="{{ asset('assets/images/marketplacee (1).png') }}" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -78,150 +104,68 @@
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <a class="navbar-brand" href="index.html">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+                        <img href="{{ path('app_Home_seller') }}"  src="{{ asset('assets/images/marketplacee (1).png') }}" alt="logo">
                     </a>
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
+                            <li class="nav-item text-black">
                                 <a href="{{ path('app_Home_seller') }}" class="nav-link">
                                     Home
-                                    <i class="fas fa-angle-down"></i>
+                                    {#                                    <i class="fas fa-angle-down"></i>#}
                                 </a>
 
                             </li>
 
 
+                            {#                            <li class="nav-item">#}
+                            {#                                <a href="#" class="nav-link">#}
+                            {#                                    Flights#}
+                            {#                                    <i class="fas fa-angle-down"></i>#}
+                            {#                                </a>#}
+                            {#                                <ul class="dropdown-menu">#}
+                            {#                                    <li class="nav-item">#}
+                            {#                                        <a href="flight-search-result.html" class="nav-link">Flight</a>#}
+                            {#                                    </li>#}
+                            {#                                    <li class="nav-item">#}
+                            {#                                        <a href="flight-booking-submission.html" class="nav-link">Flight Booking</a>#}
+                            {#                                    </li>#}
+                            {#                                </ul>#}
+                            {#                            </li>#}
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                               <li class="nav-item">
+                                    <a href="{{ path('app_offer_seller_Hotels') }}" class="nav-link">
+                                        Hotel
+                                        {#                                    <i class="fas fa-angle-down"></i>#}
+                                    </a>
+                                </li>
+                            {% endif %}
 
-                           {# <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    Hotel
-                                    <i class="fas fa-angle-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="hotel-search.html" class="nav-link">Hotel</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="hotel-details.html" class="nav-link">Hotel Booking</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="room-details.html" class="nav-link">Room Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="room-booking.html" class="nav-link">Room Booking</a>
-                                    </li>
-                                </ul>
-                            </li>#}
+                            {#                            <li class="nav-item">#}
+                            {#                                <a href="#" class="nav-link active">#}
+                            {#                                    About#}
+                            {#                                    <i class="fas fa-angle-down"></i>#}
+                            {#                                </a>#}
 
-                           {# <li class="nav-item">
-                                <a href="#" class="nav-link active">
-                                    Pages
-                                    <i class="fas fa-angle-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="about.html" class="nav-link">About</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="tour-guides.html" class="nav-link">Team</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="testimonials.html" class="nav-link">Testimonials</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="faqs.html" class="nav-link">FAQ</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="booking-confirmation.html" class="nav-link">Booking
-                                            Confirmation</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">News</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="news.html" class="nav-link">News</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="news-v2.html" class="nav-link">News v2</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="news-v3.html" class="nav-link">News v3</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="news-details.html" class="nav-link">News Details</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-#}{#
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">User Pages</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="login.html" class="nav-link">Login</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="register.html" class="nav-link">Register</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="forgot-password.html" class="nav-link">Forget Password</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="verify-otp.html" class="nav-link">Verify OTP</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="reset-password.html" class="nav-link">Reset Password</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-#}{#
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link active">Customer Dashboard</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="dashboard.html" class="nav-link active">Dashboard</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="hotel-booking.html" class="nav-link">Hotel booking</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="flight-booking.html" class="nav-link">Flight booking</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="tour-booking.html" class="nav-link">Tour booking</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="booking-history.html" class="nav-link ">Booking
-                                                    history</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="my-profile.html" class="nav-link">My profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="wallet.html" class="nav-link">Wallet</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="notification.html" class="nav-link">Notifications</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="error.html" class="nav-link">404 Error</a>
-                                    </li>
-                                </ul>
-                            </li>#}
+
+                            {#                            </li>#}
                             <li class="nav-item">
-                                <a href="contact.html" class="nav-link">Contact</a>
+                                <a href="https://www.3t.tn/contact" class="nav-link" target="_blank">Contact</a>
                             </li>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li class="nav-item">
-                                    <a href="{{ path('app_seller_show_Booking_History')}}" class="nav-link">
-                                        Booking_History
-                                        <i class="fas fa-angle-down"></i>
+                                    <a href="{{ path('app_offer_seller') }}" class="nav-link">
+                                        Offers
+                                        {#                                        <i class="fas fa-angle-down"></i>#}
                                     </a>
-                                    {#<ul class="dropdown-menu">
+
+                                </li>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_seller_show_Booking_History')}}" class="nav-link">
+                                            Booking_History
+
+                                        </a>
+                                        {#<ul class="dropdown-menu">
                                     <li class="nav-item">
                                         <a href="flight-search-result.html" class="nav-link">Flight</a>
                                     </li>
@@ -229,41 +173,76 @@
                                         <a href="flight-booking-submission.html" class="nav-link">Flight Booking</a>
                                     </li>
                                 </ul>#}
-                                </li>
+                                    </li>
 
+
+
+                                {% endif %}
                                 <li class="nav-item">
                                     <a href="{{ path('app_seller_Statistics')}}" class="nav-link">
                                         Statistics
-                                        <i class="fas fa-angle-down"></i>
+
                                     </a>
 
                                 </li>
+                                {#                                <li class="nav-item">#}
+                                {#                                    <a href="{{ path('app_seller_dashboard') }}" class="nav-link">#}
+                                {#                                        <div class="row align-items-center">#}
 
+                                {#                                                <div class="col">#}
+                                {#                                                    {% if seller.brochureFilename %}#}
+                                {#                                                    <img class="rounded-circle w-35" width="30px" src="{{ asset('uploads/brochures/' ~  seller.brochureFilename) }}" alt="Brochure">#}
+                                {#                                                    {% endif %}#}
+                                {#                                                </div>#}
+
+
+
+                                {#                                            <div class="col">#}
+                                {#                                                <h5>{{ app.user.username }}</h5>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                    </a>#}
+                                {#                                </li>#}
                                 <li class="nav-item">
-                                    <a href="{{ path('app_offer_seller') }}" class="nav-link">
-                                        Offers
-                                        <i class="fas fa-angle-down"></i>
+                                    <a href="{{ path('app_seller_dashboard')}}" class="nav-link">
+                                        My Profile
+
                                     </a>
 
                                 </li>
-                                <li class="nav-item"><a href="{{ path('app_seller_dashboard') }}"  class="nav-link">My Profile</a></li>
+
+
                                 <li class="nav-item"><a href="{{ path('Get_Seller_Panier') }}"  class="nav-link"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart4 mx-1" viewBox="0 0 16 16">
                                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-                                        </svg> My Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    {{ app.session.get('panier', [])|length }}
-    <span class="visually-hidden">unread messages</span>
-  </span></a></li>
+                                        </svg> Basket <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ app.session.get('panier', [])|length }}
+                                          <span class="visually-hidden">unread messages</span>
+                                                 </span></a></li>
+
+
+
 
                             {% endif %}
+
+                        </ul>
+
+
+                        <ul>
+                            {#                            {% for offer in offers %}#}
+                            {#                                <li>{{ offer.name }}</li>#}
+                            {#                            {% endfor %}#}
                         </ul>
                         <div class="others-options d-flex align-items-center">
                             <div class="option-item">
                                 <a href="#" class="search-box">
                                     <i class="bi bi-search"></i></a>
                             </div>
-                            <div class="option-item">
-                                <a href="{{ path('app_market_subscription_request_new') }}"  class="btn  btn_navber">Become a vendor</a>
-                            </div>
+
+                            {% if not is_granted('ROLE_SELLER') %}
+                                <div class="option-item">
+                                    <a href="{{ path('app_market_subscription_request_new') }}"  class="btn  btn_navber">Become a vendor</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </nav>

@@ -1,0 +1,457 @@
+{% extends 'seller/base_seller.html.twig' %}
+
+{% block container %}
+    <section id="top_service_andtour" class="section_padding_top">
+        <div class="container">
+            <!-- Section Heading -->
+            <div class="row my-5">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+                    <div class="main-txt">
+                        <h2><span>Hotel</span> Offer</h2>
+                    </div>
+                    <style>
+                        .main-txt h2{
+                            text-align: center;
+                            margin-top: 30px;
+                            font-weight: 500;
+                            text-shadow: 0px 1px 1px black;
+                        }
+                        .main-txt h2 span{
+                            color: #8b3eea;
+                        }
+                    </style>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section id="explore_area" class="section_padding " >
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-3">
+
+                    <div class="container  rounded bg-white" style="box-shadow: 0 2px 6px rgba(0, 0, 0, .2); height: 620px;  border-radius: 10px;">
+
+                        <br>
+
+                        <div class="m-4">
+                            <div class="left_side_search_heading mb-4">
+                                <h5>Filter by Price</h5>
+
+
+                                <form method="get">
+                                    <!-- nouveau filtre -->
+                                    <div class="price-input">
+                                        <div class="field">
+                                            <span>Min </span>
+                                            <input id="minPriceValue" style="width: 70px" type="number" class="input-min" value="{{ app.request.query.get('minPrice') ?? 0 }}" readonly>
+                                        </div>
+                                        <div class="separator">-</div>
+                                        <div class="field">
+                                            <span> Max </span>
+                                            <input id="maxPriceValue" style="width: 70px" type="number" class="input-max" value="{{ app.request.query.get('maxPrice') ?? 5000 }}"  readonly>
+                                        </div>
+                                    </div>
+                                    <div class="slider">
+                                        <div class="progress"></div>
+                                    </div>
+                                    <div class="range-input">
+                                        <input type="range" class="form-control-range" id="minPrice" name="minPrice" min="0" max="30000" step="100" value="{{ app.request.query.get('minPrice') ?? 0 }}">
+                                        <input type="range" class="form-control-range" id="maxPrice" name="maxPrice" min="0" max="30000" step="100" value="{{ app.request.query.get('maxPrice') ?? 5000 }}">
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <button type="submit" class="apply">Filter</button>
+                                    <style>
+                                        .apply {
+                                            padding: 10px 20px;
+
+                                            color: #000000;
+                                            border: none;
+
+                                            font-size: 16px;
+                                            cursor: pointer;
+                                            transition: box-shadow 0.3s ease;
+                                        }
+
+                                        .apply:hover {
+                                            box-shadow: 0 0 10px 5px #8b3eea;
+                                        }
+
+                                    </style>
+                                </form>
+
+                                <script>
+                                    const minPriceInput = document.getElementById('minPrice');
+                                    const maxPriceInput = document.getElementById('maxPrice');
+                                    const minPriceValue = document.getElementById('minPriceValue');
+                                    const maxPriceValue = document.getElementById('maxPriceValue');
+
+                                    minPriceInput.addEventListener('input', function() {
+                                        minPriceValue.value = minPriceInput.value;
+                                    });
+
+                                    maxPriceInput.addEventListener('input', function() {
+                                        maxPriceValue.value = maxPriceInput.value;
+                                    });
+
+
+
+                                </script>
+
+
+                                <style>
+
+                                    .price-input {
+                                        width: 100%;
+                                        display: flex;
+                                        margin: 30px 0 35px;
+                                    }
+                                    .price-input .field {
+                                        display: flex;
+                                        width: 100%;
+                                        height: 45px;
+                                        align-items: center;
+                                    }
+                                    .field input {
+                                        width: 100%;
+                                        height: 100%;
+                                        outline: none;
+                                        font-size: 19px;
+                                        margin-left: 12px;
+                                        border-radius: 5px;
+                                        text-align: center;
+                                        border: 1px solid #7e42bb;
+                                        -moz-appearance: textfield;
+                                    }
+
+                                    input[type="number"]::-webkit-outer-spin-button,
+                                    input[type="number"]::-webkit-inner-spin-button {
+                                        -webkit-appearance: none;
+                                    }
+                                    .price-input .separator {
+                                        width: 130px;
+                                        display: flex;
+                                        font-size: 19px;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                    .slider {
+                                        height: 5px;
+                                        position: relative;
+                                        background: #8b3eea;
+                                        border-radius: 5px;
+                                    }
+                                    .slider .progress {
+                                        height: 100%;
+                                        left: 25%;
+                                        right: 25%;
+                                        position: absolute;
+                                        border-radius: 5px;
+                                        background: #8b3eea;
+                                    }
+                                    .range-input {
+                                        position: relative;
+                                    }
+                                    .range-input input {
+                                        position: absolute;
+                                        width: 100%;
+                                        height: 5px;
+                                        top: -5px;
+                                        background: none;
+                                        pointer-events: none;
+                                        -webkit-appearance: none;
+                                        -moz-appearance: none;
+                                    }
+                                    input[type="range"]::-webkit-slider-thumb {
+                                        height: 17px;
+                                        width: 17px;
+                                        border-radius: 50%;
+                                        background: #8b3eea;
+                                        pointer-events: auto;
+                                        -webkit-appearance: none;
+                                        box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+                                    }
+
+                                    /*}*/
+                                </style>
+
+                            </div>
+                        </div>
+
+                        <div class=" m-4">
+                            <div class="left_side_search_heading">
+                                <h5>Filter by Number Day</h5>
+                                <br>
+                                <form id="daysFilterForm" class="form-inline mb-3">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="days[]" value="0-7" id="daysFilterForm-checkbox1">
+                                        <label class="form-check-label" for="daysFilterForm-checkbox1">
+                                            <span class="area_flex_one">
+                                            <span>0 - 7 days</span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="days[]" value="7-15" id="daysFilterForm-checkbox2">
+                                        <label class="form-check-label" for="daysFilterForm-checkbox2">
+                                            <span class="area_flex_one">
+                                            <span>7 - 15 days</span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="days[]" value="15-30" id="daysFilterForm-checkbox3">
+                                        <label class="form-check-label" for="daysFilterForm-checkbox3">
+                                            <span class="area_flex_one">
+                                            <span>15 - 30 days</span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="days[]" value="30-45" id="daysFilterForm-checkbox4">
+                                        <label class="form-check-label" for="daysFilterForm-checkbox4">
+                                            <span class="area_flex_one">
+                                            <span>30 - 45 days</span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="days[]" value="45-60" id="daysFilterForm-checkbox5">
+                                        <label class="form-check-label" for="daysFilterForm-checkbox5">
+                                            <span class="area_flex_one">
+                                            <span>45 - 60 days</span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="days[]" value="60-75" id="daysFilterForm-checkbox5">
+                                        <label class="form-check-label" for="daysFilterForm-checkbox5">
+                                            <span class="area_flex_one">
+                                            <span>60 - 75 days</span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                    <!-- Add more checkboxes for other intervals as needed -->
+                                </form>
+
+
+
+                                <script>
+                                    const form = document.getElementById('daysFilterForm');
+                                    const checkboxes = form.querySelectorAll('input[type=checkbox]');
+
+                                    checkboxes.forEach(checkbox => {
+                                        checkbox.addEventListener('change', () => {
+                                            const selectedDays = [];
+                                            checkboxes.forEach(checkbox => {
+                                                if (checkbox.checked) {
+                                                    selectedDays.push(checkbox.value);
+                                                }
+                                            });
+                                            const offers = document.querySelectorAll('.offer');
+                                            offers.forEach(offer => {
+                                                const nbDays = parseInt(offer.dataset.nbDays);
+                                                if (selectedDays.length === 0 || selectedDays.some(value => {
+                                                    if (value.indexOf('-') !== -1) {
+                                                        const range = value.split('-').map(num => parseInt(num));
+                                                        return nbDays >= range[0] && nbDays <= range[1];
+                                                    } else {
+                                                        return nbDays === parseInt(value);
+                                                    }
+                                                })) {
+                                                    offer.style.display = 'block';
+                                                } else {
+                                                    offer.style.display = 'none';
+                                                }
+                                            });
+                                        });
+                                    });
+
+                                </script>
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                        <!--filter by price -->
+                        <!-- end filter -->
+                    </div></div>
+                <div class="col-md-9 ">
+
+                    <div class="row">
+                        {% for of in offer %}
+
+                            {% if of.nbDays >= app.request.query.get('minDay')|default(0) and of.nbDays <= app.request.query.get('maxDay')|default(100) %}
+
+                                {% set total = 0 %}
+                                {% set totalMaxitem = 0 %}
+                                {% for offerProductType in of.offerProductTypes %}
+                                    {% set total = total + offerProductType.price %}
+                                    {% set totalMaxitem = totalMaxitem + offerProductType.maxItems %}
+                                {% endfor %}
+                                {% if  total >= app.request.query.get('minPrice')|default(0) and total <= app.request.query.get('maxPrice')|default(100000) %}
+
+                                    {% set offerProductTypes = [] %}
+
+                                    {% for offerProductType in of.offerProductTypes %}
+                                        {% set offerProductTypes = offerProductTypes|merge([offerProductType.productType.name]) %}
+                                    {% endfor %}
+
+                                    {% if 'hotels' in offerProductTypes %}
+                                        <div class="offer" data-nb-days="{{ of.nbDays }}">
+
+                                            {% set discountPercentage = 10 %}
+                                            {% set discountAmount = (total * discountPercentage / 100) %}
+                                            {% set newTotal = total + discountAmount %}
+                                            {% set image = "" %}
+                                            {% if  of.name == "Gold" %}
+                                                {% set image = asset('assets/images/colorgold.png') %}
+                                            {% elseif of.name == "Premuim" %}
+                                                {% set image = asset('assets/images/colorgold.png') %}
+                                            {% elseif of.name == "Silver" %}
+                                                {% set image = asset('assets/images/img_7.png') %}
+                                            {% endif %}
+
+
+                                            <br>
+                                            <a href="{{ path('app_offerProductTypes_ForSeller', {'id': of.id}) }}">
+                                                <div class="image">
+                                                    <img src="{{ image }}" alt="" style="width: 293px;height: 280px; border-radius: 10px">
+                                                </div>
+                                                <br>
+                                            </a>
+                                            <div class="namePrice">
+                                                <h3 class="offer-details">{{ of.name }}</h3>
+                                                <div class="row text-end">
+                                                    <span>{{ total }} Dt</span>
+                                                    <h4><strike> {{ newTotal }}</strike></h4>
+                                                </div>
+                                            </div>
+                                            <p class="offer-details">Number of days : {{ of.nbDays }}</p>
+                                            <p class="offer-details"> MaxItems : {{ totalMaxitem }} </p>
+
+
+                                            <div class="chare">
+                                                <form action="{{ path('Add_Seller_Offer', {'id': of.id}) }}" method="POST">
+                                                    <button id="add-to-cart-btn" type="submit" class="btn btn_theme btn_md w-100 mt-3  ">Ajouter Au Panier <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                                                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                                        </svg></button>
+                                                </form>
+                                            </div>
+
+
+                                        </div>
+                                    {% endif %}
+
+                                    <style>
+
+
+                                        :root{
+                                            --bodyBack: #ffffff;
+                                            --textColor: #1b2741;
+                                            --starColor: #8b3eea;
+                                            --sectionBack: #ffffff;
+                                        }
+
+                                        .offer {
+                                            box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+                                            margin-top: 15px;
+                                            margin-left: 30px;
+                                            position: relative;
+                                            background-color: #ffffff;
+                                            width: 300px;
+                                            height: 510px;
+                                            visibility: visible;
+                                            flex-direction: column;
+                                            justify-content: space-between;
+                                            padding: 20px 20px 40px;
+                                            border-radius: 10px;
+                                        }
+
+                                        .offer:hover{
+                                            /*transform: translateY(-15px);*/
+                                            box-shadow: 0 12px 20px rgba(0, 0, 0, .2);
+                                        }
+                                        .image{
+                                            width:100%;
+                                            height: 52%;
+                                            display: grid;
+                                            place-content: center;
+                                        }
+                                        .image img{
+                                            width: 240px;
+                                        }
+                                        .namePrice{
+                                            width: 100%;
+                                            display: flex;
+                                            justify-content: space-between;
+                                        }
+                                        .namePrice h3{
+                                            font-size: 2em;
+                                            text-transform: capitalize;
+                                            color: var(--textColor);
+                                        }
+                                        .namePrice span{
+                                            font-size: 1.5em;
+                                            color: var(--starColor);
+                                        }
+                                        .product p{
+                                            font-size: 18px;
+                                            line-height: 25px;
+                                        }
+                                        .stars svg{
+                                            font-size: 1.3em;
+                                            color: var(--starColor);
+                                        }
+
+                                        .bay button {
+                                            padding: 10px 20px;
+                                            border: none;
+                                            background-color: var(--textColor);
+                                            color: var(--sectionBack);
+                                            font-size: 18px;
+                                            text-transform: capitalize;
+                                        }
+
+                                        .offer-details {
+                                            font-family: "Times New Roman", Times, serif;
+                                            font-size: 22px;
+                                        }
+                                        .offer:hover .chare form button {
+                                            display: block;
+                                        }
+
+                                        .offer .chare form button {
+                                            display: none;
+                                            margin-top: 5px;
+                                        }
+
+                                        .bay button:hover {
+                                            transform: scale(1.1);
+                                        }
+                                    </style>
+
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+

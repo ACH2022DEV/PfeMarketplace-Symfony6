@@ -21,7 +21,7 @@ class ProductType
     #[Groups(['SellerOffers'])]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'productType', targetEntity: OfferProductType::class)]
+    #[ORM\OneToMany(mappedBy: 'productType', targetEntity: OfferProductType::class ,  cascade: ['remove'])]
     private Collection $offerProductTypes;
 
     #[ORM\OneToMany(mappedBy: 'productType_idProductType', targetEntity: ApiProduct::class)]

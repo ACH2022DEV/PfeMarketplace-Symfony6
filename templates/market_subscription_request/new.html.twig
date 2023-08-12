@@ -4,86 +4,70 @@
 {% block title %}New MarketSubscriptionRequest{% endblock %}
 
 {% block container %}
-    <!--add a design-->
-    <!-- Common Banner Area -->
-    <section id="common_banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="common_bannner_text">
-                        <h2>Become a vendor</h2>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><span><i class="fas fa-circle"></i></span> Become a vendor</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- How It Work -->
+    <br>
+    <br>
+    <br>
     <section id="how_it_work_area" class="section_padding">
         <div class="container">
             <!-- Section Heading -->
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section_heading_center">
-                        <h2>How it works</h2>
+                    {#                    <div class="section_heading_center">#}
+                    {#                        <h2>How it works</h2>#}
+                    {#                    </div>#}
+                    <div class="main-txt">
+                        <h2><span>How</span> it works</h2>
                     </div>
+                    <style>
+                        .main-txt h2{
+                            text-align: center;
+                            margin-top: 30px;
+                            font-weight: 500;
+                            text-shadow: 0px 1px 1px black;
+                        }
+                        .main-txt h2 span{
+                            color: #8b3eea;
+                        }
+                    </style>
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="how_it_boxed">
-                        <img src="{{ asset('assets/images/common/how-1.png') }}" alt="img">
+                        <img src="{{ asset('assets/images/img_10.png') }}" alt="img">
                         <h3>Sign up</h3>
-                        <p>Duis laboris culpa cupidatat do consequat esse officia ex.
-                            Reprehenderit quis est id sint ea dolore sint nostrud demos adipisicing.</p>
+                        <p>Can be a simple and quick process that can be completed in just
+                            a few minutes. After providing the required information and
+                            creating an account, users can begin exploring the online
+                            marketplace, browsing offers, adding items to their cart,
+                            and placing orders.</p>
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="how_it_boxed">
-                        <img src="{{ asset('assets/images/common/how-2.png') }}" alt="img">
+                        <img src="{{ asset('assets/images/contact.png') }}" alt="img">
                         <h3>Contact with client</h3>
-                        <p>Duis laboris culpa cupidatat do consequat esse officia ex.
-                            Reprehenderit quis est id sint ea dolore sint nostrud demos adipisicing.</p>
+                        <p>Effective communication with clients is crucial for establishing
+                            and maintaining positive relationships. This involves timely and
+                            responsive communication, active listening, and understanding the
+                            needs and expectations of the client.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="how_it_boxed">
-                        <img src="{{ asset('assets/images/common/how-3.png') }}" alt="img">
+                        <img src="{{ asset('assets/images/earning.png') }}" alt="img">
                         <h3>Start earnings</h3>
-                        <p>Duis laboris culpa cupidatat do consequat esse officia ex.
-                            Reprehenderit quis est id sint ea dolore sint nostrud demos adipisicing.</p>
+                        <p>Starting to earn money in a marketplace can be a great way to leverage
+                            a particular skill or product. By creating a seller account, individuals
+                            can list their offerings and begin selling to a wider audience. </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Video Area -->
-    <section id="video_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="video_area_vendor">
-                        <img src="{{ asset('assets/images/common/video.png') }}" alt="img">
-                        <div class="video_play_button">
-                            <div class="">
-                                <a class="video_btn video_play_area" href="https://www.youtube.com/watch?v=_2LLXnUdUIc"
-                                   title="Youtube Video"><i class="fas fa-play"></i></a>
-                            </div>
-                            <h4>Explore amazing tours</h4>
-                            <h2>Get some travel idea</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Service Area -->
     <section id="about_service_offer" class="section_padding">
         <div class="container">
@@ -92,32 +76,28 @@
                     <div class="about_service_boxed">
                         <img src="{{ asset('assets/images/icon/world.png') }}" alt="img">
                         <h5><a href="#!">Best services</a></h5>
-                        <p>Phaseus site amet tristique ligua donec iaculis leo sus cipit. Consec tetur adipiscing elit.
-                            Incididunt ut dolore.</p>
+                        <p style="font-family: sans-serif;">Our company is committed to providing the best services to our customers, ensuring their satisfaction and loyalty</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="about_service_boxed">
                         <img src="{{ asset('assets/images/icon/walte.png') }}" alt="img">
                         <h5><a href="#!">Trusted payment</a></h5>
-                        <p>Phaseus site amet tristique ligua donec iaculis leo sus cipit. Consec tetur adipiscing elit.
-                            Incididunt ut dolore.</p>
+                        <p style="font-family: sans-serif;">Shop with confidence knowing that we only use trusted payment methods, ensuring the security of your transactions</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="about_service_boxed">
                         <img src="{{ asset('assets/images/icon/star.png') }}" alt="img">
                         <h5><a href="#!">Top facility</a></h5>
-                        <p>Phaseus site amet tristique ligua donec iaculis leo sus cipit. Consec tetur adipiscing elit.
-                            Incididunt ut dolore.</p>
+                        <p style="font-family: sans-serif;">Our online marketplace offers top-of-the-line facilities for sellers, including a secure payment system, easy-to-use interface</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="about_service_boxed">
                         <img src="{{ asset('assets/images/icon/persentis.png') }}" alt="img">
                         <h5><a href="#!">Awesome deals</a></h5>
-                        <p>Phaseus site amet tristique ligua donec iaculis leo sus cipit. Consec tetur adipiscing elit.
-                            Incididunt ut dolore.</p>
+                        <p style="font-family: sans-serif;">Check out our website for amazing discounts on a wide range of products and services</p>
                     </div>
                 </div>
             </div>
@@ -131,8 +111,8 @@
                 <div class="col-lg-12">
                     <div class="vendor_form_heading">
                         <h2>Become a vendor</h2>
-                        <p>Eu sint minim tempor anim aliqua officia voluptate incididunt deserunt.
-                            <br /> Velitgo quis Lorem culpa qui pariatur occaecat.
+                        <p>Join our online marketplace today and become a vendor to showcase your products
+                            <br/>to a wider audience and increase your sales opportunities
                         </p>
                     </div>
                 </div>
@@ -168,7 +148,7 @@
                                         {{ form_row(form.city) }}
                                     </div>
                                 </div>
-{#                                <button type="submit" class="btn btn-primary">Submit</button>#}
+                                {#                                <button type="submit" class="btn btn-primary">Submit</button>#}
 
                                 <div class="booking_tour_form_submit pt-4">
                                     <div class="form-check write_spical_check">
@@ -188,9 +168,9 @@
                 </div>
 
 
-            <div class="col-lg-4">
+                <div class="col-lg-4">
                     <div class="vendor_img">
-                        <img src="{{ asset('assets/images/common/vendor.png') }}" alt="img">
+                        <img src="{{ asset('assets/images/market.png') }}" alt="img">
                     </div>
                 </div>
             </div>
